@@ -9,3 +9,21 @@ document.addEventListener("turbo:load", function() {
     }
   });
 });
+
+//ファイルを選択するときに「画像を選択」の文字を表示する
+document.addEventListener("DOMContentLoaded", function() {
+  const fileInput = document.getElementById("file-upload");
+  
+  const customFileUpload = document.querySelector(".custom-file-upload");
+  customFileUpload.addEventListener("click", function() {
+    fileInput.click();
+  });
+  
+  fileInput.addEventListener("change", function() {
+    if (fileInput.files.length > 0) {
+      customFileUpload.textContent = fileInput.files[0].name;
+    } else {
+      customFileUpload.textContent = "写真を選択";
+    }
+  });
+});
