@@ -1,11 +1,14 @@
-<%= form_with(model: @micropost) do |f| %>
+<%= form_with(model: @micropost, html: { multipart: true }) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
+
   <span class="image">
     <%= f.file_field :image, accept: "image/jpeg,image/gif,image/png", id: "file-upload", style: "display: none;" %>
     <label class="custom-file-upload" for="file-upload">
       写真を選択
     </label>
+    <img id="preview-image" src="#" alt="選択した画像" style="display: none; width: 50%;" />
   </span>
+  
   <div class="field">
     <%= f.text_area :content, placeholder: "説明を入力" %>
   </div>

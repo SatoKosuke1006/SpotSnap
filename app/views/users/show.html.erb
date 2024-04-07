@@ -1,24 +1,32 @@
 <% provide(:title, @user.name) %>
 <div class="row">
-  <aside class="col-md-4">
     <section class="user_info">
       <h1>
-        <%= gravatar_for @user %>
+        <%= gravatar_for(@user, class: "rounded-circle") %>
           <%= @user.name %>
       </h1>
-      <%= link_to "プロフィールの編集", edit_user_path(current_user) %>
+      <%= link_to "プロフィールの編集", edit_user_path(current_user), class: "edit-profile-link" %>
     </section>
     <section class="stats">
       <%= render 'shared/stats' %>
     </section>
-  </aside>
-  <div class="col-md-8">
-    <%= render 'follow_form' if logged_in? %>
-    <% if @user.microposts.any? %>
-      <ol class="microposts">
-        <%= render @microposts %>
-      </ol>
-      <%= will_paginate @microposts %>
-    <% end %>
+  <div class="row">
+      <%= render 'follow_form' if logged_in? %>
+        <% if @user.microposts.any? %>
+          <ol class="microposts">
+            <div class="microposts-container">
+              <% @microposts.each do |micropost| %>
+                <div class="microposts-column">
+                  <div class="profile-microposts">
+                    <%= link_to micropost_path(micropost) do %>
+                    <%= image_tag micropost.image, class: "micropost-image" if micropost.image.attached? %>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </ol>
+          <%= will_paginate @microposts %>
+        <% end %>
   </div>
 </div>

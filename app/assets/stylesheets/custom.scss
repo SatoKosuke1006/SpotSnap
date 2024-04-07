@@ -42,7 +42,6 @@ h1 {
   font-size: 3em;
   letter-spacing: -2px;
   margin-bottom: 30px;
-  text-align: center;
 }
 
 h2 {
@@ -163,6 +162,10 @@ aside {
   margin-right: 10px;
 }
 
+.rounded-circle {
+  border-radius: 50%;
+}
+
 .gravatar_edit {
   margin-top: 15px;
 }
@@ -256,11 +259,13 @@ input {
   line-height: 1.42857143;
   text-align: center;
   white-space: nowrap;
-  vertical-align: middle;
   user-select: none;
   background-color: #f5f5f5;
   border: 1px solid #ccc;
   border-radius: 4px;
+  margin: 0 auto; 
+  display: block; 
+  width: fit-content; 
 }
 
 /* Dropdown menu */
@@ -293,19 +298,22 @@ input {
   .user {
     margin-top: 5em;
     padding-top: 0;
+    margin: 0 auto;
   }
   .content {
     display: block;
-    margin-left: 60px;
+    margin: 0 auto;
+    text-align: center;
     img {
       display: block;
-      padding: 5px 0;
+      margin: 0 auto;
     }
   }
+
   .timestamp {
     color: $gray-light;
     display: block;
-    margin-left: 60px;
+    text-align: center;
   }
   .gravatar {
     float: left;
@@ -326,4 +334,58 @@ span.image {
   input {
     border: 0;
   }
+}
+
+#micropost_content {
+  display: block; 
+  margin: 0 auto; 
+  width: 90%; 
+  height: 200px; 
+}
+
+/* profile */
+
+.edit-profile-link {
+  cursor: pointer;
+  display: inline-block;
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  user-select: none;
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.profile-microposts {
+  width: 100%; 
+}
+
+.micropost-image {
+  width: 100%;
+}
+.microposts-container {
+  display: flex; 
+  flex-wrap: wrap; 
+}
+
+.microposts-column {
+  width: 33.33%; 
+  box-sizing: border-box; 
+  padding: 5px; 
+}
+
+/* search */
+
+.submit-button {
+  background-color: grey; 
+  border: none; 
+  padding: 5px;  
+  cursor: pointer; 
+  width: 40px; 
+  height: 40px; 
 }
