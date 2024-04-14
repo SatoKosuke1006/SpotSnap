@@ -1,0 +1,9 @@
+  <% if micropost.liked?(current_user) %>
+      <%= button_to micropost_likes_path(micropost.id), method: :delete, data: { turbo_frame: "like_buttons_#{micropost.id}" } do %>
+          <span style="color:red;">❤︎</span> <%= micropost.likes_count %>
+      <% end %>
+  <% else %>
+      <%= button_to micropost_likes_path(micropost.id), method: :post, data: { turbo_frame: "like_buttons_#{micropost.id}" } do %>
+          <span>❤︎</span> <%= micropost.likes_count %>
+      <% end %>
+  <% end %>

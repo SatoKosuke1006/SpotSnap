@@ -16,4 +16,9 @@ class Micropost < ApplicationRecord
   def liked?(user)
     likes.where(user_id: user.id).exists?
   end 
+
+  # いいねの数を返す
+  def likes_count
+    likes.count
+  end
 end

@@ -15,17 +15,7 @@
     <% end %>
   </span>
 
-  <% if micropost.liked?(current_user) %>
-      <%= button_to micropost_likes_path(micropost.id), method: :delete do %>
-        <div class="heart-container">
-          <span style="color:red;">❤︎</span>
-        </div>
-      <% end %>
-  <% else %>
-      <%= button_to micropost_likes_path(micropost.id), method: :post do %>
-        <div class="heart-container">
-          <span>❤︎</span>
-        </div>
-      <% end %>
-  <% end %>
+  <turbo-frame id="like_buttons_<%= micropost.id %>">
+    <%= render partial: "likes/like", locals: { micropost: micropost } %>
+  </turbo-frame>
 </li>

@@ -5,14 +5,31 @@ class LikesController < ApplicationController
   end
   
   def create
-    @micropost_like = Like.new(user_id: current_user.id, micropost_id: params[:micropost_id])
-    @micropost_like.save
-    redirect_to @micropost_like.micropost
+    @micropost = Micropost.find(params[:micropost_id])
+    unless @micropost.liked?(current_user)
+      Like.create(user_id: current_user.id, micropost_id: @micropost.id)
+    end  
+    respond_to do |format|
+      format.turbo_stream {
+        render turbo_stream: turbo_stream.update("like_buttons_#{params[:micropost_id]}",
+          partial: "likes/like", 
+          locals: { micropost: @micropost })
+      }
+    end
   end
   
   def destroy
-    @micropost_like = Like.find_by(user_id: current_user.id, micropost_id: params[:micropost_id])
-    @micropost_like.destroy
-    redirect_to @micropost_like.micropost
+    @micropost = Micropost.find(params[:micropost_id])
+    @micropost_like = Like.find_by(user_id: current_user.id, micropost_id: @micropost.id)
+    if @micropost_like
+      @micropost_like.destroy
+    end
+    respond_to do |format|
+      format.turbo_stream {
+        render turbo_stream: turbo_stream.update("like_buttons_#{params[:micropost_id]}",
+          partial: "likes/like", 
+          locals: { micropost: @micropost })
+      }
+    end
   end
 end
