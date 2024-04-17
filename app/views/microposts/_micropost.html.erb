@@ -3,7 +3,7 @@
   <span class="user"><%= link_to micropost.user.name, micropost.user %></span>
   <span class="content">
     <% if micropost.image.attached? %>
-      <%= image_tag micropost.image.variant(:display) %>
+      <%= link_to (image_tag micropost.image.variant(:display)), maps_path(micropost_id: micropost.id) %>
       <%= micropost.content %>
     <% end %>
   </span>

@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     resource :likes, only: [:create, :destroy]
   end
 
+  resources :maps, only: [:index]
   resources :likes, only: [:index]
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]

@@ -1,43 +1,20 @@
-<%= form_with(model: @micropost, html: { multipart: true }) do |f| %>
-  <%= render 'shared/error_messages', object: f.object %>
-
-  <span class="image">
-    <%= f.file_field :image, accept: "image/jpeg,image/gif,image/png", id: "file-upload", style: "display: none;" %>
-    <label class="custom-file-upload" for="file-upload">
-      写真を選択
-    </label>
-    <img id="preview-image" src="#" alt="選択した画像" style="display: none" />
-  </span>
-
-  <input id="address" type="textbox">
-  <input type="button" value="検索" onclick="codeAddress()">
-  <div id="display"></div>
+<input id="address" type="textbox">
+<input type="button" value="検索" onclick="codeAddress()">
+<div id="display"></div>
 
 
+<% if @micropost && @micropost.lat.present? && @micropost.lng.present? %>
+  <div id='map' data-lat="<%= @micropost.lat %>" data-lng="<%= @micropost.lng %>"></div>
+<% else %>
   <div id='map'></div>
-
-  <style>
-      #map {
-          height: 300px;
-          width: 100%;
-      }
-  </style>
-
-<!--
-  <%= f.hidden_field :lat, id: :lat %>
-  <%= f.hidden_field :lng, id: :lng %>
-  -->
-
-    <%= f.label :lat,"緯度" %>
-    <%= f.text_field :lat,:value =>"緯度", id: :lat %>
-    <%= f.label :lng,"経度" %>
-    <%= f.text_field :lng,:value =>"経度", id: :lng %>
-  
-  <div class="field">
-    <%= f.text_area :content, placeholder: "説明を入力" %>
-  </div>
-  <%= f.submit "投稿", class: "btn btn-primary" %>
 <% end %>
+
+<style>
+    #map {
+        height: 600px;
+        width: 1140px;
+    }
+</style>
 
 <script>
 let map
@@ -53,6 +30,11 @@ function initMap(){
       let lat = position.coords.latitude;
       let lng = position.coords.longitude;
 
+      if (mapElement.hasAttribute('data-lat') && mapElement.hasAttribute('data-lng')) {
+        lat = parseFloat(mapElement.getAttribute('data-lat'));
+        lng = parseFloat(mapElement.getAttribute('data-lng'));
+      } 
+
       let initialLocation = new google.maps.LatLng(lat, lng);
 
       map = new google.maps.Map(mapElement, {
@@ -66,10 +48,6 @@ function initMap(){
         draggable: true
       });   
 
-      // 現在位置の緯度経度を入力フィールドに設定
-      document.getElementById('lat').value = lat;
-      document.getElementById('lng').value = lng;
-
       // 現在位置の詳細アドレスの取得と表示
       geocoder.geocode({'location': initialLocation}, function(results, status) {
         if (status === 'OK') {
@@ -80,11 +58,8 @@ function initMap(){
           }
         }
 
-        // マーカーのドラッグ終了イベントリスナーを追加
-        google.maps.event.addListener(marker, 'dragend', function(ev) {
-        document.getElementById('lat').value = ev.latLng.lat();
-        document.getElementById('lng').value = ev.latLng.lng();
-
+      // マーカーのドラッグ終了イベントリスナーを追加
+      google.maps.event.addListener(marker, 'dragend', function() {
         var newLocation = marker.getPosition();
         display.textContent = "新しい位置：" + newLocation;
         infowindow.setContent('新しい位置: ' + newLocation);
@@ -116,15 +91,8 @@ function codeAddress(){
         infowindow.open(map, marker);
       });
 
-      //検索した時に緯度経度を入力する
-      document.getElementById('lat').value = results[0].geometry.location.lat();
-      document.getElementById('lng').value = results[0].geometry.location.lng();
-
       // マーカーのドラッグ終了イベントリスナーを追加
-      google.maps.event.addListener(marker, 'dragend', function(ev) {
-        document.getElementById('lat').value = ev.latLng.lat();
-        document.getElementById('lng').value = ev.latLng.lng();
-        
+      google.maps.event.addListener(marker, 'dragend', function() {
         var newLocation = marker.getPosition();
         display.textContent = "新しい位置：" + newLocation;
         infowindow.setContent('新しい位置: ' + newLocation);
@@ -141,4 +109,5 @@ function codeAddress(){
 }
 
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDBOj37qLV_6yLvOxCU4000seth8_y6Cv4&callback=initMap" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>&callback=initMap" async defer></script>
+
