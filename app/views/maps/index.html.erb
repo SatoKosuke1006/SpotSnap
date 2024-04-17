@@ -1,5 +1,7 @@
-<input id="address" type="textbox">
-<input type="button" value="検索" onclick="codeAddress()">
+<div class="search-container">
+  <%= text_field_tag 'address', nil, id: 'address', class: 'search-field' %>
+  <%= image_submit_tag('search.png', onclick: 'codeAddress()', class: 'submit-button') %>
+</div>
 <div id="display"></div>
 
 
@@ -12,7 +14,7 @@
 <style>
     #map {
         height: 600px;
-        width: 1140px;
+        width: 100%;
     }
 </style>
 

@@ -1,0 +1,24 @@
+ja:
+  datetime:
+    distance_in_words:
+      x_minutes:
+        one: "1 分未満"
+        other: "%{count} 分前"
+      about_x_hours:
+        one: "1 時間前"
+        other: "約 %{count} 時間前"
+      x_days:
+        one: "1 日前"
+        other: "%{count} 日前"
+      about_x_months:
+        one: "1 ヶ月前"
+        other: "約 %{count} ヶ月前"
+      about_x_years:
+        one: "1 年前"
+        other: "約 %{count} 年前"
+      over_x_years:
+        one: "1 年以上前"
+        other: "%{count} 年以上前"
+      almost_x_years:
+        one: "ほぼ 1 年前"
+        other: "ほぼ %{count} 年前"

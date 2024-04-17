@@ -346,7 +346,7 @@ span.image {
 #micropost_content {
   display: block; 
   margin: 0 auto; 
-  width: 90%; 
+  width: 100%; 
   height: 200px; 
 }
 
@@ -437,6 +437,15 @@ span.image {
   height: 30px; 
 }
 
+.submit-button2 {
+  background-color: grey; 
+  border: none; 
+  padding: 5px;  
+  cursor: pointer; 
+  width: 30px; 
+  height: 30px; 
+}
+
 .search-container {
   display: flex;
   align-items: center;
@@ -445,6 +454,13 @@ span.image {
 
 .search-field {
   margin-top: 10px; 
+  margin-right: 10px; 
+  width: 50%;
+  height: 40px;
+}
+
+.search-field2 {
+  margin-top: 15px; 
   margin-right: 10px; 
   width: 50%;
   height: 40px;

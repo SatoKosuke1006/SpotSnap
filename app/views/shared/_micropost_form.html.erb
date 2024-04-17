@@ -9,10 +9,12 @@
     <img id="preview-image" src="#" alt="選択した画像" style="display: none" />
   </span>
 
-  <input id="address" type="textbox">
-  <input type="button" value="検索" onclick="codeAddress()">
-  <div id="display"></div>
-
+  <div class="search-container">
+    <%= text_field_tag 'address', nil, id: 'address', class: 'search-field2' %>
+    <%= button_tag type: 'button', onclick: 'codeAddress()', class: 'submit-button2' do %>
+      <%= image_tag("search.png", size: 20) %>
+    <% end %>
+  </div>
 
   <div id='map'></div>
 
@@ -23,15 +25,8 @@
       }
   </style>
 
-<!--
-  <%= f.hidden_field :lat, id: :lat %>
-  <%= f.hidden_field :lng, id: :lng %>
-  -->
-
-    <%= f.label :lat,"緯度" %>
-    <%= f.text_field :lat,:value =>"緯度", id: :lat %>
-    <%= f.label :lng,"経度" %>
-    <%= f.text_field :lng,:value =>"経度", id: :lng %>
+    <%= f.hidden_field :lat,:value =>"緯度", id: :lat %>
+    <%= f.hidden_field :lng,:value =>"経度", id: :lng %>
   
   <div class="field">
     <%= f.text_area :content, placeholder: "説明を入力" %>
@@ -43,7 +38,6 @@
 let map
 let geocoder
 let infowindow;
-const display = document.getElementById('display')
 
 function initMap(){
   let mapElement = document.getElementById('map');
@@ -74,7 +68,6 @@ function initMap(){
       geocoder.geocode({'location': initialLocation}, function(results, status) {
         if (status === 'OK') {
           if (results[0]) {
-            display.textContent = "初期位置：" + results[0].formatted_address;
             infowindow.setContent(results[0].formatted_address);
             infowindow.open(map, marker);
           }
@@ -86,7 +79,6 @@ function initMap(){
         document.getElementById('lng').value = ev.latLng.lng();
 
         var newLocation = marker.getPosition();
-        display.textContent = "新しい位置：" + newLocation;
         infowindow.setContent('新しい位置: ' + newLocation);
         infowindow.open(map, marker);
       });
@@ -109,7 +101,6 @@ function codeAddress(){
           position: results[0].geometry.location,
           draggable: true
       });
-      display.textContent = "検索結果：" + results[ 0 ].geometry.location
 
       google.maps.event.addListener(marker, 'click', function() {
         infowindow.setContent('検索結果の場所: ' + results[0].formatted_address);
@@ -126,7 +117,6 @@ function codeAddress(){
         document.getElementById('lng').value = ev.latLng.lng();
         
         var newLocation = marker.getPosition();
-        display.textContent = "新しい位置：" + newLocation;
         infowindow.setContent('新しい位置: ' + newLocation);
         infowindow.open(map, marker);
       });
@@ -141,4 +131,4 @@ function codeAddress(){
 }
 
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDBOj37qLV_6yLvOxCU4000seth8_y6Cv4&callback=initMap" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>&callback=initMap" async defer></script>
