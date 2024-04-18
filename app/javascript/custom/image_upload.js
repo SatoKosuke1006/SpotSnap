@@ -1,5 +1,6 @@
 // 巨大画像のアップロードを防止する
 document.addEventListener("turbo:load", function() {
+  console.log
   let image_upload = document.querySelector('#file-upload');
   if (image_upload) {
     image_upload.addEventListener("change", function(event) {
@@ -18,4 +19,19 @@ document.addEventListener("turbo:load", function() {
       }
     });
   }
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+  // ファイル選択フィールドと投稿ボタンの要素を取得
+  const fileInput = document.getElementById('file-upload');
+  const submitButton = document.querySelector('input[type="submit"]');
+
+  // ファイル選択状態をチェックし、投稿ボタンのdisabled属性を更新する関数
+  function updateSubmitButtonState() {
+    submitButton.disabled = !fileInput.files.length;
+  }
+
+  // ページ読み込み時とファイル選択時にチェックを実行
+  updateSubmitButtonState();
+  fileInput.addEventListener('change', updateSubmitButtonState);
 });

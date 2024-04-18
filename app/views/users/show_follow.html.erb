@@ -2,7 +2,7 @@
 <div class="row">
   <aside class="col-md-4">
     <section class="user_info">
-      <%= gravatar_for (@user, class: "rounded-circle") %>
+      <%= gravatar_for(@user, class: "rounded-circle") %>
       <h1><%= @user.name %></h1>
       <span><%= link_to "view my profile", @user %></span>
       <span><strong>Microposts:</strong> <%= @user.microposts.count %></span>

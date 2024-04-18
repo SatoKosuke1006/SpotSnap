@@ -25,10 +25,10 @@ class MicropostsController < ApplicationController
   def destroy
     @micropost.destroy
     flash[:success] = "投稿を削除しました"
-    if request.referrer.nil?
-      redirect_to root_url, status: :see_other
+    if request.referrer == micropost_url(@micropost)
+      redirect_to user_path(@micropost.user)
     else
-      redirect_to request.referrer, status: :see_other
+      redirect_back(fallback_location: home_url)
     end
   end
 

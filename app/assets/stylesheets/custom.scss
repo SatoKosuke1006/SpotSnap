@@ -368,7 +368,7 @@ span.image {
 #preview-image{
   display: block; 
   margin: 0 auto;
-  width: 500px;
+  width: 95%;
   height: auto;
   border: 2px solid black;
   margin-top: 10px; 
@@ -394,7 +394,7 @@ span.image {
 
 .profile-microposts {
   display: flex;
-  justify-content: center; /* 水平方向にセンターに配置 */
+  justify-content: center; 
   align-items: center;
   margin:0 auto 5%; 
 }

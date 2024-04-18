@@ -1,24 +1,36 @@
 ja:
   datetime:
     distance_in_words:
+      less_than_x_minutes:
+        one: "1 分未満"
+        other: "%{count} 分未満"
       x_minutes:
         one: "1 分未満"
         other: "%{count} 分前"
       about_x_hours:
         one: "1 時間前"
-        other: "約 %{count} 時間前"
+        other: "%{count} 時間前"
       x_days:
         one: "1 日前"
         other: "%{count} 日前"
       about_x_months:
         one: "1 ヶ月前"
-        other: "約 %{count} ヶ月前"
+        other: "%{count} ヶ月前"
       about_x_years:
         one: "1 年前"
-        other: "約 %{count} 年前"
+        other: "%{count} 年前"
       over_x_years:
         one: "1 年以上前"
         other: "%{count} 年以上前"
       almost_x_years:
-        one: "ほぼ 1 年前"
-        other: "ほぼ %{count} 年前"
+        one: "1 年前"
+        other: "%{count} 年前"
+  errors:
+    messages:
+      blank: "空であってはいけません"
+      invalid: "無効な値です"
+      too_short: "短すぎます（最低%{count}文字必要です）"
+      too_long: "長すぎます（最大%{count}文字までです）"
+      taken: "既に使用されています"
+      not_a_number: "数値でなければいけません"
+      must_be_present: "必須項目です"
