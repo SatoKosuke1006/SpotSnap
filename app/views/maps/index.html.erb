@@ -2,11 +2,9 @@
   <%= text_field_tag 'address', nil, id: 'address', class: 'search-field' %>
   <%= image_submit_tag('search.png', onclick: 'codeAddress()', class: 'submit-button') %>
 </div>
-<div id="display"></div>
-
 
 <% if @micropost && @micropost.lat.present? && @micropost.lng.present? %>
-  <div id='map' data-lat="<%= @micropost.lat %>" data-lng="<%= @micropost.lng %>"></div>
+  <div id='map' data-lat="<%= @micropost.lat %>" data-lng="<%= @micropost.lng %>"></div> 
 <% else %>
   <div id='map'></div>
 <% end %>
@@ -22,7 +20,6 @@
 let map
 let geocoder
 let infowindow;
-const display = document.getElementById('display')
 
 function initMap(){
   let mapElement = document.getElementById('map');
@@ -54,7 +51,6 @@ function initMap(){
       geocoder.geocode({'location': initialLocation}, function(results, status) {
         if (status === 'OK') {
           if (results[0]) {
-            display.textContent = "初期位置：" + results[0].formatted_address;
             infowindow.setContent(results[0].formatted_address);
             infowindow.open(map, marker);
           }
@@ -63,7 +59,6 @@ function initMap(){
       // マーカーのドラッグ終了イベントリスナーを追加
       google.maps.event.addListener(marker, 'dragend', function() {
         var newLocation = marker.getPosition();
-        display.textContent = "新しい位置：" + newLocation;
         infowindow.setContent('新しい位置: ' + newLocation);
         infowindow.open(map, marker);
       });
@@ -73,7 +68,7 @@ function initMap(){
 
   geocoder = new google.maps.Geocoder()
   infowindow = new google.maps.InfoWindow();
-  }
+}
 
 function codeAddress(){
   let inputAddress = document.getElementById('address').value;
@@ -86,7 +81,6 @@ function codeAddress(){
           position: results[0].geometry.location,
           draggable: true
       });
-      display.textContent = "検索結果：" + results[ 0 ].geometry.location
 
       google.maps.event.addListener(marker, 'click', function() {
         infowindow.setContent('検索結果の場所: ' + results[0].formatted_address);
@@ -96,7 +90,6 @@ function codeAddress(){
       // マーカーのドラッグ終了イベントリスナーを追加
       google.maps.event.addListener(marker, 'dragend', function() {
         var newLocation = marker.getPosition();
-        display.textContent = "新しい位置：" + newLocation;
         infowindow.setContent('新しい位置: ' + newLocation);
         infowindow.open(map, marker);
       });

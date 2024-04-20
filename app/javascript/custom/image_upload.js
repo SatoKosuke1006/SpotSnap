@@ -21,7 +21,7 @@ document.addEventListener("turbo:load", function() {
   }
 });
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener("turbo:load", function () {
   // ファイル選択フィールドと投稿ボタンの要素を取得
   const fileInput = document.getElementById('file-upload');
   const submitButton = document.querySelector('input[type="submit"]');
