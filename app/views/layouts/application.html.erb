@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
+  <% # 基本設定 %>
   <head>
-    <title><%= full_title(yield(:title)) %></title>
-    
+    <title>SpotSnap</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
     <%= csrf_meta_tags %>
@@ -11,18 +11,21 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-  <body>
-    <% unless content_for?(:hide_header_footer) %>
-      <%= render 'layouts/header' %>
-    <% end %>  
+  <body> 
     <div class="container">
+      <% # ヘッダー表示 %>
+      <% unless content_for?(:hide_header) %>
+        <%= render 'layouts/header' %>
+      <% end %> 
+
+      <% # フラッシュメッセージ表示 %>
       <% flash.each do |message_type, message| %>
         <div class="alert alert-<%= message_type %>"><%= message %></div>
       <% end %>
+
       <%= yield %>
-      <%# <% unless content_for?(:hide_header_footer) %>
-        <%# <%= render 'layouts/footer' %>
-      <%# <% end %> 
+
+      <% # デバック用メッセージ表示 %>
       <%= debug(params) if Rails.env.development? %>
     </div>
   </body>

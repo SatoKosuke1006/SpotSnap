@@ -1,17 +1,7 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-/* mixins, variables, etc. */
-
-$gray-medium-light: #eaeaea;
-
-@mixin box_sizing {
-  -moz-box-sizing:    border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing:         border-box;
-}
-
-/* universal */
+/* 共通レイアウト */
 
 body {
   padding-top: 60px;
@@ -32,7 +22,7 @@ textarea {
   }
 }
 
-/* typography */
+/* 見出し */
 
 h1, h2, h3, h4, h5, h6 {
   line-height: 1;
@@ -64,7 +54,7 @@ p {
 }
 
 
-/* header */
+/* ヘッダー */
 
 #logo {
   float: left;
@@ -81,51 +71,7 @@ p {
   }
 }
 
-/* footer */
-
-footer {
-  margin-top: 45px;
-  padding-top: 5px;
-  border-top: 1px solid $gray-medium-light;
-  color: $gray-light;
-  a {
-    color: $gray;
-    &:hover {
-      color: $gray-darker;
-    }
-  }
-  small {
-    float: left;
-  }
-  ul {
-    float: right;
-    list-style: none;
-    li {
-      float: left;
-      margin-left: 15px;
-    }
-  }
-}
-
-@media (max-width: 800px) {
-  footer {
-    small {
-      display: block;
-      float: none;
-      margin-bottom: 1em;
-    }
-    ul {
-      float: none;
-      padding: 0;
-      li {
-        float: none;
-        margin-left: 0;
-      }
-    }
-  }
-}
-
-/* miscellaneous */
+/* デバック */
 
 .debug_dump {
   clear: both;
@@ -134,7 +80,7 @@ footer {
   margin-top: 45px;
 }
 
-/* sidebar */
+/* サイドバー */
 
 aside {
   section.user_info {
@@ -213,13 +159,15 @@ aside {
   padding: 0;
 }
 
-/* forms */
+/* フォーム */
 
 input, textarea, select, .uneditable-input {
   border: 1px solid #bbb;
   width: 100%;
   margin-bottom: 15px;
-  @include box_sizing;
+  -moz-box-sizing:    border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing:         border-box;
 }
 
 input {
@@ -273,13 +221,13 @@ input {
   width: fit-content; 
 }
 
-/* Dropdown menu */
+/* ドロップダウンメニュー */
 
 .dropdown-menu.active {
   display: block;
 }
 
-/* Users index */
+/* アカウント */
 
 .users {
   list-style: none;
@@ -291,7 +239,7 @@ input {
   }
 }
 
-/* microposts */
+/* 投稿 */
 
 .microposts {
   list-style: none;
@@ -374,7 +322,7 @@ span.image {
   margin-top: 10px; 
 }
 
-/* profile */
+/* プロフィール */
 
 .edit-profile-link {
   cursor: pointer;
@@ -425,19 +373,9 @@ span.image {
   align-items: center;
 }
 
-/* search */
+/* 検索 */
 
 .submit-button {
-  margin-top: 10px;
-  background-color: grey; 
-  border: none; 
-  padding: 5px;  
-  cursor: pointer; 
-  width: 30px; 
-  height: 30px; 
-}
-
-.submit-button2 {
   background-color: grey; 
   border: none; 
   padding: 5px;  
@@ -464,4 +402,15 @@ span.image {
   margin-right: 10px; 
   width: 50%;
   height: 40px;
+}
+
+/* いいね */
+.like-icon-active {
+  color: red; 
+}
+
+/* マップ */
+#map {
+  height: 600px;
+  width: 100%;
 }

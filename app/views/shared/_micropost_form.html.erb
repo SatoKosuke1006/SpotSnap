@@ -1,6 +1,10 @@
+<% # 投稿フォーム パーシャル %>
 <%= form_with(model: @micropost, html: { multipart: true }) do |f| %>
+
+  <% # エラーメッセージ %>
   <%= render 'shared/error_messages', object: f.object %>
 
+  <% # 画像選択 %>
   <span class="image">
     <%= f.file_field :image, accept: "image/jpeg,image/gif,image/png", id: "file-upload", style: "display: none;" %>
     <label class="custom-file-upload" for="file-upload">
@@ -9,126 +13,17 @@
     <img id="preview-image" src="#" alt="選択した画像" style="display: none" />
   </span>
 
-  <div class="search-container">
-    <%= text_field_tag 'address', nil, id: 'address', class: 'search-field2' %>
-    <%= button_tag type: 'button', onclick: 'codeAddress()', class: 'submit-button2' do %>
-      <%= image_tag("search.png", size: 20) %>
-    <% end %>
-  </div>
-
-  <div id='map'></div>
-
-  <style>
-      #map {
-          height: 300px;
-          width: 100%;
-      }
-  </style>
-
-    <%= f.hidden_field :lat,:value =>"緯度", id: :lat %>
-    <%= f.hidden_field :lng,:value =>"経度", id: :lng %>
+  <% # 位置情報選択 %>
+  <%= render 'maps/search_map' %>
+  <%= f.hidden_field :lat,:value =>"緯度", id: :lat %>
+  <%= f.hidden_field :lng,:value =>"経度", id: :lng %>
   
+  <% # 説明入力 %>
   <div class="field">
     <%= f.text_area :content, placeholder: "説明を入力" %>
   </div>
+
   <%= f.submit "投稿", class: "btn btn-primary" %>
 <% end %>
 
-<script>
-let map
-let geocoder
-let infowindow;
-
-function initMap(){
-  let mapElement = document.getElementById('map');
-
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      let lat = position.coords.latitude;
-      let lng = position.coords.longitude;
-
-      let initialLocation = new google.maps.LatLng(lat, lng);
-
-      map = new google.maps.Map(mapElement, {
-        center: {lat: lat, lng: lng},
-        zoom: 12,
-      });    
-      
-      var marker = new google.maps.Marker({
-        map: map,
-        position: {lat: lat, lng: lng},
-        draggable: true
-      });   
-
-      // 現在位置の緯度経度を入力フィールドに設定
-      document.getElementById('lat').value = lat;
-      document.getElementById('lng').value = lng;
-
-      // 現在位置の詳細アドレスの取得と表示
-      geocoder.geocode({'location': initialLocation}, function(results, status) {
-        if (status === 'OK') {
-          if (results[0]) {
-            infowindow.setContent(results[0].formatted_address);
-            infowindow.open(map, marker);
-          }
-        }
-
-        // マーカーのドラッグ終了イベントリスナーを追加
-        google.maps.event.addListener(marker, 'dragend', function(ev) {
-        document.getElementById('lat').value = ev.latLng.lat();
-        document.getElementById('lng').value = ev.latLng.lng();
-
-        var newLocation = marker.getPosition();
-        infowindow.setContent('新しい位置: ' + newLocation);
-        infowindow.open(map, marker);
-      });
-      });
-    })
-  }
-
-  geocoder = new google.maps.Geocoder()
-  infowindow = new google.maps.InfoWindow();
-  }
-
-function codeAddress(){
-  let inputAddress = document.getElementById('address').value;
-
-  geocoder.geocode( { 'address': inputAddress}, function(results, status) {
-    if (status == 'OK') {
-      map.setCenter(results[0].geometry.location);
-      var marker = new google.maps.Marker({
-          map: map,
-          position: results[0].geometry.location,
-          draggable: true
-      });
-
-      google.maps.event.addListener(marker, 'click', function() {
-        infowindow.setContent('検索結果の場所: ' + results[0].formatted_address);
-        infowindow.open(map, marker);
-      });
-
-      //検索した時に緯度経度を入力する
-      document.getElementById('lat').value = results[0].geometry.location.lat();
-      document.getElementById('lng').value = results[0].geometry.location.lng();
-
-      // マーカーのドラッグ終了イベントリスナーを追加
-      google.maps.event.addListener(marker, 'dragend', function(ev) {
-        document.getElementById('lat').value = ev.latLng.lat();
-        document.getElementById('lng').value = ev.latLng.lng();
-        
-        var newLocation = marker.getPosition();
-        infowindow.setContent('新しい位置: ' + newLocation);
-        infowindow.open(map, marker);
-      });
-
-      infowindow.setContent('検索結果の場所: ' + results[0].formatted_address);
-      infowindow.open(map, marker);
-
-    } else {
-      alert('該当する結果がありませんでした：' + status);
-    }
-  });   
-}
-
-</script>
 <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>&callback=initMap" async defer></script>

@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Micropost
 class Micropost < ApplicationRecord
   has_many :likes, dependent: :destroy
   belongs_to :user
@@ -6,16 +9,15 @@ class Micropost < ApplicationRecord
   end
   default_scope -> { order(created_at: :desc) }
   validates :user_id, presence: true
-  validates :image,   presence: true, content_type: { in: %w[image/jpeg image/gif image/png],
-                                      message: "must be a valid image format" },
-                      size:         { less_than: 5.megabytes,
-                                      message:   "should be less than 5MB" }
+  validates :image,   presence: true,
+                      content_type: { in: %w[image/jpeg image/gif image/png], message: 'ファイル形式が不正です' },
+                      size: { less_than: 5.megabytes, message: '5MB以下のファイルサイズにしてください' }
   validates :content, length: { maximum: 140 }, allow_blank: true
 
-  # 「ログイン中のユーザーがその投稿に対していいねをしているか」を判断する
+  # ログイン中のユーザーがその投稿に対していいねをしているか判断する
   def liked?(user)
     likes.where(user_id: user.id).exists?
-  end 
+  end
 
   # いいねの数を返す
   def likes_count

@@ -1,13 +1,12 @@
-<ol class="microposts">
-    <div class="microposts-container">
+<% # いいね一覧画面 %>
+<div class="microposts-container">
     <% @liked_microposts.each do |micropost| %>
         <div class="microposts-column">
-        <div class="profile-microposts">
-            <%= link_to micropost_path(micropost) do %>
-                <%= image_tag micropost.image, class: "micropost-image" if micropost.image.attached? %>
-            <% end %>
-        </div>
+            <div class="profile-microposts">
+                <%= link_to micropost_path(micropost) do %>
+                    <%= image_tag micropost.image, class: "micropost-image" if micropost.image.attached? %>
+                <% end %>
+            </div>
         </div>
     <% end %>
-    </div>
-</ol>
+</div>

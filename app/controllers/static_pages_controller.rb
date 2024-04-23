@@ -1,18 +1,11 @@
-class StaticPagesController < ApplicationController
+# frozen_string_literal: true
 
+# StaticPagesController
+class StaticPagesController < ApplicationController
   def home
-    if logged_in?
+    if logged_in? # rubocop:disable Style/GuardClause
       @micropost  = current_user.microposts.build
       @feed_items = current_user.feed.paginate(page: params[:page])
     end
-  end
-
-  def help
-  end
-
-  def about
-  end
-
-  def contact
   end
 end

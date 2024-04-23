@@ -1,15 +1,17 @@
+# frozen_string_literal: true
+
+# ApplicationController
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:index, :edit, :update, :destroy,
-                                        :following, :followers]
-  before_action :correct_user,   only: [:edit, :update]
+  before_action :logged_in_user, only: %i[index edit update destroy following followers]
+  before_action :correct_user,   only: %i[edit update]
   before_action :admin_user,     only: :destroy
 
   def index
-    if params[:search].present?
-      @users = User.where("name LIKE ?", "%#{params[:search]}%").paginate(page: params[:page])
-    else
-      @users = User.paginate(page: params[:page])
-    end
+    @users = if params[:search].present?
+               User.where('name LIKE ?', "%#{params[:search]}%").paginate(page: params[:page])
+             else
+               User.paginate(page: params[:page])
+             end
   end
 
   def show
@@ -25,7 +27,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       @user.send_activation_email
-      flash[:info] = "アカウントを有効にするには、メールを確認してください"
+      flash[:info] = 'アカウントを有効にするには、メールを確認してください'
       redirect_to root_url
     else
       render 'new', status: :unprocessable_entity
@@ -37,7 +39,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      flash[:success] = "プロフィールを更新しました"
+      flash[:success] = 'プロフィールを更新しました'
       redirect_to @user
     else
       render 'edit', status: :unprocessable_entity
@@ -46,19 +48,19 @@ class UsersController < ApplicationController
 
   def destroy
     User.find(params[:id]).destroy
-    flash[:success] = "アカウントを削除しました"
+    flash[:success] = 'アカウントを削除しました'
     redirect_to users_url, status: :see_other
   end
 
   def following
-    @title = "Following"
+    @title = 'フォロー中'
     @user  = User.find(params[:id])
     @users = @user.following.paginate(page: params[:page])
     render 'show_follow'
   end
 
   def followers
-    @title = "Followers"
+    @title = 'フォロワー'
     @user  = User.find(params[:id])
     @users = @user.followers.paginate(page: params[:page])
     render 'show_follow'
@@ -66,21 +68,19 @@ class UsersController < ApplicationController
 
   private
 
-    def user_params
-      params.require(:user).permit(:name, :email, :password,
-                                   :password_confirmation)
-    end
+  # 送信可能なパラメータか確認する
+  def user_params
+    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+  end
 
-    # beforeフィルター
+  # 正しいユーザーかどうかを確認
+  def correct_user
+    @user = User.find(params[:id])
+    redirect_to(root_url, status: :see_other) unless current_user?(@user)
+  end
 
-    # 正しいユーザーかどうかを確認
-    def correct_user
-      @user = User.find(params[:id])
-      redirect_to(root_url, status: :see_other) unless current_user?(@user)
-    end
-
-    # 管理者かどうかを確認
-    def admin_user
-      redirect_to(root_url, status: :see_other) unless current_user.admin?
-    end
+  # 管理者かどうかを確認
+  def admin_user
+    redirect_to(root_url, status: :see_other) unless current_user.admin?
+  end
 end

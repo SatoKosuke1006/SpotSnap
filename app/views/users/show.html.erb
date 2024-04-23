@@ -1,20 +1,26 @@
+<% # アカウント画面 %>
+
 <% provide(:title, @user.name) %>
 <div class="row">
+
+    <% # プロフィールヘッダー %>
     <section class="user_info">
       <h1 class = "left">
         <%= gravatar_for(@user, class: "rounded-circle") %>
           <%= @user.name %>
       </h1>
+
       <% if @user == current_user %>
-      <%= link_to "プロフィールの編集", edit_user_path(current_user), class: "edit-profile-link" %>
-      <% end %>
-      <% if @user == current_user %>
-      <%= link_to "いいね欄", likes_path, class: "edit-profile-link" %>
+        <%= link_to "プロフィールの編集", edit_user_path(current_user), class: "edit-profile-link" %>
+        <%= link_to "いいね欄", likes_path, class: "edit-profile-link" %>
       <% end %>
     </section>
+
     <section class="stats">
       <%= render 'shared/stats' %>
     </section>
+
+  <% # 投稿一覧 %>
   <div class="row">
       <%= render 'follow_form' if logged_in? %>
         <% if @user.microposts.any? %>
@@ -24,7 +30,7 @@
                 <div class="microposts-column">
                   <div class="profile-microposts">
                     <%= link_to micropost_path(micropost) do %>
-                    <%= image_tag micropost.image, class: "micropost-image" if micropost.image.attached? %>
+                      <%= image_tag micropost.image, class: "micropost-image" if micropost.image.attached? %>
                     <% end %>
                   </div>
                 </div>
@@ -34,4 +40,5 @@
           <%= will_paginate @microposts %>
         <% end %>
   </div>
+  
 </div>

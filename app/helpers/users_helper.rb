@@ -1,7 +1,9 @@
-module UsersHelper
+# frozen_string_literal: true
 
+# UsersHelper
+module UsersHelper
   # 引数で与えられたユーザーのGravatar画像を返す
-  def gravatar_for(user, options = { size: 80, class: "gravatar" })
+  def gravatar_for(user, options = { size: 80, class: 'gravatar' })
     gravatar_id = Digest::MD5::hexdigest(user.email.downcase)
     size = options[:size]
     gravatar_url = "https://secure.gravatar.com/avatar/#{gravatar_id}?s=#{size}"
