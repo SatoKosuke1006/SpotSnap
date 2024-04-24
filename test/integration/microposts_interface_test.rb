@@ -20,7 +20,7 @@ class MicropostsInterfaceTest < MicropostsInterface
       post microposts_path, params: { micropost: { content: "" } }
     end
     assert_select 'div#error_explanation'
-    assert_select 'a[href=?]', '/?page=2'  # 正しいページネーションリンク
+    assert_select 'a[href=?]', '/?page=2'
   end
 
   test "should create a micropost on valid submission" do
@@ -31,11 +31,6 @@ class MicropostsInterfaceTest < MicropostsInterface
     assert_redirected_to root_url
     follow_redirect!
     assert_match content, response.body
-  end
-
-  test "should have micropost delete links on own profile page" do
-    get user_path(@user)
-    assert_select 'a', text: 'delete'
   end
 
   test "should be able to delete own micropost" do

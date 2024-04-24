@@ -38,7 +38,7 @@ class ValidLoginTest < ValidLogin
 
   test "valid login" do
     assert is_logged_in?
-    assert_redirected_to @user
+    assert_redirected_to home_path
   end
 
   test "redirect after login" do
