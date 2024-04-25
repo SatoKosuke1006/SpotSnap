@@ -1,4 +1,5 @@
 require "test_helper"
+include ActionDispatch::TestProcess
 
 class UserTest < ActiveSupport::TestCase
 
@@ -78,7 +79,8 @@ class UserTest < ActiveSupport::TestCase
 
   test "associated microposts should be destroyed" do
     @user.save
-    @user.microposts.create!(content: "Lorem ipsum")
+    file = fixture_file_upload('us.jpeg', 'image/jpeg') 
+    @user.microposts.create!(content: "Lorem ipsum", image: file)
     assert_difference 'Micropost.count', -1 do
       @user.destroy
     end

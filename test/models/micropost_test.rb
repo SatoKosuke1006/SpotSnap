@@ -1,4 +1,5 @@
 require "test_helper"
+include ActionDispatch::TestProcess
 
 class MicropostTest < ActiveSupport::TestCase
 
@@ -8,7 +9,9 @@ class MicropostTest < ActiveSupport::TestCase
   end
 
   test "should be valid" do
-    assert @micropost.valid?
+    file = fixture_file_upload('us.jpeg', 'image/jpeg')
+    @micropost.image.attach(file)
+    assert @micropost.valid?, @micropost.errors.full_messages.to_sentence
   end
 
   test "user id should be present" do

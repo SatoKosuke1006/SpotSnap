@@ -1,9 +1,10 @@
 <h1>SpotSnap</h1>
 
-<p>こんにちは <%= @user.name %> さん、</p>
+<p>Hi <%= @user.name %>,</p>
 
 <p>
-SpotSnapへようこそ!以下のリンクをクリックして、アカウントを有効化してください:
+Welcome to the SpotSnap! Click on the link below to activate your account:
 </p>
 
-<%= link_to "アカウントを有効化", edit_account_activation_url(@user.activation_token, email: @user.email) %>
+<%= link_to "Activate", edit_account_activation_url(@user.activation_token,
+                                                    email: @user.email) %>
