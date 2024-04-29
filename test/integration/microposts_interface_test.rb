@@ -1,7 +1,9 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class MicropostsInterface < ActionDispatch::IntegrationTest
-
+  # 設定
   def setup
     @user = users(:michael)
     log_in_as(@user)
@@ -9,37 +11,44 @@ class MicropostsInterface < ActionDispatch::IntegrationTest
 end
 
 class MicropostsInterfaceTest < MicropostsInterface
-
+  # ホーム画面の投稿がページネーションできている
   # test "should paginate microposts" do
   #   get home_path
   #   assert_select 'div.pagination'
   # end
 
-  # test "should show errors but not create micropost on invalid submission" do
-  #   assert_no_difference 'Micropost.count' do
-  #     post microposts_path, params: { micropost: { content: "" } }
-  #   end
-  #   assert_select 'div#error_explanation'
-  #   assert_select 'a[href=?]', '/?page=2'
-  # end
+  # 無効な投稿であればエラーメッセージが表示され、投稿されない
+  test 'should show errors but not create micropost on invalid submission' do
+    assert_no_difference 'Micropost.count' do
+      post microposts_path, params: { micropost: { content: "" } }
+    end
+    assert_select 'div#error_explanation'
+    # assert_select 'a[href=?]', '/?page=2'
+  end
 
-  # test "should create a micropost on valid submission" do
-  #   content = "This micropost really ties the room together"
-  #   assert_difference 'Micropost.count', 1 do
-  #     post microposts_path, params: { micropost: { content: content } }
-  #   end
-  #   assert_redirected_to root_url
-  #   follow_redirect!
-  #   assert_match content, response.body
-  # end
+  # 有効な投稿であれば投稿される
+  test 'should create a micropost on valid submission' do
+    assert_difference 'Micropost.count', 1 do
+      post microposts_path, params: { micropost: { 
+        content: 'Lorem ipsum',
+        image: fixture_file_upload('us.jpeg', 'image/jpeg'),
+        lat: 123.456,
+        lng: 78.910
+      } }
+    end
+    assert_redirected_to home_url
+    follow_redirect!
+  end
 
-  test "should be able to delete own micropost" do
+  # 投稿が削除される
+  test 'should be able to delete own micropost' do
     first_micropost = @user.microposts.paginate(page: 1).first
     assert_difference 'Micropost.count', -1 do
       delete micropost_path(first_micropost)
     end
   end
 
+  # 他人の投稿には削除リンクがない
   test "should not have delete links on other user's profile page" do
     get user_path(users(:archer))
     assert_select 'a', { text: 'delete', count: 0 }

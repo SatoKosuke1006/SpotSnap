@@ -31,7 +31,7 @@ class MicropostsController < ApplicationController
     if request.referrer == micropost_url(@micropost)
       redirect_to user_path(@micropost.user)
     else
-      redirect_back(fallback_location: home_url)
+      redirect_back(fallback_location: root_url)
     end
   end
 

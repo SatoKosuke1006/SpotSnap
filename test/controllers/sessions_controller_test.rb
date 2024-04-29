@@ -1,7 +1,10 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class SessionsControllerTest < ActionDispatch::IntegrationTest
-  test "should get new" do
+  # ログイン画面を表示する
+  test 'should get new' do
     get login_path
     assert_response :success
   end
