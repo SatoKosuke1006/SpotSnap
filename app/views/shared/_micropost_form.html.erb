@@ -14,9 +14,15 @@
   </span>
 
   <% # 位置情報選択 %>
-  <%= render 'maps/search_map' %>
-  <%= f.hidden_field :lat,:value =>"緯度", id: :lat %>
-  <%= f.hidden_field :lng,:value =>"経度", id: :lng %>
+  <div class="search-container">
+    <%= text_field_tag 'address', nil, id: 'address', class: 'search-field2' %>
+    <%= button_tag type: 'button', id: 'search-button', class: 'submit-button' do %>
+    <%= image_tag("search.png", size: 20) %>
+    <% end %>
+  </div>
+  <%= f.hidden_field :lat, id: 'lat' %>
+  <%= f.hidden_field :lng, id: 'lng' %>
+  <div id="location-details" style="display: none;"></div>
   
   <% # 説明入力 %>
   <div class="field">
@@ -26,4 +32,4 @@
   <%= f.submit "投稿", class: "btn btn-primary" %>
 <% end %>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>&callback=initMap" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>&libraries=places&callback=initMap" async defer></script>

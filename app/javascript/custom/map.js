@@ -1,7 +1,7 @@
 // マップ
 
 // 変数
-let map, geocoder, infowindow;
+let map, geocoder, infowindow, placesService;
 
 // イベントリスナー
 document.addEventListener("turbo:load", initialize);
@@ -9,6 +9,7 @@ document.addEventListener("turbo:load", initialize);
 // マップを初期化する関数
 function initialize() {
   initMap();
+  enableAutocomplete(); 
   document.getElementById('search-button').addEventListener('click', codeAddress);
 }
 
@@ -27,6 +28,8 @@ function initMap() {
       zoom: 12,
     });
 
+    // Places Service の初期化
+    placesService = new google.maps.places.PlacesService(map);
     geocoder = new google.maps.Geocoder();
     infowindow = new google.maps.InfoWindow();
     
@@ -63,9 +66,16 @@ function createDraggableMarker(location) {
 function displayLocation(location, marker) {
   geocoder.geocode({'location': location}, function(results, status) {
     if (status === 'OK' && results[0]) {
-      infowindow.setContent(results[0].formatted_address);
-      infowindow.open(map, marker);
-      updateInputFields(location.lat(), location.lng());
+      // Place ID を使用して詳細情報を取得
+      const placeId = results[0].place_id;
+      const request = { placeId: placeId };
+      placesService.getDetails(request, function(place, status) {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+          infowindow.setContent(`${place.name}<br>${place.formatted_address}`);
+          infowindow.open(map, marker);
+          updateInputFields(location.lat(), location.lng());
+        }
+      });
     }
   });
 }
@@ -81,10 +91,27 @@ function codeAddress() {
 
     map.setCenter(results[0].geometry.location);
     const marker = createDraggableMarker(results[0].geometry.location);
-    
-    infowindow.setContent('検索結果の場所: ' + results[0].formatted_address);
-    infowindow.open(map, marker);
+
+    fetchPlaceDetails(results[0].place_id, marker);
+
     updateInputFields(results[0].geometry.location.lat(), results[0].geometry.location.lng());
+  });
+}
+
+// 場所の詳細を取得して表示する関数
+function fetchPlaceDetails(placeId, marker) {
+  const request = {
+    placeId: placeId,
+    fields: ['name', 'formatted_address']
+  };
+
+  placesService.getDetails(request, function(place, status) {
+    if (status === google.maps.places.PlacesServiceStatus.OK) {
+      infowindow.setContent(`${place.name}<br>${place.formatted_address}`);
+      infowindow.open(map, marker);
+    } else {
+      console.error('Place details request failed due to ' + status);
+    }
   });
 }
 
@@ -104,3 +131,39 @@ function updateInputFields(lat, lng) {
     document.getElementById('lng').value = lng;
   }
 }
+
+// オートコンプリート機能を追加する関数
+function enableAutocomplete() {
+    const input = document.getElementById('address');
+    const autocomplete = new google.maps.places.Autocomplete(input);
+    autocomplete.addListener('place_changed', function() {
+        const place = autocomplete.getPlace();
+        if (!place.geometry) {
+            alert("選択された場所には位置情報がありません: " + place.name);
+            return;
+        }
+        // ページによって処理を分岐
+        if (document.getElementById('map')) {
+            // index.html.erb の場合
+            map.setCenter(place.geometry.location);
+            const marker = createDraggableMarker(place.geometry.location);
+            infowindow.setContent(`${place.name}<br>${place.formatted_address}`);
+            infowindow.open(map, marker);
+            updateInputFields(place.geometry.location.lat(), place.geometry.location.lng());
+        } else if (document.getElementById('location-details')) {
+            // _micropost_form.html.erb の場合
+            displayPlaceDetails(place);
+        }
+    });
+}
+
+function displayPlaceDetails(place) {
+    const locationDetails = document.getElementById('location-details');
+    locationDetails.innerHTML = `${place.name}<br>${place.formatted_address}`;
+    locationDetails.style.display = 'block';
+
+    // 緯度と経度の隠しフィールドを更新
+    document.getElementById('lat').value = place.geometry.location.lat();
+    document.getElementById('lng').value = place.geometry.location.lng();
+}
+

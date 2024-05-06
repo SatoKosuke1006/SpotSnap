@@ -1,9 +1,6 @@
 <% #投稿 パーシャル %>
 <li id="micropost-<%= micropost.id %>">
   
-  <% #アカウント画像 %>
-  <%= link_to gravatar_for(micropost.user, size: 50, class: "rounded-circle"), micropost.user %>
-  
   <% #アカウント名 %>
   <span class="user"><%= link_to micropost.user.name, micropost.user %></span>
   

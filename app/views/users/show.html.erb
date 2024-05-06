@@ -4,12 +4,12 @@
     <% # プロフィールヘッダー %>
     <section class="user_info">
       <h1 class = "left">
-        <%= gravatar_for(@user, class: "rounded-circle") %>
-          <%= @user.name %>
+        <%= @user.name %>
       </h1>
 
       <% if @user == current_user %>
         <%= link_to "プロフィールの編集", edit_user_path(current_user), class: "edit-profile-link" %>
+        <%= link_to "投稿一覧", current_user, class: "edit-profile-link" %>
         <%= link_to "いいね欄", likes_path, class: "edit-profile-link" %>
       <% end %>
     </section>
