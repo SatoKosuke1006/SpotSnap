@@ -2,6 +2,7 @@
 
 // 変数
 let map, geocoder, infowindow, placesService;
+let openInfowindow = null; // 開いているinfowindowを追跡するための変数
 
 // イベントリスナー
 document.addEventListener("turbo:load", initialize);
@@ -55,7 +56,15 @@ function createDraggableMarker(location) {
   const marker = new google.maps.Marker({
     map: map,
     position: location,
-    draggable: true
+    draggable: true,
+    icon: {
+      path: google.maps.SymbolPath.CIRCLE,
+      scale: 10,
+      fillColor: "#00FF00", 
+      fillOpacity: 0.8,
+      strokeWeight: 2,
+      strokeColor: "#00FF00" 
+    }
   });
   
   google.maps.event.addListener(marker, 'dragend', (event) => updateLocation(event.latLng, marker));
@@ -71,7 +80,7 @@ function displayLocation(location, marker) {
       const request = { placeId: placeId };
       placesService.getDetails(request, function(place, status) {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
-          infowindow.setContent(`${place.name}<br>${place.formatted_address}`);
+          infowindow.setContent(`<a href="/location_posts?lat=${place.geometry.location.lat()}&lng=${place.geometry.location.lng()}&name=${encodeURIComponent(place.name)}">${place.name}<br>${place.formatted_address}</a>`);
           infowindow.open(map, marker);
           updateInputFields(location.lat(), location.lng());
         }
@@ -83,18 +92,34 @@ function displayLocation(location, marker) {
 // 入力された住所から位置を検索し、マップを更新する関数
 function codeAddress() {
   const inputAddress = document.getElementById('address').value;
-  geocoder.geocode({'address': inputAddress}, function(results, status) {
-    if (status !== 'OK') {
+  const request = {
+    query: inputAddress,
+    fields: ['name', 'geometry'],
+  };
+
+  placesService.textSearch(request, function(results, status) {
+    if (status === google.maps.places.PlacesServiceStatus.OK) {
+      results.forEach(result => {
+        const marker = createDraggableMarker(result.geometry.location);
+        map.setCenter(result.geometry.location);
+
+        const individualInfowindow = new google.maps.InfoWindow({
+          content: `<a href="/location_posts?lat=${result.geometry.location.lat()}&lng=${result.geometry.location.lng()}&name=${encodeURIComponent(result.name)}">${result.name}</a>`
+        });
+
+        marker.addListener('click', () => {
+          if (openInfowindow) {
+            openInfowindow.close(); // 他のinfowindowが開いていれば閉じる
+          }
+          individualInfowindow.open(map, marker);
+          openInfowindow = individualInfowindow; // 現在開いているinfowindowを更新
+        });
+
+        updateInputFields(result.geometry.location.lat(), result.geometry.location.lng());
+      });
+    } else {
       alert('該当する結果がありませんでした：' + status);
-      return;
     }
-
-    map.setCenter(results[0].geometry.location);
-    const marker = createDraggableMarker(results[0].geometry.location);
-
-    fetchPlaceDetails(results[0].place_id, marker);
-
-    updateInputFields(results[0].geometry.location.lat(), results[0].geometry.location.lng());
   });
 }
 
@@ -107,7 +132,7 @@ function fetchPlaceDetails(placeId, marker) {
 
   placesService.getDetails(request, function(place, status) {
     if (status === google.maps.places.PlacesServiceStatus.OK) {
-      infowindow.setContent(`${place.name}<br>${place.formatted_address}`);
+      infowindow.setContent(`<a href="/location_posts?lat=${place.geometry.location.lat()}&lng=${place.geometry.location.lng()}&name=${encodeURIComponent(place.name)}">${place.name}<br>${place.formatted_address}</a>`);
       infowindow.open(map, marker);
     } else {
       console.error('Place details request failed due to ' + status);
@@ -147,7 +172,7 @@ function enableAutocomplete() {
             // index.html.erb の場合
             map.setCenter(place.geometry.location);
             const marker = createDraggableMarker(place.geometry.location);
-            infowindow.setContent(`${place.name}<br>${place.formatted_address}`);
+            infowindow.setContent(`<a href="/location_posts?lat=${place.geometry.location.lat()}&lng=${place.geometry.location.lng()}&name=${encodeURIComponent(place.name)}">${place.name}<br>${place.formatted_address}</a>`);
             infowindow.open(map, marker);
             updateInputFields(place.geometry.location.lat(), place.geometry.location.lng());
         } else if (document.getElementById('location-details')) {
@@ -162,7 +187,7 @@ function displayPlaceDetails(place) {
     locationDetails.innerHTML = `${place.name}<br>${place.formatted_address}`;
     locationDetails.style.display = 'block';
 
-    // 緯度と経度の隠しフィールドを更新
+    // 緯度と経度の隠しフィール���を更新
     document.getElementById('lat').value = place.geometry.location.lat();
     document.getElementById('lng').value = place.geometry.location.lng();
 }

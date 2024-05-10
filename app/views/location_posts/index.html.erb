@@ -1,3 +1,26 @@
-<% @posts.each do |post| %>
-  <%= render 'post', post: post %>
-<% end %>
+<div class="row">
+
+    <section class="user_info">
+      <h1 class = "left">
+      <%=@place_name %>
+      </h1>
+    </section>
+    
+    <p>投稿数: <%= @microposts.count %></p>
+    <p>総いいね数: <%= @microposts.joins(:likes).count %></p>
+
+    <div class="row">
+      <div class="microposts-container">
+        <% @microposts.each do |micropost| %>
+          <div class="microposts-column">
+            <div class="profile-microposts">
+              <%= link_to micropost_path(micropost) do %>
+                <%= image_tag micropost.image, class: "micropost-image" if micropost.image.attached? %>
+              <% end %>
+            </div>
+          </div>
+          <% end %>
+      </div>
+    </div>
+
+</div>

@@ -3,6 +3,9 @@
 # LocationPostsController
 class LocationPostsController < ApplicationController
   def index
-    @posts = Post.where(place_id: params[:place_id])
+    lat_range = params[:lat].to_f - 0.001..params[:lat].to_f + 0.001
+    lng_range = params[:lng].to_f - 0.001..params[:lng].to_f + 0.001
+    @microposts = Micropost.where(lat: lat_range, lng: lng_range)
+    @place_name = params[:name]  
   end
 end
