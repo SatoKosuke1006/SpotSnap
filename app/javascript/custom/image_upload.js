@@ -29,10 +29,12 @@ document.addEventListener("turbo:load", function () {
   const fileInput = document.getElementById('file-upload');
   const submitButton = document.querySelector('input[type="submit"]');
 
-  function updateSubmitButtonState() {
-    submitButton.disabled = !fileInput.files.length;
+  if (fileInput && submitButton) {
+    function updateSubmitButtonState() {
+      submitButton.disabled = !fileInput.files.length;
+    }
+    updateSubmitButtonState();
+    fileInput.addEventListener('change', updateSubmitButtonState);
   }
-
-  updateSubmitButtonState();
-  fileInput.addEventListener('change', updateSubmitButtonState);
 });
+

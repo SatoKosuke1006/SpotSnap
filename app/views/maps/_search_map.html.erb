@@ -10,7 +10,7 @@
 
 <% # マップ表示 %>
 <% if @micropost && @micropost.lat.present? && @micropost.lng.present? %>
-    <div id='map' data-lat="<%= @micropost.lat %>" data-lng="<%= @micropost.lng %>"></div> 
+    <div id='map' data-show-infowindow="true" widget name="storeggmap" data-lat="<%= @micropost.lat %>" data-lng="<%= @micropost.lng %>"></div> 
 <% else %>
-    <div id='map'></div>
+    <div id='map' widget name="storeggmap"></div>
 <% end %>

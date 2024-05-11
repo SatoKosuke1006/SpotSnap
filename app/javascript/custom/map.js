@@ -6,13 +6,17 @@ let openInfowindow = null; // 開いているinfowindowを追跡するための�
 let markers = []; // マーカーを格納する配列
 
 // イベントリスナー
-document.addEventListener("turbo:load", initialize);
+// window.onload = function () {
+  document.addEventListener("turbo:load", initialize);
+// }
 
 // マップを初期化する関数
 function initialize() {
-  initMap();
-  enableAutocomplete(); 
-  document.getElementById('search-button').addEventListener('click', codeAddress);
+  if (typeof google !== 'undefined') {
+    initMap();
+    enableAutocomplete(); 
+    document.getElementById('search-button').addEventListener('click', codeAddress);
+  }
 }
 
 // マップの初期設定
@@ -36,14 +40,16 @@ function initMap() {
     infowindow = new google.maps.InfoWindow();
    
     const marker = createDraggableMarker(userSpecifiedLocation);
-
-    displayLocation(initialLocation, marker);
+    markers.push(marker);
+    if (mapElement.dataset.showInfowindow === "true") {
+      displayLocation(initialLocation, marker);
+    }
   });
 }
 
 // ユーザー指定の位置情報を取得する関数
 function getUserSpecifiedLocation(mapElement, defaultLat, defaultLng) {
-  if (mapElement.hasAttribute('data-lat') && mapElement.hasAttribute('data-lng')) {
+  if (mapElement && mapElement.hasAttribute('data-lat') && mapElement.hasAttribute('data-lng')) {
     return {
       lat: parseFloat(mapElement.getAttribute('data-lat')),
       lng: parseFloat(mapElement.getAttribute('data-lng'))
@@ -52,12 +58,12 @@ function getUserSpecifiedLocation(mapElement, defaultLat, defaultLng) {
   return {lat: defaultLat, lng: defaultLng};
 }
 
-// ドラック可能なマーカーを設置する関数
+// マーカーを設置する関数
 function createDraggableMarker(location) {
   const marker = new google.maps.Marker({
     map: map,
     position: location,
-    draggable: true,
+    draggable: false,
     icon: {
       path: google.maps.SymbolPath.CIRCLE,
       scale: 10,
@@ -67,8 +73,6 @@ function createDraggableMarker(location) {
       strokeColor: "#00FF00" 
     }
   });
-  
-  google.maps.event.addListener(marker, 'dragend', (event) => updateLocation(event.latLng, marker));
   return marker;
 }
 
@@ -86,7 +90,6 @@ function displayLocation(location, marker) {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
           infowindow.setContent(`<a href="/location_posts?lat=${place.geometry.location.lat()}&lng=${place.geometry.location.lng()}&name=${encodeURIComponent(place.name)}">${place.name}<br>${place.formatted_address}</a>`);
           infowindow.open(map, marker);
-          markers.push(marker);
           updateInputFields(location.lat(), location.lng());
         }
       });
@@ -98,7 +101,7 @@ function displayLocation(location, marker) {
 function codeAddress() {
   const inputAddress = document.getElementById('address').value;
   const request = {
-    placeId: placeId,
+    query: inputAddress,
     fields: ['name', 'formatted_address', 'geometry']
   };
 
@@ -114,14 +117,14 @@ function codeAddress() {
           content: `<a href="/location_posts?lat=${result.geometry.location.lat()}&lng=${result.geometry.location.lng()}&name=${encodeURIComponent(result.name)}">${result.name}<br>${result.formatted_address}</a>`
         });
 
-        if (index === 0) { // 最初の結果に対してinfowindowを自動で開く
+        if (index === 0) { // 最初の結果に対てinfowindowを自動で開く
           individualInfowindow.open(map, marker);
           openInfowindow = individualInfowindow;
         }
 
         marker.addListener('click', () => {
           if (openInfowindow) {
-            openInfowindow.close(); // 他のinfowindowが開いていれば閉じる
+            openInfowindow.close(); // 他のinfowindowが���いていれば閉じる
           }
           individualInfowindow.open(map, marker);
           openInfowindow = individualInfowindow; // 現在開いているinfowindowを更新
@@ -153,15 +156,6 @@ function fetchPlaceDetails(placeId, marker) {
   });
 }
 
-// マーカーの位置が変更したときに新しい位置情報を表示・更新する関数
-function updateLocation(latLng, marker) {
-  const newLocation = {lat: latLng.lat(), lng: latLng.lng()};
-  updateInputFields(newLocation.lat, newLocation.lng);
-  const locationDescription = `新しい位置: 緯度 ${newLocation.lat}, 経度 ${newLocation.lng}`;
-  infowindow.setContent(locationDescription);
-  infowindow.open(map, marker);
-}
-
 //緯度経度の入力フォームを更新する関数
 function updateInputFields(lat, lng) {
   if (document.getElementById('lat') && document.getElementById('lng')) {
@@ -177,13 +171,13 @@ function enableAutocomplete() {
     autocomplete.addListener('place_changed', function() {
         const place = autocomplete.getPlace();
         if (!place.geometry) {
-            alert("選択された場所には位置情報がありません: " + place.name);
+            alert("選択された場所には置情報がありません: " + place.name);
             return;
         }
-        // ページによって処理を分岐
+        // ページによって処理を岐
         if (document.getElementById('map')) {
             // index.html.erb の場合
-            map.setCenter(place.geometry.location);
+            map.setCenter(place.geometry.location); 
             markers.forEach(marker => marker.setMap(null));
             markers = [];
             const marker = createDraggableMarker(place.geometry.location);
@@ -204,7 +198,7 @@ function displayPlaceDetails(place) {
     locationDetails.innerHTML = `${place.name}<br>${place.formatted_address}`;
     locationDetails.style.display = 'block';
 
-    // 緯度と経度の隠しフィー���を更新
+    // 緯度と経度のしフィーを更新
     document.getElementById('lat').value = place.geometry.location.lat();
     document.getElementById('lng').value = place.geometry.location.lng();
 }
