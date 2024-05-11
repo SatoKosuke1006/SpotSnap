@@ -12,7 +12,7 @@ let markers = []; // マーカーを格納する配列
 
 // マップを初期化する関数
 function initialize() {
-  if (typeof google !== 'undefined') {
+  if (typeof google !== 'undefined' && document.getElementById('map')) {
     initMap();
     enableAutocomplete(); 
     document.getElementById('search-button').addEventListener('click', codeAddress);
