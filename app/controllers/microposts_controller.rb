@@ -20,7 +20,7 @@ class MicropostsController < ApplicationController
       flash[:success] = '投稿されました'
       redirect_to home_path, status: :see_other
     else
-      @feed_items = current_user.feed.paginate(page: params[:page])
+      @feed_items = current_user.feed
       render 'microposts/new', status: :unprocessable_entity
     end
   end

@@ -3,6 +3,7 @@
 // 変数
 let map, geocoder, infowindow, placesService;
 let openInfowindow = null; // 開いているinfowindowを追跡するための変数
+let markers = []; // マーカーを格納する配列
 
 // イベントリスナー
 document.addEventListener("turbo:load", initialize);
@@ -33,7 +34,7 @@ function initMap() {
     placesService = new google.maps.places.PlacesService(map);
     geocoder = new google.maps.Geocoder();
     infowindow = new google.maps.InfoWindow();
-    
+   
     const marker = createDraggableMarker(userSpecifiedLocation);
 
     displayLocation(initialLocation, marker);
@@ -77,11 +78,15 @@ function displayLocation(location, marker) {
     if (status === 'OK' && results[0]) {
       // Place ID を使用して詳細情報を取得
       const placeId = results[0].place_id;
-      const request = { placeId: placeId };
+      const request = {
+        placeId: placeId,
+        fields: ['name', 'formatted_address', 'geometry']
+      };
       placesService.getDetails(request, function(place, status) {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
           infowindow.setContent(`<a href="/location_posts?lat=${place.geometry.location.lat()}&lng=${place.geometry.location.lng()}&name=${encodeURIComponent(place.name)}">${place.name}<br>${place.formatted_address}</a>`);
           infowindow.open(map, marker);
+          markers.push(marker);
           updateInputFields(location.lat(), location.lng());
         }
       });
@@ -89,23 +94,30 @@ function displayLocation(location, marker) {
   });
 }
 
-// 入力された住所から位置を検索し、マップを更新する関数
+// 入力れた住所から位置を検索し、マップを更新する関数
 function codeAddress() {
   const inputAddress = document.getElementById('address').value;
   const request = {
-    query: inputAddress,
-    fields: ['name', 'geometry'],
+    placeId: placeId,
+    fields: ['name', 'formatted_address', 'geometry']
   };
 
   placesService.textSearch(request, function(results, status) {
     if (status === google.maps.places.PlacesServiceStatus.OK) {
-      results.forEach(result => {
+      markers.forEach(marker => marker.setMap(null));
+      markers = [];
+      results.forEach((result, index) => {
         const marker = createDraggableMarker(result.geometry.location);
         map.setCenter(result.geometry.location);
 
         const individualInfowindow = new google.maps.InfoWindow({
-          content: `<a href="/location_posts?lat=${result.geometry.location.lat()}&lng=${result.geometry.location.lng()}&name=${encodeURIComponent(result.name)}">${result.name}</a>`
+          content: `<a href="/location_posts?lat=${result.geometry.location.lat()}&lng=${result.geometry.location.lng()}&name=${encodeURIComponent(result.name)}">${result.name}<br>${result.formatted_address}</a>`
         });
+
+        if (index === 0) { // 最初の結果に対してinfowindowを自動で開く
+          individualInfowindow.open(map, marker);
+          openInfowindow = individualInfowindow;
+        }
 
         marker.addListener('click', () => {
           if (openInfowindow) {
@@ -115,6 +127,7 @@ function codeAddress() {
           openInfowindow = individualInfowindow; // 現在開いているinfowindowを更新
         });
 
+        markers.push(marker); // 新しいマーカーを配列に追加
         updateInputFields(result.geometry.location.lat(), result.geometry.location.lng());
       });
     } else {
@@ -126,9 +139,9 @@ function codeAddress() {
 // 場所の詳細を取得して表示する関数
 function fetchPlaceDetails(placeId, marker) {
   const request = {
-    placeId: placeId,
-    fields: ['name', 'formatted_address']
-  };
+        placeId: placeId,
+        fields: ['name', 'formatted_address', 'geometry']
+      };
 
   placesService.getDetails(request, function(place, status) {
     if (status === google.maps.places.PlacesServiceStatus.OK) {
@@ -149,7 +162,7 @@ function updateLocation(latLng, marker) {
   infowindow.open(map, marker);
 }
 
-//緯度と経度の入力フォームを更新する関数
+//緯度経度の入力フォームを更新する関数
 function updateInputFields(lat, lng) {
   if (document.getElementById('lat') && document.getElementById('lng')) {
     document.getElementById('lat').value = lat;
@@ -171,14 +184,18 @@ function enableAutocomplete() {
         if (document.getElementById('map')) {
             // index.html.erb の場合
             map.setCenter(place.geometry.location);
+            markers.forEach(marker => marker.setMap(null));
+            markers = [];
             const marker = createDraggableMarker(place.geometry.location);
             infowindow.setContent(`<a href="/location_posts?lat=${place.geometry.location.lat()}&lng=${place.geometry.location.lng()}&name=${encodeURIComponent(place.name)}">${place.name}<br>${place.formatted_address}</a>`);
             infowindow.open(map, marker);
+            markers.push(marker);
             updateInputFields(place.geometry.location.lat(), place.geometry.location.lng());
         } else if (document.getElementById('location-details')) {
             // _micropost_form.html.erb の場合
             displayPlaceDetails(place);
         }
+        input.value = place.name; // 検索欄に場所の名前のみを表示
     });
 }
 
@@ -187,7 +204,7 @@ function displayPlaceDetails(place) {
     locationDetails.innerHTML = `${place.name}<br>${place.formatted_address}`;
     locationDetails.style.display = 'block';
 
-    // 緯度と経度の隠しフィール���を更新
+    // 緯度と経度の隠しフィー���を更新
     document.getElementById('lat').value = place.geometry.location.lat();
     document.getElementById('lng').value = place.geometry.location.lng();
 }

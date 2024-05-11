@@ -8,15 +8,15 @@ class UsersController < ApplicationController
 
   def index
     @users = if params[:search].present?
-               User.where('name LIKE ?', "%#{params[:search]}%").paginate(page: params[:page])
+               User.where('name LIKE ?', "%#{params[:search]}%")
              else
-               User.paginate(page: params[:page])
+               User.all
              end
   end
 
   def show
     @user = User.find(params[:id])
-    @microposts = @user.microposts.paginate(page: params[:page])
+    @microposts = @user.microposts
   end
 
   def new
@@ -55,14 +55,14 @@ class UsersController < ApplicationController
   def following
     @title = 'フォロー中'
     @user  = User.find(params[:id])
-    @users = @user.following.paginate(page: params[:page])
+    @users = @user.following
     render 'show_follow'
   end
 
   def followers
     @title = 'フォロワー'
     @user  = User.find(params[:id])
-    @users = @user.followers.paginate(page: params[:page])
+    @users = @user.followers
     render 'show_follow'
   end
 

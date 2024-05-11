@@ -17,6 +17,5 @@ class UsersProfileTest < ActionDispatch::IntegrationTest
     assert_template 'users/show'
     assert_select 'h1', text: @user.name
     assert_match @user.microposts.count.to_s, response.body
-    assert_select 'div.pagination'
   end
 end

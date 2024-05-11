@@ -11,11 +11,6 @@ class MicropostsInterface < ActionDispatch::IntegrationTest
 end
 
 class MicropostsInterfaceTest < MicropostsInterface
-  # ホーム画面の投稿がページネーションできている
-  # test "should paginate microposts" do
-  #   get home_path
-  #   assert_select 'div.pagination'
-  # end
 
   # 無効な投稿であればエラーメッセージが表示され、投稿されない
   test 'should show errors but not create micropost on invalid submission' do
@@ -42,7 +37,7 @@ class MicropostsInterfaceTest < MicropostsInterface
 
   # 投稿が削除される
   test 'should be able to delete own micropost' do
-    first_micropost = @user.microposts.paginate(page: 1).first
+    first_micropost = @user.microposts.first
     assert_difference 'Micropost.count', -1 do
       delete micropost_path(first_micropost)
     end
