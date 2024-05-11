@@ -6,13 +6,11 @@ let openInfowindow = null; // 開いているinfowindowを追跡するための�
 let markers = []; // マーカーを格納する配列
 
 // イベントリスナー
-// window.onload = function () {
   document.addEventListener("turbo:load", initialize);
-// }
 
 // マップを初期化する関数
 function initialize() {
-  if (typeof google !== 'undefined' && document.getElementById('map')) {
+  if (typeof google !== 'undefined' && (document.getElementById('map'))) {
     initMap();
     enableAutocomplete(); 
     document.getElementById('search-button').addEventListener('click', codeAddress);
@@ -175,7 +173,7 @@ function enableAutocomplete() {
             return;
         }
         // ページによって処理を岐
-        if (document.getElementById('map')) {
+        if (document.getElementById('map') && !document.getElementById('location-details')) {
             // index.html.erb の場合
             map.setCenter(place.geometry.location); 
             markers.forEach(marker => marker.setMap(null));
@@ -185,7 +183,7 @@ function enableAutocomplete() {
             infowindow.open(map, marker);
             markers.push(marker);
             updateInputFields(place.geometry.location.lat(), place.geometry.location.lng());
-        } else if (document.getElementById('location-details')) {
+        } else if (document.getElementById('map') && document.getElementById('location-details')) {
             // _micropost_form.html.erb の場合
             displayPlaceDetails(place);
         }

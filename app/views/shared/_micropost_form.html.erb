@@ -23,6 +23,7 @@
   <%= f.hidden_field :lat, id: 'lat' %>
   <%= f.hidden_field :lng, id: 'lng' %>
   <div id="location-details" style="display: none;"></div>
+  <div id="map" style="display: none;"></div>
   
   <% # 説明入力 %>
   <div class="field">
@@ -32,4 +33,4 @@
   <%= f.submit "投稿", class: "btn btn-primary" %>
 <% end %>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>&libraries=places&loading=async"></script>
+
