@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get    '/new_post',       to: 'microposts#new'
   get    '/microposts',     to: 'static_pages#home'
   get    '/location_posts', to: 'location_posts#index'
+  get    '/location_posts/count', to: 'location_posts#count'
 
   resources :users do
     member do

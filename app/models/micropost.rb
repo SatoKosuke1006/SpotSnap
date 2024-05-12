@@ -15,6 +15,7 @@ class Micropost < ApplicationRecord
   validates :content, length: { maximum: 140 }, allow_blank: true
   validates :lat, presence: true
   validates :lng, presence: true
+  validates :place_id, presence: true
 
   # ログイン中のユーザーがその投稿に対していいねをしているか判断する
   def liked?(user)

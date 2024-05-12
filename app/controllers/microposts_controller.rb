@@ -39,7 +39,7 @@ class MicropostsController < ApplicationController
 
   # パラメータの制限
   def micropost_params
-    params.require(:micropost).permit(:content, :image, :lat, :lng)
+    params.require(:micropost).permit(:content, :image, :lat, :lng, :place_id)
   end
 
   # 投稿したユーザーか確認
