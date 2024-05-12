@@ -28,7 +28,8 @@ class MicropostsInterfaceTest < MicropostsInterface
         content: 'Lorem ipsum',
         image: fixture_file_upload('us.jpeg', 'image/jpeg'),
         lat: 123.456,
-        lng: 78.910
+        lng: 78.910,
+        place_id: 'ChIJd8BlQ2BPhUcRt6B2K90aOZo'
       } }
     end
     assert_redirected_to home_url
