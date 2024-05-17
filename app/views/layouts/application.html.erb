@@ -14,9 +14,16 @@
   </head>
   <body> 
     <div class="container">
+      <!--
       <% # ヘッダー表示 %>
       <% unless content_for?(:hide_header) %>
         <%= render 'layouts/header' %>
+      <% end %> 
+      -->
+
+      <% # サイドバー表示 %>
+      <% unless content_for?(:hide_header) %>
+      <%= render 'layouts/sidebar' %>
       <% end %> 
 
       <% # フラッシュメッセージ表示 %>

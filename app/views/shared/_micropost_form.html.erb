@@ -15,10 +15,7 @@
 
   <% # 位置情報選択 %>
   <div class="search-container">
-    <%= text_field_tag 'address', nil, id: 'address', class: 'search-field2' %>
-    <%= button_tag type: 'button', id: 'search-button', class: 'submit-button' do %>
-    <%= image_tag("search.png", size: 20) %>
-    <% end %>
+    <%= text_field_tag 'address', nil, id: 'address', class: 'search-field3' %>
   </div>
   <%= f.hidden_field :lat, id: 'lat' %>
   <%= f.hidden_field :lng, id: 'lng' %>
@@ -32,7 +29,8 @@
     <%= f.text_area :content, placeholder: "説明を入力" %>
   </div>
 
-  <%= f.submit "投稿", class: "btn btn-primary" %>
+  <div class="submit-btn">
+    <%= f.submit "投稿", class: "btn btn-primary" %>
+  </div>
 <% end %>
-
 

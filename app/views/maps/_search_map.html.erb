@@ -1,16 +1,14 @@
 <% # マップ　パーシャル%>
 
 <% # マップ検索 %>
-<div class="search-container">
+<div id='map-container'>
+  <div class="search-container">
     <%= text_field_tag 'address', nil, id: 'address', class: 'search-field2' %>
-    <%= button_tag type: 'button', id: 'search-button', class: 'submit-button' do %>
-    <%= image_tag("search.png", size: 20) %>
-    <% end %>
+  </div>
+  <% if @micropost && @micropost.lat.present? && @micropost.lng.present? && @micropost.place_id.present? %>
+    <div id='map' widget name="storeggmap" data-show-infowindow="true" data-lat="<%= @micropost.lat %>" data-lng="<%= @micropost.lng %>" data-place-id="<%= @micropost.place_id %>"></div> 
+  <% else %>
+    <div id='map' widget name="storeggmap"></div>
+  <% end %>
 </div>
 
-<% # マップ表示 %>
-<% if @micropost && @micropost.lat.present? && @micropost.lng.present? && @micropost.place_id.present? %>
-    <div id='map' widget name="storeggmap" data-show-infowindow="true" data-lat="<%= @micropost.lat %>" data-lng="<%= @micropost.lng %>" data-place-id="<%= @micropost.place_id %>"></div> 
-<% else %>
-    <div id='map' widget name="storeggmap"></div>
-<% end %>

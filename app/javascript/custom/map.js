@@ -6,14 +6,18 @@ let openInfowindow = null; // 開いているinfowindowを追跡するための�
 let markers = []; // マーカーを格納する配列
 
 // イベントリスナー
-  document.addEventListener("turbo:load", initialize);
+document.addEventListener("turbo:load", initialize);
 
 // マップを初期化する関数
 function initialize() {
   if (typeof google !== 'undefined' && (document.getElementById('map'))) {
     initMap();
     enableAutocomplete(); 
-    document.getElementById('search-button').addEventListener('click', codeAddress);
+    document.getElementById('address').addEventListener('keypress', function(event) {
+      if (event.key === 'Enter') {
+        codeAddress();
+      }
+    });
   }
 }
 
@@ -30,6 +34,9 @@ function initMap() {
     map = new google.maps.Map(mapElement, {
       center: userSpecifiedLocation,
       zoom: 12,
+      mapTypeControl: false,
+      streetViewControl: false,
+      fullscreenControl: false
     });
 
     // Places Service の初期化
@@ -63,7 +70,7 @@ function getUserSpecifiedLocation(mapElement, defaultLat, defaultLng) {
 
 // マーカーを設置する関数
 function createDraggableMarker(location, postCount) {
-  const fillColor = postCount > 0 ? "#FFA500" : "#00FF00"; // オレンジまたは緑
+  const fillColor = postCount > 0 ? "#FFA500" : "#00FF00"; // オレンジま���は緑
   const strokeColor = postCount > 0 ? "#FFA500" : "#00FF00"; // オレンジまたは緑
 
   const marker = new google.maps.Marker({
@@ -127,7 +134,7 @@ function codeAddress() {
             map.setCenter(result.geometry.location);
 
             const individualInfowindow = new google.maps.InfoWindow({
-              content: `<a href="/location_posts?lat=${result.geometry.location.lat()}&lng=${result.geometry.location.lng()}&name=${encodeURIComponent(result.name)}">${result.name}<br>${result.formatted_address}<br>投稿数: ${data.count}</a>`
+              content: `<a href="/location_posts?lat=${result.geometry.location.lat()}&lng=${result.geometry.location.lng()}&name=${encodeURIComponent(result.name)}">${result.name}<br>${result.formatted_address}<br>投数: ${data.count}</a>`
             });
 
             if (index === 0) {
@@ -165,13 +172,11 @@ function updateInputFields(lat, lng, placeId) {
 function enableAutocomplete() {
     const input = document.getElementById('address');
     const autocomplete = new google.maps.places.Autocomplete(input);
+    let enterPressCount = 0;
+
     autocomplete.addListener('place_changed', function() {
         const place = autocomplete.getPlace();
-        if (!place.geometry) {
-            alert("選択された場所には置情報がありません: " + place.name);
-            return;
-        }
-        // ページによって処理を分岐
+        // ペー���によって処理を分岐
         if (document.getElementById('map') && !document.getElementById('location-details')) {
             // index.html.erb の場合
             markers.forEach(marker => marker.setMap(null));

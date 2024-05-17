@@ -8,12 +8,15 @@
         </h1>
 
         <%= link_to "プロフィールの編集", edit_user_path(current_user), class: "edit-profile-link" %>
-        <%= link_to "投稿一覧", current_user, class: "edit-profile-link" %>
-        <%= link_to "いいね欄", likes_path, class: "edit-profile-link" %>
-    </section>
 
-    <section class="stats">
+        <section class="stats">
         <%= render 'shared/stats' %>
+        </section>
+
+        <div class="profile-microposts-link-container">
+          <%= link_to "投稿一覧", current_user, class: "profile-microposts-link" %>
+          <%= link_to "いいね欄", likes_path, class: "profile-microposts-link" %>
+        </div>
     </section>
 
     <div class="row">
@@ -30,4 +33,5 @@
         </div>
     </div>
 
+</div>
 </div>

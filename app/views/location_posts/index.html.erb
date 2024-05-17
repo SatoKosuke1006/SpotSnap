@@ -6,8 +6,10 @@
       </h1>
     </section>
     
-    <p>投稿数: <%= @microposts.count %></p>
-    <p>総いいね数: <%= @microposts.joins(:likes).count %></p>
+    <div class="new-container">
+      <p>投稿数: <%= @microposts.count %></p>
+      <p>総いいね数: <%= @microposts.joins(:likes).count %></p>
+    </div>
 
     <div class="row">
       <div class="microposts-container">

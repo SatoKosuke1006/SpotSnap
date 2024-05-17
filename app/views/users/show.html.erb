@@ -9,13 +9,18 @@
 
       <% if @user == current_user %>
         <%= link_to "プロフィールの編集", edit_user_path(current_user), class: "edit-profile-link" %>
-        <%= link_to "投稿一覧", current_user, class: "edit-profile-link" %>
-        <%= link_to "いいね欄", likes_path, class: "edit-profile-link" %>
       <% end %>
-    </section>
 
-    <section class="stats">
+       <section class="stats">
       <%= render 'shared/stats' %>
+       </section>
+
+      <% if @user == current_user %>
+        <div class="profile-microposts-link-container">
+          <%= link_to "投稿一覧", current_user, class: "profile-microposts-link" %>
+          <%= link_to "いいね欄", likes_path, class: "profile-microposts-link" %>
+        </div>
+      <% end %>
     </section>
 
   <% # 投稿一覧 %>
