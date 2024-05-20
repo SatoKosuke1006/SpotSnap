@@ -1,27 +1,37 @@
 <% # フォロー/フォロワー一覧画面 %>
-<div class="row">
-  <aside class="col-md-4">
 
-    <% # アカウント名 %>
-    <section class="user_info">
-      <h1><%= @user.name %></h1>
-    </section>
+<% # アカウント名 %>
+<section class="profile-name">
+  <%= @user.name %>
+</section>
 
-    <% # フォロー/フォロワー数 %>
-    <section class="stats">
-      <%= render 'shared/stats' %>
-    </section>
+<div class="stats">
+  <% # フォロー数 %>
+  <a href="<%= following_user_path(@user) %>">
+    <span id="following">
+      <%= @user.following.count %>
+    </span>
+    フォロー中
+  </a>
 
-  </aside>
+  <span style="margin: 0 10px;"></span>
 
-  <% # フォロー/フォロワー一覧 %>
-  <div class="col-md-8">
-    <h3><%= @title %></h3>
-    <% if @users.any? %>
-      <ul class="users follow">
-        <%= render @users %>
-      </ul>
-    <% end %>
-  </div>
-  
+  <% # フォロワー数 %>
+  <a href="<%= followers_user_path(@user) %>">
+    <span id="followers">
+      <%= @user.followers.count %>
+    </span>
+    フォロワー
+  </a>
 </div>
+
+<div style="margin-bottom: 50px;"></div>
+
+ <div class="follow-title">
+  <%= @title %>
+</div>
+
+  <ul class="users">
+    <%= render @users %>
+  </ul>
+

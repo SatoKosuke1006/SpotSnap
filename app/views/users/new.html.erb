@@ -1,21 +1,23 @@
 <% #アカウント登録画面 %>
 
 <% content_for :hide_header, true %>
-<h1>登録</h1>
 
-<div class="row">
-  <div class="col-md-6 col-md-offset-3">
-    <%= form_with(model: @user) do |f| %>
-      <%= render 'shared/error_messages', object: f.object %>
-      <%= f.text_field :name, class: 'form-control', placeholder: "ユーザーネーム" %>
+<div class="login-container">
+  <div class="logo">spot snap</div>
+  <%= form_with(model: @user) do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
+    
+    <%= f.text_field :name, class: 'login-form', placeholder: "ユーザーネーム" %>
 
-      <%= f.email_field :email, class: 'form-control', placeholder: "メールアドレス" %>
+    <%= f.email_field :email, class: 'login-form', placeholder: "メールアドレス" %>
 
-      <%= f.password_field :password, class: 'form-control', placeholder: "パスワード" %>
+    <%= f.password_field :password, class: 'login-form', placeholder: "パスワード" %>
 
-      <%= f.password_field :password_confirmation, class: 'form-control', placeholder: "パスワード再入力" %>
+    <%= f.password_field :password_confirmation, class: 'login-form', placeholder: "パスワード再入力" %>
 
-      <%= f.submit "登録", class: "btn btn-primary" %>
-    <% end %>
-  </div>
+    <div style="margin-bottom: 50px;"></div>
+
+    <%= f.submit "登録", class: "grey-btn" %>
+  <% end %>
 </div>
+

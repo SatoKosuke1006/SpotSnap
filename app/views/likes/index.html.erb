@@ -1,37 +1,44 @@
-<% # いいね一覧画面 %>
-<div class="row">
+ <% # いいね一覧画面 %>
+ <div class="profile-name">
+    <%= current_user.name %>
+  </div>
 
-    <% # プロフィールヘッダー %>
-    <section class="user_info">
-        <h1 class = "left">
-        <%= current_user.name %>
-        </h1>
+    <div style="margin-bottom: 10px;"></div>
 
-        <%= link_to "プロフィールの編集", edit_user_path(current_user), class: "edit-profile-link" %>
+    <%= link_to "プロフィールの編集", edit_user_path(current_user), class: "edit-user-link" %>
 
-        <section class="stats">
-        <%= render 'shared/stats' %>
-        </section>
+    <div style="margin-bottom: 10px;"></div>
 
-        <div class="profile-microposts-link-container">
-          <%= link_to "投稿一覧", current_user, class: "profile-microposts-link" %>
-          <%= link_to "いいね欄", likes_path, class: "profile-microposts-link" %>
-        </div>
-    </section>
+    <% @user ||= current_user %>
+    <div class="stats">
+      <% # フォロー数 %>
+      <a href="<%= following_user_path(@user) %>">
+        <span id="following">
+          <%= @user.following.count %>
+        </span>
+        フォロー中
+      </a>
 
-    <div class="row">
-        <div class="microposts-container">
-            <% @liked_microposts.each do |micropost| %>
-                <div class="microposts-column">
-                    <div class="profile-microposts">
-                        <%= link_to micropost_path(micropost) do %>
-                            <%= image_tag micropost.image, class: "micropost-image" if micropost.image.attached? %>
-                        <% end %>
-                    </div>
-                </div>
-            <% end %>
-        </div>
+      <% # フォロワー数 %>
+      <a href="<%= followers_user_path(@user) %>">
+        <span id="followers">
+          <%= @user.followers.count %>
+        </span>
+        フォロワー
+      </a>
     </div>
 
-</div>
-</div>
+     <div style="margin-bottom: 50px;"></div>
+
+    <div class="show-profile-link-container">
+      <%= link_to "投稿一覧", current_user, class: "show-profile-link" %>
+      <%= link_to "いいね欄", likes_path, class: "show-profile-link" %>
+    </div>
+
+    <% # 投稿一覧 %>
+    <div class="profile-microposts-container">
+      <% @liked_microposts.each do |micropost| %>
+        <%= link_to (image_tag micropost.image), micropost_path(micropost), data: {"turbo" => false} %>
+      <% end %>
+    </div>
+

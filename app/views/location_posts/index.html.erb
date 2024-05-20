@@ -1,3 +1,21 @@
+<% # 場所詳細画面 %>
+<div class="profile-name">
+  <%= @place_name %>
+</div>
+
+<div class="stats">
+  <p>投稿数 <%= @microposts.count %></p>
+  <p>総いいね数 <%= @microposts.joins(:likes).count %></p>
+</div>
+
+<% # 投稿一覧 %>
+<div class="profile-microposts-container">
+  <% @microposts.each do |micropost| %>
+    <%= link_to (image_tag micropost.image), micropost_path(micropost), data: {"turbo" => false} %>
+  <% end %>
+</div>
+
+<!--
 <div class="row">
 
     <section class="user_info">
@@ -26,3 +44,4 @@
     </div>
 
 </div>
+-->

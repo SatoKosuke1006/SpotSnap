@@ -1,4 +1,30 @@
 <% # プロフィール編集画面 %>
+
+  <div class="edit-user-container">
+    <%= form_with(model: @user) do |f| %>
+    <div class="edit-user-title">プロフィールを編集</div>
+      <%= render 'shared/error_messages', object: f.object %>
+
+      <%= f.label :name, "ユーザーネーム", class: 'edit-user-label' %>
+      <%= f.text_field :name, class: 'edit-user-field' %>
+
+      <%= f.label :email, "メールアドレス", class: 'edit-user-label' %>
+      <%= f.email_field :email, class: 'edit-user-field' %>
+
+      <%= f.label :password, "パスワード", class: 'edit-user-label' %>
+      <%= f.password_field :password, class: 'edit-user-field' %>
+
+      <%= f.label :password_confirmation, "パスワード再入力", class: 'edit-user-label' %>
+      <%= f.password_field :password_confirmation, class: 'edit-user-field' %>
+
+      <div style="margin-bottom: 50px;"></div>
+
+      <%= f.submit "保存", class: "grey-btn" %>
+    <% end %>
+  </div>
+
+<!--
+<% # プロフィール編集画面 %>
 <h1>プロフィールを編集</h1>
 
 <div class="row">
@@ -22,3 +48,5 @@
     <% end %>
   </div>
 </div>
+
+-->

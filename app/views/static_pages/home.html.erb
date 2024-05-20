@@ -1,6 +1,7 @@
 <% # ホーム画面 %>
-<div class="row">
-  <%= render 'shared/feed' %>
+  <ul class="microposts">
+    <%= render @feed_items %>
+  </ul>
 </div>
   
 
