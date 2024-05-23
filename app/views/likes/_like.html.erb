@@ -1,10 +1,12 @@
   <% # いいね　パーシャル %>
-  <% if micropost.liked?(current_user) %>
-      <%= button_to micropost_likes_path(micropost.id), method: :delete, data: { turbo_frame: "like_buttons_#{micropost.id}" } do %>
-          <span class="like-icon-active">❤︎</span> 
-      <% end %>
-  <% else %>
-      <%= button_to micropost_likes_path(micropost.id), method: :post, data: { turbo_frame: "like_buttons_#{micropost.id}" } do %>
-          <span>❤︎</span> 
-      <% end %>
-  <% end %>
+  <div class="like-container">
+    <% if micropost.liked?(current_user) %>
+        <%= button_to micropost_likes_path(micropost.id), method: :delete, data: { turbo_frame: "like_buttons_#{micropost.id}" } do %>
+            <span class="active-like">❤︎</span> 
+        <% end %>
+    <% else %>
+        <%= button_to micropost_likes_path(micropost.id), method: :post, data: { turbo_frame: "like_buttons_#{micropost.id}" } do %>
+            <span class="passive-like">❤︎</span> 
+        <% end %>
+    <% end %>
+</div>

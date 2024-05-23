@@ -34,3 +34,12 @@ ja:
       taken: "既に使用されています"
       not_a_number: "数値でなければいけません"
       must_be_present: "必須項目です"
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            password_confirmation:
+              confirmation: "パスワードの確認が一致しません"
+      messages:
+        confirmation: "確認が一致しません"

@@ -1,3 +1,29 @@
+<% #パスワード変更画面 %>
+
+<% content_for :hide_header, true %>
+
+<div class="login-container">
+  <div class="logo">spot snap</div>
+
+  <div style="margin-bottom: 30px;"></div>
+
+  <div>パスワードの再設定</div>
+  <%= form_with(model: @user) do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
+
+    <%= hidden_field_tag :email, @user.email %>
+
+    <%= f.password_field :password, class: 'login-form', placeholder: "パスワード" %>
+
+    <%= f.password_field :password_confirmation, class: 'login-form', placeholder: "パスワード再入力" %>
+
+    <div style="margin-bottom: 50px;"></div>
+
+    <%= f.submit "登録", class: "grey-btn" %>
+  <% end %>
+</div>
+
+<!--
 <% # パスワード変更画面 %>
 <% content_for :hide_header, true %>
 <h1>パスワード変更</h1>
@@ -19,3 +45,4 @@
     <% end %>
   </div>
 </div>
+-->

@@ -5,15 +5,17 @@
 <div class="login-container">
   <div class="logo">spot snap</div>
   <%= form_with(model: @user) do |f| %>
-    <%= render 'shared/error_messages', object: f.object %>
-    
     <%= f.text_field :name, class: 'login-form', placeholder: "ユーザーネーム" %>
+    <%= f.object.errors[:name].any? ? content_tag(:div, f.object.errors[:name].join(", "), class: "error-message") : "" %>
 
     <%= f.email_field :email, class: 'login-form', placeholder: "メールアドレス" %>
+    <%= f.object.errors[:email].any? ? content_tag(:div, f.object.errors[:email].join(", "), class: "error-message") : "" %>
 
     <%= f.password_field :password, class: 'login-form', placeholder: "パスワード" %>
+    <%= f.object.errors[:password].any? ? content_tag(:div, f.object.errors[:password].join(", "), class: "error-message") : "" %>
 
     <%= f.password_field :password_confirmation, class: 'login-form', placeholder: "パスワード再入力" %>
+    <%= f.object.errors[:password_confirmation].any? ? content_tag(:div, f.object.errors[:password_confirmation].join(", "), class: "error-message") : "" %>
 
     <div style="margin-bottom: 50px;"></div>
 

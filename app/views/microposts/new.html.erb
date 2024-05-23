@@ -4,6 +4,8 @@
   <% # エラーメッセージ %>
     <%= render 'shared/error_messages', object: f.object %>
 
+  <div style="margin-bottom: 50px;"></div>
+
   <% # 画像選択 %>
     <%= f.file_field :image, accept: "image/jpeg,image/gif,image/png", id: "file-upload", style: "display: none;" %>
     <label class="custom-file-upload" for="file-upload">

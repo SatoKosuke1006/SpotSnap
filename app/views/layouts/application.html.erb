@@ -26,9 +26,6 @@
         <% end %>
 
         <%= yield %>
-
-        <% # デバック用メッセージ表示 %>
-        <%= debug(params) if Rails.env.development? %>
       </div>
   </body>
 </html>

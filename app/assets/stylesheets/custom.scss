@@ -533,11 +533,16 @@
 
 
 
-/* 新規スタイル */
-
 /* 共通レイアウト */
 body {
   background-color: black;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+html {
+  height: 100%;
 }
 
 ul {
@@ -556,6 +561,8 @@ ul {
   margin: 0 auto;
   position: relative;
   right: -100px;
+  width: 80%;
+  height: 100%;
 }
 
 @media (max-width: 1000px) {
@@ -611,6 +618,11 @@ ul {
   margin: 50px auto;
 }
 
+.sidebar .logout {
+  position: absolute;
+  bottom: 20px;
+}
+
 .sidebar-text {
   margin-left: 10px;
   font-size: 20px;
@@ -660,6 +672,7 @@ ul {
   text-align: center;
   position: relative;
   right: 100px;
+  bottom: 100px;
 }
 
 @media (max-width: 1000px) {
@@ -689,6 +702,23 @@ ul {
   margin-top: 10px;
 }
 
+@media (max-width: 600px) {
+  .login-container {
+    width: 90%;
+    input{
+      width: 70%;
+    }
+  }
+
+  .white-btn {
+    width: 70%;
+  }
+
+  .gray-hr {
+    width: 70%;
+  }
+}
+
 /* 投稿詳細 */
 .microposts{
   padding: 0;
@@ -703,43 +733,85 @@ ul {
     width: 500px;
   }
 }
+
 .post-image {
   position: relative;
 }
 
-.post-timestamp{
+.post-user{
   position: absolute;
   left: 10px;
-  bottom: 40px;
-  font-size: 15px;
+  top: 15px;
+  font-size: 17px;
   font-weight: 700;
   z-index: 1;
-  color: rgb(255, 255, 255);
+  color: rgba(255, 255, 255, 0.503);
   a{
-    color: rgb(205, 99, 99);
+    color: rgb(255, 255, 255);
   }
 }
 
-.post-user {
+.post-delete{
   position: absolute;
   left: 10px;
-  bottom: 10px;
-  font-size: 20px;
+  top: 45px;
+  font-size: 15px;
   font-weight: 700;
   z-index: 1;
+  color: rgba(255, 255, 255, 0.503);
   a{
-    color: white;
+    color: rgb(255, 97, 97)
   }
 }
 
 .post-like {
   position: absolute;
   left: 450px;
-  bottom: 10px;
+  top: 5px;
   z-index: 1;
 }
-.like-icon-active {
+
+.post-content {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  z-index: 1;
+  color: rgba(255, 255, 255, 0.769);
+}
+
+.like-container button {
+  background-color: transparent;
+  border: none;
+}
+
+.active-like {
   color: red; 
+  font-size: 30px;
+}
+
+.passive-like {
+  color: transparent; 
+  -webkit-text-stroke: 2px white; 
+  font-size: 30px;
+}
+
+@media (max-width: 600px) {
+  .content {
+    width: 100%;
+    img {
+      width: 100%;
+    }
+  }
+
+  .post-image{
+    width: 100%;
+  }
+
+  .post-like {
+    left: 83%; 
+  }
 }
 
 /* 投稿 */
@@ -834,13 +906,16 @@ ul {
   display: block; 
   margin: 0 auto; 
   position: relative;
-  margin-top: 10pt;
+  margin-top: 10px;
   width: 70%;
+  height: calc(100vh - 20px);
+  top: 10px;
+  bottom: 10px;
 }
 
 #map {
   width: 100%;
-  height: 650px;
+  height: 100%;
 }
 
 .map-search-container {
@@ -856,6 +931,14 @@ ul {
   width: 80%; 
   height: 40px;
 } 
+
+a:focus {
+  outline: none;
+}
+
+.infowindow-link {
+  color: grey;
+}
 
 /* 検索 */
 .user-search-field {
@@ -888,6 +971,13 @@ ul {
   font-size: 2.5em;
   font-weight: 700;
   color: white;
+}
+
+.profile-address {
+  margin-left: 10%;
+  font-size: 1.0em;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.531);
 }
 
 .edit-user-link{
@@ -1017,4 +1107,11 @@ ul {
   font-weight: 700;
   color: white;
   border-radius: 5px;
+}
+
+/* フォロー・フォロワー一覧 */
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
 }

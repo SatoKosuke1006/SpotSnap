@@ -7,6 +7,7 @@ class LocationPostsController < ApplicationController
     lng_range = params[:lng].to_f - 0.001..params[:lng].to_f + 0.001
     @microposts = Micropost.where(lat: lat_range, lng: lng_range)
     @place_name = params[:name]
+    @place_formatted_address = params[:formatted_address]
   end
 
   def count

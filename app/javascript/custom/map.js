@@ -105,7 +105,7 @@ function displayLocation(marker) {
         fetch(`/location_posts/count?lat=${place.geometry.location.lat()}&lng=${place.geometry.location.lng()}`)
           .then(response => response.json())
           .then(data => {
-            infowindow.setContent(`<a href="/location_posts?lat=${place.geometry.location.lat()}&lng=${place.geometry.location.lng()}&name=${encodeURIComponent(place.name)}">${place.name}<br>${place.formatted_address}<br>投稿数: ${data.count}</a>`);
+            infowindow.setContent(`<a href="/location_posts?lat=${place.geometry.location.lat()}&lng=${place.geometry.location.lng()}&name=${encodeURIComponent(place.name)}&formatted_address=${encodeURIComponent(place.formatted_address)}">${place.name}</a>`);
             infowindow.open(map, marker);
           });
       }
@@ -134,7 +134,7 @@ function codeAddress() {
             map.setCenter(result.geometry.location);
 
             const individualInfowindow = new google.maps.InfoWindow({
-              content: `<a href="/location_posts?lat=${result.geometry.location.lat()}&lng=${result.geometry.location.lng()}&name=${encodeURIComponent(result.name)}">${result.name}<br>${result.formatted_address}<br>投数: ${data.count}</a>`
+              content: `<a href="/location_posts?lat=${result.geometry.location.lat()}&lng=${result.geometry.location.lng()}&name=${encodeURIComponent(result.name)}&formatted_address=${encodeURIComponent(result.formatted_address)}">${result.name}</a>`
             });
 
             if (index === 0) {
@@ -185,7 +185,8 @@ function enableAutocomplete() {
               .then(response => response.json())
               .then(data => {
                 const marker = createDraggableMarker(place.geometry.location, data.count);
-                infowindow.setContent(`<a href="/location_posts?lat=${place.geometry.location.lat()}&lng=${place.geometry.location.lng()}&name=${encodeURIComponent(place.name)}">${place.name}<br>${place.formatted_address}<br>投稿数: ${data.count}</a>`);
+                map.setCenter(place.geometry.location);
+                infowindow.setContent(`<a href="/location_posts?lat=${place.geometry.location.lat()}&lng=${place.geometry.location.lng()}&name=${encodeURIComponent(place.name)}&formatted_address=${encodeURIComponent(place.formatted_address)}">${place.name}</a>`);
                 infowindow.open(map, marker);
                 markers.push(marker);
                 updateInputFields(place.geometry.location.lat(), place.geometry.location.lng(), place.place_id);
