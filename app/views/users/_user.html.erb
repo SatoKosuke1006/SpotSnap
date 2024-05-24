@@ -1,7 +1,11 @@
 <% # ユーザー パーシャル%>
 <li>
-  <%= link_to user.name, user %>
-  <% if current_user.admin? && !current_user?(user) %>
-    | <%= link_to "delete", user, data: { "turbo-method": :delete, "turbo_confirm": "You sure?" } %>
-  <% end %>
+  <div class="user-name">
+    <%= link_to user.name, user %>
+  </div>
+  <div class="user-delete">
+    <% if current_user.admin? && !current_user?(user) %> 
+      <%= link_to "削除する", user, data: { "turbo-method": :delete, "turbo_confirm": "削除してもよろしいですか？" }%>
+    <% end %>
+  </div>
 </li>

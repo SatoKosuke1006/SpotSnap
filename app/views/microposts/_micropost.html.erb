@@ -9,7 +9,9 @@
         <%= time_ago_in_words(micropost.created_at) %> 
       </div>
       <div class="post-delete"> 
-        <%= link_to "削除する", micropost, data: { "turbo-method": :delete, "turbo-confirm": "削除してもよろしいですか?" } %>
+        <% if current_user?(micropost.user) %>
+          <%= link_to "削除する", micropost, data: { "turbo-method": :delete, "turbo-confirm": "削除してもよろしいですか？" } %>
+        <% end %>
       </div>
       <div class="post-content">
         <%= micropost.content %>

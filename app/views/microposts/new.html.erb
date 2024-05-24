@@ -1,9 +1,6 @@
 <% #新規投稿画面 %>
 <%= form_with(model: @micropost, html: { multipart: true }) do |f| %>
 
-  <% # エラーメッセージ %>
-    <%= render 'shared/error_messages', object: f.object %>
-
   <div style="margin-bottom: 50px;"></div>
 
   <% # 画像選択 %>
@@ -14,16 +11,19 @@
     <div class="image">
     <img id="preview-image" src="#" style="display: none" />
     </div>
+    <%= f.object.errors[:image].any? ? content_tag(:div, f.object.errors[:image].join(", "), class: "error-message") : "" %>
   <% # 位置情報選択 %>
     <%= text_field_tag 'address', nil, id: 'address', class: 'post-map-search-field' %>
     <%= f.hidden_field :lat, id: 'lat' %>
     <%= f.hidden_field :lng, id: 'lng' %>
     <%= f.hidden_field :place_id, id: 'place_id' %>
+    <%= f.object.errors[:place_id].any? ? content_tag(:div, f.object.errors[:place_id].join(", "), class: "error-message") : "" %>
     <div id="location-details" style="display: none;"></div>
     <div id="map" style="display: none;"></div>
   <% # 説明入力 %>
   <div class="post-text">
     <%= f.text_area :content, placeholder: "説明を入力" %>
+    <%= f.object.errors[:content].any? ? content_tag(:div, f.object.errors[:content].join(", "), class: "error-message") : "" %>
   </div>
     <%= f.submit "投稿", class: "post-btn" %>
 <% end %>

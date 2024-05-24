@@ -201,8 +201,10 @@ function enableAutocomplete() {
 
 function displayPlaceDetails(place) {
     const locationDetails = document.getElementById('location-details');
+    if (place.formatted_address) {
     locationDetails.innerHTML = `${place.name}<br>${place.formatted_address}`;
     locationDetails.style.display = 'block';
+    }
 
     // 緯度と経度のしフィールドを更新
     document.getElementById('lat').value = place.geometry.location.lat();

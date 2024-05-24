@@ -691,6 +691,10 @@ ul {
   border: 1px solid grey;
 }
 
+.checkbox-inline{
+  color: grey;
+}
+
 .forgot-password-link {
   color: gray;
 }
@@ -958,9 +962,18 @@ a:focus {
     padding: 10px 10px;
     width: 80%;
     background-color: rgba(255, 255, 255, 0.733);
-    a{
-      color: black;
-    }
+  }
+}
+
+.user-name {
+  a {
+    color: rgb(0, 0, 0);
+  }
+}
+
+.user-delete{
+  a {
+    color: rgb(253, 36, 36);
   }
 }
 
@@ -1043,34 +1056,48 @@ a:focus {
 
 /* プロフフィール編集 */
 .edit-user-title {
-  margin-left: 20%;
+  margin-top: 20px;
+  margin-left: 15%;
   margin-bottom: 20px;
   font-size: 2.0em;
   font-weight: 700;
   color: rgb(255, 255, 255);
 }
 
-.edit-user-container {
-  width: 100%;
-  padding: 40px;
-  position: relative;
-  left: -35px;
-}
-
 .edit-user-label{
   color: white;
-  margin-left: 20%;
+  margin-left: 15%;
 }
 
 .edit-user-field{
   display: block;
-  margin-left: 20%;
+  margin: 0 auto;
   margin-bottom: 20px;
   width: 70%;
   height: auto;
   line-height: 40px; 
   border-radius: 5px;
   border: 1px solid grey;
+}
+
+.edit-user-btn{
+  display: block;
+  margin: 0 auto;
+  border: 2px solid grey;
+  width: 200px;
+  line-height: 40px; 
+  margin-bottom: 20px;
+  background-color: grey;
+  font-size: 1.2em;
+  font-weight: 700;
+  color: white;
+  border-radius: 5px;
+}
+
+@media (max-width: 400px) {
+  .edit-user-field{
+    width: 200px;
+  }
 }
 
 /* フォロー・フォロワー一覧 */
@@ -1109,9 +1136,90 @@ a:focus {
   border-radius: 5px;
 }
 
-/* フォロー・フォロワー一覧 */
-.error-message {
+/* メッセージ */
+.login-error-message {
   color: red;
   font-size: 12px;
   margin-top: 5px;
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin: 10px auto;
+  text-align: center;
+  width: 50%;
+}
+
+.alert-success {
+  border: 2px solid green; 
+  padding: 10px; 
+  border-radius: 5px; 
+  display: block;
+  margin: 0 auto;
+  width: 500px;
+}
+
+@media (max-width: 600px) {
+  .alert-success {
+    width: 100%;
+  }
+}
+
+.alert-danger {
+  border: 2px solid red; 
+  padding: 10px; 
+  border-radius: 5px; 
+  width: 400px;
+  margin: 0 auto;
+  position: relative;
+  right: 100px;
+}
+
+.alert-info {
+  border: 2px solid blue;
+  padding: 10px;
+  border-radius: 5px; 
+  width: 400px;
+  margin: 0 auto;
+  position: relative;
+  right: 100px;
+}
+
+.alert-warning {
+  border: 2px solid yellow;
+  padding: 10px;
+  border-radius: 5px; 
+  width: 400px;
+  margin: 0 auto;
+  position: relative;
+  right: 100px;
+}
+
+@media (max-width: 1000px) {
+  .alert-danger {
+    right: 35px;
+  }
+
+  .alert-info {
+    right: 35px;
+  }
+
+  .alert-warning {
+    right: 35px;
+  }
+}
+
+@media (max-width: 600px) {
+  .alert-danger {
+    width: 90%;
+  }
+
+  .alert-info {
+    width: 90%;
+  }
+
+  .alert-warning {
+    width: 90%;
+  }
 }

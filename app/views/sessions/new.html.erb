@@ -9,9 +9,14 @@
 
     <%= f.password_field :password, class: 'login-form', placeholder: "パスワード" %>
 
-    <div style="margin-bottom: 50px;"></div>
-
     <%= link_to "パスワードをお忘れですか？", new_password_reset_path, class: 'forgot-password-link' %>
+
+    <div style="margin-bottom: 50px;"></div>
+    
+    <%= f.label :remember_me, class: "checkbox-inline" do %>
+      <%= f.check_box :remember_me %>
+      <span>ログイン状態を保存する</span>
+    <% end %>
     <%= f.submit "ログイン", class: "grey-btn" %>
   <% end %>
 

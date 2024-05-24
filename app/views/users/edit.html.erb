@@ -1,27 +1,29 @@
 <% # プロフィール編集画面 %>
 
-  <div class="edit-user-container">
-    <%= form_with(model: @user) do |f| %>
-    <div class="edit-user-title">プロフィールを編集</div>
-      <%= render 'shared/error_messages', object: f.object %>
+  <%= form_with(model: @user) do |f| %>
+  <div class="edit-user-title">プロフィールを編集</div>
 
-      <%= f.label :name, "ユーザーネーム", class: 'edit-user-label' %>
-      <%= f.text_field :name, class: 'edit-user-field' %>
+    <%= f.label :name, "ユーザーネーム", class: 'edit-user-label' %>
+    <%= f.text_field :name, class: 'edit-user-field' %>
+    <%= f.object.errors[:name].any? ? content_tag(:div, f.object.errors[:name].join(", "), class: "error-message") : "" %>
 
-      <%= f.label :email, "メールアドレス", class: 'edit-user-label' %>
-      <%= f.email_field :email, class: 'edit-user-field' %>
+    <%= f.label :email, "メールアドレス", class: 'edit-user-label' %>
+    <%= f.email_field :email, class: 'edit-user-field' %>
+    <%= f.object.errors[:email].any? ? content_tag(:div, f.object.errors[:email].join(", "), class: "error-message") : "" %>
 
-      <%= f.label :password, "パスワード", class: 'edit-user-label' %>
-      <%= f.password_field :password, class: 'edit-user-field' %>
+    <%= f.label :password, "パスワード", class: 'edit-user-label' %>
+    <%= f.password_field :password, class: 'edit-user-field' %>
+    <%= f.object.errors[:password].any? ? content_tag(:div, f.object.errors[:password].join(", "), class: "error-message") : "" %>
 
-      <%= f.label :password_confirmation, "パスワード再入力", class: 'edit-user-label' %>
-      <%= f.password_field :password_confirmation, class: 'edit-user-field' %>
+    <%= f.label :password_confirmation, "パスワード再入力", class: 'edit-user-label' %>
+    <%= f.password_field :password_confirmation, class: 'edit-user-field' %>
+    <%= f.object.errors[:password_confirmation].any? ? content_tag(:div, f.object.errors[:password_confirmation].join(", "), class: "error-message") : "" %>
 
-      <div style="margin-bottom: 50px;"></div>
 
-      <%= f.submit "保存", class: "grey-btn" %>
-    <% end %>
-  </div>
+    <div style="margin-bottom: 50px;"></div>
+
+      <%= f.submit "保存", class: "edit-user-btn" %>
+  <% end %>
 
 <!--
 <% # プロフィール編集画面 %>

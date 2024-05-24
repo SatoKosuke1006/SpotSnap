@@ -1,3 +1,4 @@
+
 <% #パスワード変更画面 %>
 
 <% content_for :hide_header, true %>
@@ -8,14 +9,15 @@
   <div style="margin-bottom: 30px;"></div>
 
   <div>パスワードの再設定</div>
-  <%= form_with(model: @user) do |f| %>
-    <%= render 'shared/error_messages', object: f.object %>
+  <%= form_with(model: @user, url: password_reset_path(params[:id])) do |f| %>
 
     <%= hidden_field_tag :email, @user.email %>
 
     <%= f.password_field :password, class: 'login-form', placeholder: "パスワード" %>
+    <%= f.object.errors[:password].any? ? content_tag(:div, f.object.errors[:password].join(", "), class: "login-error-message") : "" %>
 
     <%= f.password_field :password_confirmation, class: 'login-form', placeholder: "パスワード再入力" %>
+    <%= f.object.errors[:password_confirmation].any? ? content_tag(:div, f.object.errors[:password_confirmation].join(", "), class: "login-error-message") : "" %>
 
     <div style="margin-bottom: 50px;"></div>
 
@@ -23,13 +25,11 @@
   <% end %>
 </div>
 
+
 <!--
 <% # パスワード変更画面 %>
 <% content_for :hide_header, true %>
-<h1>パスワード変更</h1>
 
-<div class="row">
-  <div class="col-md-6 col-md-offset-3">
     <%= form_with(model: @user, url: password_reset_path(params[:id])) do |f| %>
       <%= render 'shared/error_messages', object: f.object %>
 
@@ -43,6 +43,4 @@
 
       <%= f.submit "保存", class: "btn btn-primary" %>
     <% end %>
-  </div>
-</div>
 -->
