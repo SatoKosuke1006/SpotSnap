@@ -43,8 +43,10 @@
 <% # 投稿一覧 %>
 <div class="profile-microposts-container">
   <% @microposts.each do |micropost| %>
-    <%= link_to (image_tag micropost.image), micropost_path(micropost), data: {"turbo" => false} %>
+    <%= link_to (image_tag micropost.image if micropost.image.attached?), micropost_path(micropost), data: {"turbo" => false} %>
   <% end %>
 </div>
 
   
+
+

@@ -1,8 +1,12 @@
 // リロード
-// window.addEventListener('popstate', function (e) {
-//     window.location.reload();
-// });
+window.onpageshow = function(event) {
+	if (event.persisted) {
+		 window.location.reload();
+	}
+};
 
-window.addEventListener('pageshow',()=>{
-	if(window.performance.navigation.type==2) location.reload();
-});
+document.addEventListener("turbo:load", function() {
+	if (performance.getEntriesByType("navigation")[0].type === "back_forward") {
+	  window.location.reload();
+	}
+  });

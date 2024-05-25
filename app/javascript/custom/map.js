@@ -7,6 +7,8 @@ let markers = []; // マーカーを格納する配列
 
 // イベントリスナー
 document.addEventListener("turbo:load", initialize);
+document.addEventListener("turbo:frame-load", initialize);
+document.addEventListener("turbo:render", initialize);
 
 // マップを初期化する関数
 function initialize() {
@@ -68,9 +70,9 @@ function getUserSpecifiedLocation(mapElement, defaultLat, defaultLng) {
   return {lat: defaultLat, lng: defaultLng};
 }
 
-// マーカーを設置する関数
+// マーカー��設置する関数
 function createDraggableMarker(location, postCount) {
-  const fillColor = postCount > 0 ? "#FFA500" : "#00FF00"; // オレンジま���は緑
+  const fillColor = postCount > 0 ? "#FFA500" : "#00FF00"; // オレンジまは緑
   const strokeColor = postCount > 0 ? "#FFA500" : "#00FF00"; // オレンジまたは緑
 
   const marker = new google.maps.Marker({
@@ -101,7 +103,7 @@ function displayLocation(marker) {
     };
     placesService.getDetails(request, function(place, status) {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
-        // 投稿数を取得するAPIを呼び出し
+        // 投稿を取得するAPIを呼び出し
         fetch(`/location_posts/count?lat=${place.geometry.location.lat()}&lng=${place.geometry.location.lng()}`)
           .then(response => response.json())
           .then(data => {
@@ -176,21 +178,23 @@ function enableAutocomplete() {
 
     autocomplete.addListener('place_changed', function() {
         const place = autocomplete.getPlace();
-        // ペー���によって処理を分岐
+        // ペーによって処理を分岐
         if (document.getElementById('map') && !document.getElementById('location-details')) {
             // index.html.erb の場合
-            markers.forEach(marker => marker.setMap(null));
-            markers = [];
-            fetch(`/location_posts/count?lat=${place.geometry.location.lat()}&lng=${place.geometry.location.lng()}`)
-              .then(response => response.json())
-              .then(data => {
-                const marker = createDraggableMarker(place.geometry.location, data.count);
-                map.setCenter(place.geometry.location);
-                infowindow.setContent(`<a href="/location_posts?lat=${place.geometry.location.lat()}&lng=${place.geometry.location.lng()}&name=${encodeURIComponent(place.name)}&formatted_address=${encodeURIComponent(place.formatted_address)}">${place.name}</a>`);
-                infowindow.open(map, marker);
-                markers.push(marker);
-                updateInputFields(place.geometry.location.lat(), place.geometry.location.lng(), place.place_id);
-              });
+            if (place && place.geometry && place.geometry.location) {
+              markers.forEach(marker => marker.setMap(null));
+              markers = [];
+              fetch(`/location_posts/count?lat=${place.geometry.location.lat()}&lng=${place.geometry.location.lng()}`)
+                .then(response => response.json())
+                .then(data => {
+                  const marker = createDraggableMarker(place.geometry.location, data.count);
+                  map.setCenter(place.geometry.location);
+                  infowindow.setContent(`<a href="/location_posts?lat=${place.geometry.location.lat()}&lng=${place.geometry.location.lng()}&name=${encodeURIComponent(place.name)}&formatted_address=${encodeURIComponent(place.formatted_address)}">${place.name}</a>`);
+                  infowindow.open(map, marker);
+                  markers.push(marker);
+                  updateInputFields(place.geometry.location.lat(), place.geometry.location.lng(), place.place_id);
+                });
+            }
         } else if (document.getElementById('map') && document.getElementById('location-details')) {
             // _micropost_form.html.erb の場合
             displayPlaceDetails(place);
@@ -204,11 +208,12 @@ function displayPlaceDetails(place) {
     if (place.formatted_address) {
     locationDetails.innerHTML = `${place.name}<br>${place.formatted_address}`;
     locationDetails.style.display = 'block';
-    }
 
     // 緯度と経度のしフィールドを更新
     document.getElementById('lat').value = place.geometry.location.lat();
     document.getElementById('lng').value = place.geometry.location.lng();
     document.getElementById('place_id').value = place.place_id;
+    }
 }
+
 

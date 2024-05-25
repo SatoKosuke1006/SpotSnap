@@ -82,7 +82,7 @@ class PasswordUpdateTest < PasswordResetForm
           params: { email: @reset_user.email,
                     user: { password: 'foobaz',
                             password_confirmation: 'barquux' } }
-    assert_select 'div#error_explanation'
+    assert_select 'div.login-error-message'
   end
 
   # パスワードが空だとエラーが表示される
@@ -91,7 +91,7 @@ class PasswordUpdateTest < PasswordResetForm
           params: { email: @reset_user.email,
                     user: { password: '',
                             password_confirmation: '' } }
-    assert_select 'div#error_explanation'
+    assert_select 'div.login-error-message'
   end
 
   # パスワードが有効だとパスワードがリセットされる

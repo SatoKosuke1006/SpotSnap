@@ -2,7 +2,7 @@
 <li>
   <div class="content">
     <div class ="post-image">
-      <%= link_to (image_tag micropost.image), maps_path(micropost_id: micropost.id), data: {"turbo" => false} %>
+      <%= link_to (image_tag micropost.image if micropost.image.attached?), maps_path(micropost_id: micropost.id), data: {"turbo" => false} %>
       <div class="post-user">
         <%= link_to micropost.user.name, micropost.user %>
         <%= "&nbsp;".html_safe %> 

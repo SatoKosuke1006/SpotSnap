@@ -31,10 +31,10 @@ function handleImageUpload(event) {
   }
 }
 
-// エンターによる投稿の回避
+//エンターによる投稿の回避
 document.addEventListener("turbo:load", function () {
   const addressField = document.getElementById('address');
-  if (addressField) {
+  if (addressField && document.getElementById('map') && document.getElementById('location-details')) {
     addressField.addEventListener('keydown', function(event) {
       if (event.key === 'Enter') {
         event.preventDefault();
@@ -42,4 +42,3 @@ document.addEventListener("turbo:load", function () {
     });
   }
 });
-

@@ -15,10 +15,9 @@ class MicropostsInterfaceTest < MicropostsInterface
   # 無効な投稿であればエラーメッセージが表示され、投稿されない
   test 'should show errors but not create micropost on invalid submission' do
     assert_no_difference 'Micropost.count' do
-      post microposts_path, params: { micropost: { content: "" } }
+      post microposts_path, params: { micropost: { place_id: "" } }
     end
-    assert_select 'div#error_explanation'
-    # assert_select 'a[href=?]', '/?page=2'
+    assert_select 'div.error-message'
   end
 
   # 有効な投稿であれば投稿される

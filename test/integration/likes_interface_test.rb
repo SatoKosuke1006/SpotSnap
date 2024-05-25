@@ -34,7 +34,7 @@ class LikeInterfaceTest < LikesInterface
            headers: { 'Accept' => 'text/vnd.turbo-stream.html' }
     end
     assert_response :ok
-    assert_match /turbo-stream action="update"/, response.body
+    assert_match(/turbo-stream action="update"/, response.body)
   end
 
   # いいねを解除する
@@ -44,6 +44,6 @@ class LikeInterfaceTest < LikesInterface
              headers: { 'Accept' => 'text/vnd.turbo-stream.html' }
     end
     assert_response :ok
-    assert_match /turbo-stream action="update"/, response.body
+    assert_match(/turbo-stream action="update"/, response.body)
   end
 end
