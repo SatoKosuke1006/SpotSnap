@@ -2,8 +2,8 @@
 
 // 変数
 let map, geocoder, infowindow, placesService;
-let openInfowindow = null; // 開いているinfowindowを追跡するための変数
-let markers = []; // マーカーを格納する配列
+let openInfowindow = null; 
+let markers = []; 
 
 // イベントリスナー
 document.addEventListener("turbo:load", initialize);
@@ -41,12 +41,10 @@ function initMap() {
       fullscreenControl: false
     });
 
-    // Places Service の初期化
     placesService = new google.maps.places.PlacesService(map);
     geocoder = new google.maps.Geocoder();
     infowindow = new google.maps.InfoWindow();
 
-    // 投稿数を取得するAPIを呼び出し
     fetch(`/location_posts/count?lat=${userSpecifiedLocation.lat}&lng=${userSpecifiedLocation.lng}`)
       .then(response => response.json())
       .then(data => {
@@ -61,7 +59,7 @@ function initMap() {
 
 // ユーザー指定の位置情報を取得する関数
 function getUserSpecifiedLocation(mapElement, defaultLat, defaultLng) {
-  if (mapElement && mapElement.hasAttribute('data-lat') && mapElement.hasAttribute('data-lng')) {
+  if (mapElement && mapElement.hasAttribute('data-place-id') && mapElement.hasAttribute('data-lng')) {
     return {
       lat: parseFloat(mapElement.getAttribute('data-lat')),
       lng: parseFloat(mapElement.getAttribute('data-lng'))
@@ -70,7 +68,7 @@ function getUserSpecifiedLocation(mapElement, defaultLat, defaultLng) {
   return {lat: defaultLat, lng: defaultLng};
 }
 
-// マーカー��設置する関数
+// マーカーを設定する関数
 function createDraggableMarker(location, postCount) {
   const fillColor = postCount > 0 ? "#FFA500" : "#00FF00"; // オレンジまは緑
   const strokeColor = postCount > 0 ? "#FFA500" : "#00FF00"; // オレンジまたは緑
@@ -103,13 +101,13 @@ function displayLocation(marker) {
     };
     placesService.getDetails(request, function(place, status) {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
-        // 投稿を取得するAPIを呼び出し
+        // 投稿を得す���APIを呼び出し
         fetch(`/location_posts/count?lat=${place.geometry.location.lat()}&lng=${place.geometry.location.lng()}`)
           .then(response => response.json())
           .then(data => {
             infowindow.setContent(`<a href="/location_posts?lat=${place.geometry.location.lat()}&lng=${place.geometry.location.lng()}&name=${encodeURIComponent(place.name)}&formatted_address=${encodeURIComponent(place.formatted_address)}">${place.name}</a>`);
             infowindow.open(map, marker);
-          });
+        });
       }
     });
   }
@@ -199,21 +197,32 @@ function enableAutocomplete() {
             // _micropost_form.html.erb の場合
             displayPlaceDetails(place);
         }
-        input.value = place.name; // 検索欄に場所の名前のみを表示
+        input.value = place.name; 
     });
 }
 
+//　指定された場所の詳細を表示する
 function displayPlaceDetails(place) {
     const locationDetails = document.getElementById('location-details');
     if (place.formatted_address) {
     locationDetails.innerHTML = `${place.name}<br>${place.formatted_address}`;
     locationDetails.style.display = 'block';
 
-    // 緯度と経度のしフィールドを更新
     document.getElementById('lat').value = place.geometry.location.lat();
     document.getElementById('lng').value = place.geometry.location.lng();
     document.getElementById('place_id').value = place.place_id;
     }
 }
 
+//エンターによる投稿の回避
+document.addEventListener("turbo:load", function () {
+  const addressField = document.getElementById('address');
+  if (addressField && document.getElementById('map') && document.getElementById('location-details')) {
+    addressField.addEventListener('keydown', function(event) {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+      }
+    });
+  }
+});
 

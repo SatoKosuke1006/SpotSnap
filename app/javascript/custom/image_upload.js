@@ -1,6 +1,4 @@
-// 画像投稿
-
-// 巨大画像のアップロードを防止し、プレビューを表示させる
+// 画像サイズの制限とプレビュー表示
 document.addEventListener("turbo:load", setupImageUpload);
 document.addEventListener("turbo:frame-load", setupImageUpload);
 document.addEventListener("turbo:render", setupImageUpload);
@@ -30,15 +28,3 @@ function handleImageUpload(event) {
     reader.readAsDataURL(event.target.files[0]);
   }
 }
-
-//エンターによる投稿の回避
-document.addEventListener("turbo:load", function () {
-  const addressField = document.getElementById('address');
-  if (addressField && document.getElementById('map') && document.getElementById('location-details')) {
-    addressField.addEventListener('keydown', function(event) {
-      if (event.key === 'Enter') {
-        event.preventDefault();
-      }
-    });
-  }
-});

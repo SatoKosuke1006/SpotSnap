@@ -8,7 +8,20 @@
 <% if @user == current_user %>
   <%= link_to "プロフィールの編集", edit_user_path(current_user), class: "edit-user-link" %>
 <% end %>
-<%= render 'follow_form' if logged_in? %>
+<% if logged_in? && !current_user?(@user) %>
+  <div id="follow_form">
+    <% if current_user.following?(@user) %>
+      <%= form_with(model: current_user.active_relationships.find_by(followed: @user), html: { method: :delete }) do |f| %>
+        <%= f.submit "フォロー中", class: "unfollow-btn" %>
+      <% end %>
+    <% else %>
+      <%= form_with(model: current_user.active_relationships.build) do |f| %>
+        <div><%= hidden_field_tag :followed_id, @user.id %></div>
+        <%= f.submit "フォロー", class: "follow-btn" %>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
 
   <div style="margin-bottom: 10px;"></div>
 

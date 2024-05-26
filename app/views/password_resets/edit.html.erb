@@ -1,6 +1,4 @@
-
 <% #パスワード変更画面 %>
-
 <% content_for :hide_header, true %>
 
 <div class="login-container">
@@ -24,23 +22,3 @@
     <%= f.submit "登録", class: "grey-btn" %>
   <% end %>
 </div>
-
-
-<!--
-<% # パスワード変更画面 %>
-<% content_for :hide_header, true %>
-
-    <%= form_with(model: @user, url: password_reset_path(params[:id])) do |f| %>
-      <%= render 'shared/error_messages', object: f.object %>
-
-      <%= hidden_field_tag :email, @user.email %>
-
-      <%= f.label :password, "パスワード" %>
-      <%= f.password_field :password, class: 'form-control' %>
-
-      <%= f.label :password_confirmation, "パスワード再入力" %>
-      <%= f.password_field :password_confirmation, class: 'form-control' %>
-
-      <%= f.submit "保存", class: "btn btn-primary" %>
-    <% end %>
--->

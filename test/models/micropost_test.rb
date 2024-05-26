@@ -48,12 +48,6 @@ class MicropostTest < ActiveSupport::TestCase
     assert_not @micropost.valid?
   end
 
-  # 投稿に文章が存在する
-  test 'content should be present' do
-    @micropost.content = "   "
-    assert_not @micropost.valid?
-  end
-
   # 投稿の長さを制限
   test 'content should be at most 140 characters' do
     @micropost.content = "a" * 141

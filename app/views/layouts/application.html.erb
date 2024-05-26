@@ -16,7 +16,36 @@
     
       <% # サイドバー表示 %>
       <% unless content_for?(:hide_header) %>
-      <%= render 'layouts/sidebar' %>
+        <aside class="sidebar">
+          <ul>
+            <li class="max-1000-home"><%= link_to home_path do %>
+              <%= image_tag("home.png", size: 30) %> 
+            <% end %></li>
+            <li class="min-1000-home"><%= link_to "spot snap", home_path %></li>
+
+            <li><%= link_to new_post_path, data: {"turbo" => false} do %>
+              <%= image_tag("post.png", size: 30) %><span class="sidebar-text">投稿</span> 
+            <% end %></li>
+
+            <li><%= link_to maps_path, data: {"turbo" => false} do %>
+              <%= image_tag("map.png", size: 30) %><span class="sidebar-text">マップ</span>
+            <% end %></li>
+
+            <li><%= link_to users_path do %>
+              <%= image_tag("search.png", size: 30) %><span class="sidebar-text">検索</span>
+            <% end %></li>
+
+            <li><%= link_to current_user do %>
+              <%= image_tag("account.png", size: 30) %><span class="sidebar-text">プロフィール</span>
+            <% end %></li>
+
+            <div style="margin-bottom: 200px;"></div>
+
+            <li class="logout"><%= link_to logout_path, data: { "turbo-method": :delete } do %>
+              <%= image_tag("logout.png", size: 30) %><span class="sidebar-text">ログアウト</span>
+            <% end %></li>
+          </ul>
+        </aside>
       <% end %> 
 
       <div class="container">

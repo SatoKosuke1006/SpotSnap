@@ -1,7 +1,32 @@
 <% # ホーム画面 %>
   <ul class="microposts">
-    <%= render @feed_items %>
+    <% @feed_items.each do |micropost| %>
+      <li>
+        <div class="content">
+          <div class ="post-image">
+            <%= link_to (image_tag micropost.image if micropost.image.attached?), maps_path(micropost_id: micropost.id), data: {"turbo" => false} %>
+            <div class="post-user">
+              <%= link_to micropost.user.name, micropost.user %>
+              <%= "&nbsp;".html_safe %> 
+              <%= time_ago_in_words(micropost.created_at) %> 
+            </div>
+            <div class="post-delete"> 
+              <% if current_user?(micropost.user) %>
+                <%= link_to "削除する", micropost, data: { "turbo-method": :delete, "turbo-confirm": "削除してもよろしいですか？" } %>
+              <% end %>
+            </div>
+            <div class="post-content">
+              <%= micropost.content %>
+            </div>
+            <div class="post-like">
+              <turbo-frame id="like_buttons_<%= micropost.id %>">
+                <%= render partial: "likes/like", locals: { micropost: micropost } %>
+              </turbo-frame>
+            </div>
+          </div>
+        </div>
+      </li>
+    <% end %>
   </ul>
 </div>
-  
 
