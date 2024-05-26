@@ -59,7 +59,7 @@ function initMap() {
 
 // ユーザー指定の位置情報を取得する関数
 function getUserSpecifiedLocation(mapElement, defaultLat, defaultLng) {
-  if (mapElement && mapElement.hasAttribute('data-place-id') && mapElement.hasAttribute('data-lng')) {
+  if (mapElement && mapElement.hasAttribute('data-lat') && mapElement.hasAttribute('data-lng')) {
     return {
       lat: parseFloat(mapElement.getAttribute('data-lat')),
       lng: parseFloat(mapElement.getAttribute('data-lng'))
