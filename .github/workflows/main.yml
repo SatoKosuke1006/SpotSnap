@@ -40,6 +40,6 @@ services:
     ports:
       - 5432:5432
     env:
-      POSTGRES_USER: localhost
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: Sato342705
       POSTGRES_DB: development_db
