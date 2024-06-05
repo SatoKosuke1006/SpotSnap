@@ -5,6 +5,15 @@ on: [push]
 jobs:
   test:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:latest
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: Sato342705
+          POSTGRES_DB: development_db
 
     steps:
     - uses: actions/checkout@v2
@@ -33,13 +42,3 @@ jobs:
     - name: Set environment variables
       run: |
         echo "GOOGLE_MAPS_API_KEY=${{ secrets.GOOGLE_MAPS_API_KEY }}" >> $GITHUB_ENV
-
-services:
-  postgres:
-    image: postgres:latest
-    ports:
-      - 5432:5432
-    env:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: Sato342705
-      POSTGRES_DB: development_db
