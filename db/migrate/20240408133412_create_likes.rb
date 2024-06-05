@@ -1,14 +1,12 @@
-class CreateLikes < ActiveRecord::Migration[7.0]
+class CreateLikes < ActiveRecord::Migration[6.0]
   def change
     create_table :likes do |t|
-      t.integer :like_id, null: false
-      t.integer :user_id, null: false
-      t.integer :micropost_id, null: false
-      t.datetime :created_at, null: false
+      t.references :user, null: false, foreign_key: true
+      t.references :micropost, null: false, foreign_key: true
+
+      t.timestamps
     end
 
-    add_index :likes, :like_id, unique: true
-    add_index :likes, :user_id
-    add_index :likes, :post_id
+    add_index :likes, [:user_id, :micropost_id], unique: true
   end
 end
