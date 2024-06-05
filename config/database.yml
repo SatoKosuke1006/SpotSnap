@@ -11,13 +11,7 @@ default: &default
 development:
   <<: *default
   # database: db/development.sqlite3
-  adapter: postgresql
-  encoding: unicode
   database: development_db
-  pool: 5
-  host: localhost
-  username: postgres
-  password: Sato342705
 
 test:
   <<: *default
@@ -26,4 +20,4 @@ test:
 production:
   <<: *default
   database: production_db
-  
+
