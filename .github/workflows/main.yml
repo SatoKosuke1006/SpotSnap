@@ -33,3 +33,13 @@ jobs:
     - name: Set environment variables
       run: |
         echo "GOOGLE_MAPS_API_KEY=${{ secrets.GOOGLE_MAPS_API_KEY }}" >> $GITHUB_ENV
+
+services:
+  postgres:
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    env:
+      POSTGRES_USER: localhost
+      POSTGRES_PASSWORD: Sato342705
+      POSTGRES_DB: development_db
