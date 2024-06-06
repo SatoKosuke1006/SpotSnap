@@ -35,8 +35,8 @@ jobs:
     - name: Deploy to ECS
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
       with:
-        task-definition: ${{ secrets.TASK_DEFINITION }}
-        service: ${{ secrets.ECS_SERVICE }}
-        cluster: ${{ secrets.ECS_CLUSTER }}
+        task-definition: spotsnao-task-definition:4
+        service: spotsnap-service
+        cluster: spotsnap-cluster
         wait-for-service-stability: true
 
