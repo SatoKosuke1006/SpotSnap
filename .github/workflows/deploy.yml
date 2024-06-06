@@ -49,3 +49,4 @@ jobs:
         ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
       run: |
         aws ecs update-service --cluster $ECS_CLUSTER --service $ECS_SERVICE --force-new-deployment
+        
