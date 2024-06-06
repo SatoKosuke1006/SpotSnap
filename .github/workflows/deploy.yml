@@ -26,9 +26,9 @@ jobs:
 
     - name: Build, tag, and push image to Amazon ECR
       run: |
-        docker build -t spotsnap .
-        docker tag spotsnap:latest 637423309523.dkr.ecr.us-east-1.amazonaws.com/spotsnap:latest
-        docker push 637423309523.dkr.ecr.us-east-1.amazonaws.com/spotsnap:latest
+        docker build -t ${{ secrets.ECR_REPOSITORY }} .
+        docker tag ${{ secrets.ECR_REPOSITORY }}:latest ${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}:latest
+        docker push ${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}:latest
 
     - name: Deploy to ECS using AWS CLI
       run: |
