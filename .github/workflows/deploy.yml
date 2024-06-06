@@ -12,8 +12,6 @@ jobs:
       AWS_REGION: ${{ secrets.AWS_REGION }}
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      ECR_REGISTRY: 637423309523.dkr.ecr.us-east-1.amazonaws.com/spotsnap
-      ECR_REPOSITORY: spotsnap
 
     steps:
     - name: Checkout code
