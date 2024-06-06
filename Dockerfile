@@ -8,7 +8,7 @@ WORKDIR /app
 COPY Gemfile Gemfile.lock ./
 
 # Gemをインストール
-RUN bundle install
+RUN bundle install && chmod +x /usr/local/bundle/bin/rails
 
 # ソースコードをコピー
 COPY . .

@@ -26,7 +26,7 @@ jobs:
 
     - name: Build, tag, and push image to Amazon ECR
       run: |
-        docker build -t spotsnap .
+        docker buildx build --platform linux/amd64,linux/arm64 -t spotsnap .
         docker tag spotsnap:latest 637423309523.dkr.ecr.us-east-1.amazonaws.com/spotsnap:latest
         docker push 637423309523.dkr.ecr.us-east-1.amazonaws.com/spotsnap:latest
 
