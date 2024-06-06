@@ -12,7 +12,8 @@ jobs:
       AWS_REGION: ${{ secrets.AWS_REGION }}
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
+      ECR_REGISTRY: 637423309523.dkr.ecr.us-east-1.amazonaws.com/spotsnap
+      ECR_REPOSITORY: spotsnap
 
     steps:
     - name: Checkout code
@@ -27,9 +28,9 @@ jobs:
 
     - name: Build, tag, and push image to Amazon ECR
       run: |
-        docker build -t ${{ secrets.ECR_REPOSITORY }} .
-        docker tag ${{ secrets.ECR_REPOSITORY }}:latest ${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}:latest
-        docker push ${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}:latest
+        docker build -t spotsnap .
+        docker tag spotsnap:latest 637423309523.dkr.ecr.us-east-1.amazonaws.com/spotsnap:latest
+        docker push 637423309523.dkr.ecr.us-east-1.amazonaws.com/spotsnap:latest
 
     - name: Deploy to ECS
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
@@ -38,3 +39,4 @@ jobs:
         service: ${{ secrets.ECS_SERVICE }}
         cluster: ${{ secrets.ECS_CLUSTER }}
         wait-for-service-stability: true
+
