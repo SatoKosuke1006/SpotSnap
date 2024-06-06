@@ -47,6 +47,9 @@ jobs:
         ECS_SERVICE: ${{ secrets.ECS_SERVICE }}
         IMAGE_TAG: ${{ github.sha }}
         ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       run: |
         aws ecs update-service --cluster $ECS_CLUSTER --service $ECS_SERVICE --force-new-deployment
         
+
