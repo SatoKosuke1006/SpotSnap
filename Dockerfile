@@ -1,5 +1,5 @@
 # ベースイメージを指定
-FROM ruby:3.3.0
+FROM ruby:3.3.0 --platform linux/arm64
 
 # 作業ディレクトリを指定
 WORKDIR /app
