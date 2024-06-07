@@ -24,6 +24,7 @@ gem "pg",                         "1.3.5"
 gem 'mini_magick'
 gem 'jquery-rails'
 gem 'dotenv-rails', groups: [:development, :test]
+gem 'nokogiri', '1.16.3', platforms: [:ruby], require: false
 
 group :development, :test do
   gem "debug",   "1.7.1", platforms: %i[ mri mingw x64_mingw ]
