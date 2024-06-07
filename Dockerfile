@@ -14,7 +14,7 @@ RUN bundle install && chmod +x /usr/local/bundle/bin/rails
 COPY . .
 
 # ポートの公開
-EXPOSE 3000
+EXPOSE 80
 
 # Railsサーバーを起動
 CMD ["rails", "server", "-b", "0.0.0.0"]
