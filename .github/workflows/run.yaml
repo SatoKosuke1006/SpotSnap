@@ -1,7 +1,0 @@
-name: name-main
-on: [push]
-jobs:
-  job-name:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "this is pen"

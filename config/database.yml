@@ -1,16 +1,13 @@
 default: &default
-  # adapter: sqlite3
   adapter: postgresql
   encoding: unicode
   host: localhost
   username: postgres
   password: Sato342705
   pool: 5
-  # timeout: 5000
 
 development:
   <<: *default
-  # database: db/development.sqlite3
   database: development_db
 
 test:
