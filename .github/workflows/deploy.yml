@@ -32,7 +32,7 @@ jobs:
 
     - name: Build, tag, and push image to Amazon ECR
       run: |
-        docker buildx build --platform linux/arm64 -t spotsnap --push .
+        docker build  -t spotsnap .
         docker tag spotsnap:latest 637423309523.dkr.ecr.us-east-1.amazonaws.com/spotsnap:latest
         docker push 637423309523.dkr.ecr.us-east-1.amazonaws.com/spotsnap:latest
 
@@ -44,5 +44,5 @@ jobs:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         
-
+        # docker buildx build --platform linux/arm64 -t spotsnap --push .
 
