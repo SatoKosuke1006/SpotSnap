@@ -9,6 +9,7 @@ COPY Gemfile Gemfile.lock ./
 
 # Gemをインストール
 RUN bundle install && chmod +x /usr/local/bundle/bin/rails
+ENV RAILS_ENV production
 
 # ソースコードをコピー
 COPY . .
