@@ -16,8 +16,11 @@ test:
 
 production:
   <<: *default
+  adapter: postgresql
+  encoding: unicode
   database: production_db
   host: db
   username: postgres
   password: Sato342705
+  pool: 5
   
