@@ -6,7 +6,6 @@ class SessionsController < ApplicationController
   end
 
   def create # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
-    Rails.logger.debug "Session params: #{params[:session].inspect}"
     user = User.find_by(email: params[:session][:email].downcase)
     if user&.authenticate(params[:session][:password])
       if user.activated?
@@ -32,3 +31,4 @@ class SessionsController < ApplicationController
     redirect_to root_url, status: :see_other
   end
 end
+
