@@ -16,11 +16,8 @@ test:
 
 production:
   <<: *default
-  adapter: postgresql
-  encoding: unicode
-  pool: 5
   database: production_db
-  host: 0.0.0.0
+  host: spotsnap-database.cf4ymowi0716.us-east-1.rds.amazonaws.com
   username: postgres
   password: Sato342705
   
