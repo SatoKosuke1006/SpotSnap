@@ -17,9 +17,9 @@ test:
 production:
   <<: *default
   database: production_db
-  host: localhost
+  host: db
   username: postgres
   password: Sato342705
-  
+
 
   
