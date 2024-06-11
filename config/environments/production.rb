@@ -73,10 +73,11 @@ Rails.application.configure do
   ActionMailer::Base.smtp_settings = {
     :port           => 587,
     :address        => 'smtp.mailgun.org',
-    :user_name      => ENV['MAILGUN_SMTP_LOGIN'],
-    :password       => ENV['MAILGUN_SMTP_PASSWORD'],
+    :user_name      => ENV['SMTP_USERNAME'], # 環境変数から取得
+    :password       => ENV['SMTP_PASSWORD'], # 環境変数から取得
     :domain         => host,
     :authentication => :plain,
+    :enable_starttls_auto => true
   }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
@@ -102,5 +103,3 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 end
-
-
