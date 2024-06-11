@@ -17,7 +17,7 @@ test:
 production:
   <<: *default
   database: production_db
-  host: db
+  host: spotsnap-db.cf4ymowi0716.us-east-1.rds.amazonaws.com
   username: postgres
   password: Sato342705
   port: 5432
