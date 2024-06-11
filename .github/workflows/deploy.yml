@@ -24,15 +24,18 @@ jobs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
 
-    - name: Build and push Docker images
+    - name: Build, tag, and push image to Amazon ECR
       run: |
-        docker-compose build
-        docker-compose push
+        docker build -t spotsnap .
+        docker tag spotsnap:latest 637423309523.dkr.ecr.us-east-1.amazonaws.com/spotsnap:latest
+        docker push 637423309523.dkr.ecr.us-east-1.amazonaws.com/spotsnap:latest
 
-    - name: Deploy to ECS using Docker Compose
+    - name: Deploy to ECS using AWS CLI
       run: |
-        docker-compose -f docker-compose.yml up -d
+        aws ecs update-service --cluster spotsnap-cluster --service spotsnap-service --force-new-deployment
       env:
         AWS_REGION: ${{ secrets.AWS_REGION }}
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        
+
