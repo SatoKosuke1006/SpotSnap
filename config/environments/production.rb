@@ -73,8 +73,8 @@ Rails.application.configure do
   ActionMailer::Base.smtp_settings = {
     :port           => 587,
     :address        => 'smtp.mailgun.org',
-    :user_name      => ENV['SMTP_USERNAME'], # 環境変数から取得
-    :password       => ENV['SMTP_PASSWORD'], # 環境変数から取得
+    :user_name      => ENV['SMTP_USERNAME'], 
+    :password       => ENV['SMTP_PASSWORD'], 
     :domain         => host,
     :authentication => :plain,
     :enable_starttls_auto => true
