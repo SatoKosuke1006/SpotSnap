@@ -94,7 +94,5 @@ Rails.application.configure do
   # Added to enable asset debugging
   config.assets.debug = true
   config.assets.compile = true
-  config.assets.quiet = true
-  config.assets.digest = false
   
 end

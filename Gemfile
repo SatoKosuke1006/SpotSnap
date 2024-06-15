@@ -23,7 +23,7 @@ gem "sqlite3",                    "1.6.1"
 gem "pg",                         "1.3.5"
 gem 'mini_magick'
 gem 'jquery-rails'
-gem 'dotenv-rails', groups: [:development, :test]
+gem 'dotenv-rails'
 gem 'will_paginate-bootstrap'
 
 group :development, :test do
