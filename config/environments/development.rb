@@ -90,4 +90,11 @@ Rails.application.configure do
   config.hosts << pf_host
 
   config.action_cable.allowed_request_origins = ["https://#{pf_host}"]
+
+  # Added to enable asset debugging
+  config.assets.debug = true
+  config.assets.compile = true
+  config.assets.quiet = true
+  config.assets.digest = false
+  
 end

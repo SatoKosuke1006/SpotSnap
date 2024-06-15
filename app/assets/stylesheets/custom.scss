@@ -67,6 +67,27 @@ ul {
   border-radius: 5px;
 }
 
+.pagination-container {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.pagination-container .pagination {
+  text-align: center;
+  margin: 20px 0;
+  a,span {
+    color: grey; /* グレー色 */
+    border: white; /* ボーダー */
+    margin: 0 3px;
+    background-color: white; /* 背景色 */
+  }
+  .active a {
+    background-color: grey; 
+    color: white;
+    border-color: grey;
+  }
+}
+
 /* サイドバー */
 .sidebar {
   position: fixed;
@@ -691,3 +712,4 @@ a:focus {
     width: 90%;
   }
 }
+
