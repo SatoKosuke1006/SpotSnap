@@ -42,4 +42,6 @@
       <% end %>
     </div>
 
-
+    <div class="pagination-container">
+      <%= will_paginate @liked_microposts, previous_label: '前へ', next_label: '次へ', inner_window: 0, outer_window: 0 %>
+    </div>

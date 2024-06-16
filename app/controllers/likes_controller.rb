@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-# ApplicationController
+# LikesController
 class LikesController < ApplicationController
   before_action :logged_in_user
 
   def index
-    @liked_microposts = current_user.liked_microposts.includes(:user).order(created_at: :desc)
+    @liked_microposts = current_user.liked_microposts.paginate(page: params[:page], per_page: 45)
   end
 
   def create
