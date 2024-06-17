@@ -14,8 +14,6 @@
     <%= f.object.errors[:image].any? ? content_tag(:div, f.object.errors[:image].join(", "), class: "error-message") : "" %>
   <% # 位置情報選択 %>
     <%= text_field_tag 'address', nil, id: 'address', class: 'post-map-search-field' %>
-    <%= f.hidden_field :lat, id: 'lat' %>
-    <%= f.hidden_field :lng, id: 'lng' %>
     <%= f.hidden_field :place_id, id: 'place_id' %>
     <%= f.object.errors[:place_id].any? ? content_tag(:div, f.object.errors[:place_id].join(", "), class: "error-message") : "" %>
     <div id="location-details" style="display: none;"></div>

@@ -36,18 +36,6 @@ class MicropostTest < ActiveSupport::TestCase
     assert_not @micropost.valid?
   end
 
-  # 投稿に緯度が存在する
-  test 'lat should be present' do
-    @micropost.lat = nil
-    assert_not @micropost.valid?
-  end
-
-  # 投稿に経度が存在する
-  test 'lng should be present' do
-    @micropost.lng = nil
-    assert_not @micropost.valid?
-  end
-
   # 投稿の長さを制限
   test 'content should be at most 140 characters' do
     @micropost.content = "a" * 141
