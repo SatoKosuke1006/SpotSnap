@@ -26,15 +26,16 @@ function initialize() {
 
 // マップの初期設定
 function initMap() {
-  console.log("A");
   const mapElement = document.getElementById('map');
   if (!navigator.geolocation) return;
 
-  console.log("B");
+  console.log("A");
   navigator.geolocation.getCurrentPosition(async position => {
+    console.log("B");
     const {latitude, longitude} = position.coords;
-    const userSpecifiedLocation = await getUserSpecifiedLocation(mapElement, latitude, longitude);
     console.log("C");
+    const userSpecifiedLocation = await getUserSpecifiedLocation(mapElement, latitude, longitude);
+    console.log("D");
 
     map = new google.maps.Map(mapElement, {
       center: userSpecifiedLocation,
