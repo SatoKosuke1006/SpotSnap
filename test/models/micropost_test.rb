@@ -7,7 +7,7 @@ class MicropostTest < ActiveSupport::TestCase
   # 設定
   def setup
     @user = users(:michael)
-    @micropost = @user.microposts.build(content: 'Lorem ipsum', lat: 123.456, lng: 78.910, place_id: 'ChIJd8BlQ2BPhUcRt6B2K90aOZo')
+    @micropost = @user.microposts.build(content: 'Lorem ipsum', place_id: 'ChIJd8BlQ2BPhUcRt6B2K90aOZo')
   end
 
   # 投稿が有効である
