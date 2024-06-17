@@ -12,7 +12,6 @@ document.addEventListener("turbo:render", initialize);
 
 // マップを初期化する関数
 function initialize() {
-  console.log("A");
   if (typeof google !== 'undefined' && (document.getElementById('map'))) {
     placesService = new google.maps.places.PlacesService(document.createElement('div')); 
     initMap();
@@ -27,13 +26,15 @@ function initialize() {
 
 // マップの初期設定
 function initMap() {
-  console.log("B");
+  console.log("A");
   const mapElement = document.getElementById('map');
   if (!navigator.geolocation) return;
 
+  console.log("B");
   navigator.geolocation.getCurrentPosition(async position => {
     const {latitude, longitude} = position.coords;
     const userSpecifiedLocation = await getUserSpecifiedLocation(mapElement, latitude, longitude);
+    console.log("C");
 
     map = new google.maps.Map(mapElement, {
       center: userSpecifiedLocation,
@@ -47,7 +48,6 @@ function initMap() {
     geocoder = new google.maps.Geocoder();
     infowindow = new google.maps.InfoWindow();
 
-    console.log("C");
     fetch(`/location_posts/count?lat=${userSpecifiedLocation.lat}&lng=${userSpecifiedLocation.lng}`)
       .then(response => response.json())
       .then(data => {
@@ -63,7 +63,6 @@ function initMap() {
 // ユーザー指定の位置情報を取得する関数
 function getUserSpecifiedLocation(mapElement, defaultLat, defaultLng) {
   return new Promise((resolve, reject) => {
-    console.log("D");
     if (mapElement && mapElement.hasAttribute('data-place-id')) {
       const placeId = mapElement.getAttribute('data-place-id');
       const request = {
@@ -87,7 +86,6 @@ function getUserSpecifiedLocation(mapElement, defaultLat, defaultLng) {
 
 // マーカーを設定する数
 function createDraggableMarker(location, postCount) {
-  console.log("E");
   const fillColor = postCount > 0 ? "#FFA500" : "#00FF00"; 
   const strokeColor = postCount > 0 ? "#FFA500" : "#00FF00"; 
 
@@ -135,7 +133,6 @@ function displayLocation(marker) {
 
 // 入力れた住所から位置を検索し、マップを更新する関数
 function codeAddress() {
-  console.log("F");
   const inputAddress = document.getElementById('address').value;
   const request = {
     query: inputAddress,
@@ -189,7 +186,6 @@ function updateInputFields(placeId) {
 
 // オートコンプリート機能を追加する関数
 function enableAutocomplete() {
-    console.log("G");
     const input = document.getElementById('address');
     const autocomplete = new google.maps.places.Autocomplete(input);
 
