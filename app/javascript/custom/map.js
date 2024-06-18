@@ -147,22 +147,19 @@ function codeAddress() {
         fetch(`/location_posts/count?place_id=${result.place_id}`)
           .then(response => response.json())
           .then(data => {
-            console.log("B1");
             const marker = createDraggableMarker(result.geometry.location, data.count);
-            console.log("B2");
+            console.log("B1");
             map.setCenter(result.geometry.location);
-            console.log("B3");
+            console.log("B2");
 
             const individualInfowindow = new google.maps.InfoWindow({
               content: `<a href="/location_posts?place_id=${result.place_id}&name=${encodeURIComponent(result.name)}&formatted_address=${encodeURIComponent(result.formatted_address)}">${result.name}</a>`
             });
-            console.log("B4");
 
             if (index === 0) {
               individualInfowindow.open(map, marker);
               openInfowindow = individualInfowindow;
             }
-            console.log("B5");
 
             marker.addListener('click', () => {
               if (openInfowindow) {
@@ -204,19 +201,14 @@ function enableAutocomplete() {
               fetch(`/location_posts/count?place_id=${place.place_id}`)
                 .then(response => response.json())
                 .then(data => {
-                  console.log("C1");
                   const marker = createDraggableMarker(place.geometry.location, data.count);
-                  console.log("C2");
+                  console.log("C1");
                   map.setCenter(place.geometry.location);
-                  console.log("C3");
+                  console.log("C2");
                   infowindow.setContent(`<a href="/location_posts?place_id=${place.place_id}&name=${encodeURIComponent(place.name)}&formatted_address=${encodeURIComponent(place.formatted_address)}">${place.name}</a>`);
-                  console.log("C4");
                   infowindow.open(map, marker);
-                  console.log("C5");
                   markers.push(marker);
-                  console.log("C6");
                   updateInputFields(place.place_id);
-                  console.log("C7");
                 });
             }
         } else if (document.getElementById('map') && document.getElementById('location-details')) {
