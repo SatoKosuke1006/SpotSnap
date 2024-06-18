@@ -10,4 +10,18 @@
         <% end %>
     </div>
 
-
+    <script>
+      document.addEventListener("turbo:load", function() {
+        const mapElement = document.getElementById('map');
+        if (mapElement) {
+          const tokyo = { lat: 35.682839, lng: 139.759455 };
+          const map = new google.maps.Map(mapElement, {
+            center: tokyo,
+            zoom: 12,
+            mapTypeControl: false,
+            streetViewControl: false,
+            fullscreenControl: false
+          });
+        }
+      });
+    </script>
