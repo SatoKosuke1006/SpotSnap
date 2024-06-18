@@ -29,9 +29,9 @@ function initMap() {
   const mapElement = document.getElementById('map');
   if (!navigator.geolocation) return;
 
-  console.log("A");
+  console.log("A1");
   navigator.geolocation.getCurrentPosition(async position => {
-    console.log("B");
+    console.log("A2");
     const {latitude, longitude} = position.coords;
     const userSpecifiedLocation = await getUserSpecifiedLocation(mapElement, latitude, longitude);
 
@@ -133,7 +133,6 @@ function displayLocation(marker) {
 // 入力れた住所から位置を検索し、マップを更新する関数
 function codeAddress() {
   const inputAddress = document.getElementById('address').value;
-  console.log("C1");
   const request = {
     query: inputAddress,
     fields: ['name', 'formatted_address', 'geometry']
@@ -141,28 +140,29 @@ function codeAddress() {
 
   placesService.textSearch(request, function(results, status) {
     if (status === google.maps.places.PlacesServiceStatus.OK) {
-      console.log("C2");
       markers.forEach(marker => marker.setMap(null));
       markers = [];
       results.forEach((result, index) => {
-        console.log("C3");
         // 投稿数を取得するAPIを呼び出し
         fetch(`/location_posts/count?place_id=${result.place_id}`)
           .then(response => response.json())
           .then(data => {
-            console.log("C4");
+            console.log("B1");
             const marker = createDraggableMarker(result.geometry.location, data.count);
+            console.log("B2");
             map.setCenter(result.geometry.location);
+            console.log("B3");
 
             const individualInfowindow = new google.maps.InfoWindow({
               content: `<a href="/location_posts?place_id=${result.place_id}&name=${encodeURIComponent(result.name)}&formatted_address=${encodeURIComponent(result.formatted_address)}">${result.name}</a>`
             });
+            console.log("B4");
 
             if (index === 0) {
               individualInfowindow.open(map, marker);
               openInfowindow = individualInfowindow;
             }
-            console.log("C5");
+            console.log("B5");
 
             marker.addListener('click', () => {
               if (openInfowindow) {
@@ -171,7 +171,6 @@ function codeAddress() {
               individualInfowindow.open(map, marker);
               openInfowindow = individualInfowindow;
             });
-            console.log("C6");
 
             markers.push(marker);
           });
@@ -192,32 +191,32 @@ function updateInputFields(placeId) {
 // オートコンプリート機能を追加する関数
 function enableAutocomplete() {
     const input = document.getElementById('address');
-    console.log("D1");
     const autocomplete = new google.maps.places.Autocomplete(input);
-    console.log("D2");
 
     autocomplete.addListener('place_changed', function() {
         const place = autocomplete.getPlace();
-        console.log("D3");
         // ペーによって処理を分岐
         if (document.getElementById('map') && !document.getElementById('location-details')) {
-          console.log("D4");
             // index.html.erb の場合
             if (place && place.geometry && place.geometry.location) {
-              console.log("D5");
               markers.forEach(marker => marker.setMap(null));
               markers = [];
               fetch(`/location_posts/count?place_id=${place.place_id}`)
                 .then(response => response.json())
                 .then(data => {
-                  console.log("D6");
+                  console.log("C1");
                   const marker = createDraggableMarker(place.geometry.location, data.count);
+                  console.log("C2");
                   map.setCenter(place.geometry.location);
+                  console.log("C3");
                   infowindow.setContent(`<a href="/location_posts?place_id=${place.place_id}&name=${encodeURIComponent(place.name)}&formatted_address=${encodeURIComponent(place.formatted_address)}">${place.name}</a>`);
+                  console.log("C4");
                   infowindow.open(map, marker);
+                  console.log("C5");
                   markers.push(marker);
+                  console.log("C6");
                   updateInputFields(place.place_id);
-                  console.log("D7");
+                  console.log("C7");
                 });
             }
         } else if (document.getElementById('map') && document.getElementById('location-details')) {
