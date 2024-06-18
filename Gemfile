@@ -26,6 +26,7 @@ gem 'jquery-rails'
 gem 'dotenv-rails'
 gem 'will_paginate-bootstrap'
 gem 'rails-controller-testing', '1.0.5'
+gem 'aws-sdk-s3', '~> 1.48'
 
 group :development, :test do
   gem "debug",   "1.7.1", platforms: %i[ mri mingw x64_mingw ]
