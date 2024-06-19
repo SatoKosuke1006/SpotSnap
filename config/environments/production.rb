@@ -65,18 +65,18 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
 
   # Ignore bad email addresses and do not raise email delivery errors.
-  # Set this to true and configure the email server for immediate delivery to raise delivery errors.
+  # Set this to true and configure the AWS SESを使用して本番環境でメール送信を行う方法email server for immediate delivery to raise delivery errors.
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
-  host = 'https://spotsnap.onrender.com'
+  host = 'https://spotsnap.net'
   config.action_mailer.default_url_options = { host: host }
   ActionMailer::Base.smtp_settings = {
+    :address        => 'email-smtp.us-east-1.amazonaws.com',
     :port           => 587,
-    :address        => 'smtp.mailgun.org',
-    :user_name      => ENV['MAILGUN_SMTP_LOGIN'],
-    :password       => ENV['MAILGUN_SMTP_PASSWORD'],
-    :domain         => host,
-    :authentication => :plain,
+    :user_name      => 'AKIAZI2LD2LJ7WX5UR7A',
+    :password       => 'BN2ScI0jGhcaw6Rsb2tqwOrJ/tIE/HCU+hgr44BVaZkS',
+    :authentication => :login,
+    :enable_starttls_auto => true
   }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
@@ -102,5 +102,3 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 end
-
-
