@@ -70,6 +70,7 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   host = 'https://spotsnap.net'
   config.action_mailer.default_url_options = { host: host }
+  config.action_mailer.default_options = { from: 'sato1006kousuke@yahoo.co.jp' }
   ActionMailer::Base.smtp_settings = {
     :address        => 'email-smtp.us-east-1.amazonaws.com',
     :port           => 587,
