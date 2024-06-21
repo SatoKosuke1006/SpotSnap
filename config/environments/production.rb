@@ -68,7 +68,7 @@ Rails.application.configure do
   # Set this to true and configure the AWS SESを使用して本番環境でメール送信を行う方法email server for immediate delivery to raise delivery errors.
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
-  host = 'https://spotsnap.net'
+  host = 'http://spotsnap.net'
   config.action_mailer.default_url_options = { host: host }
   config.action_mailer.default_options = { from: 'sato1006kousuke@yahoo.co.jp' }
   ActionMailer::Base.smtp_settings = {
