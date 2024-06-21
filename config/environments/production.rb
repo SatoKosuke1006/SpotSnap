@@ -74,8 +74,8 @@ Rails.application.configure do
   ActionMailer::Base.smtp_settings = {
     :address        => 'email-smtp.us-east-1.amazonaws.com',
     :port           => 587,
-    :user_name      => 'AKIAZI2LD2LJ7WX5UR7A',
-    :password       => 'BN2ScI0jGhcaw6Rsb2tqwOrJ/tIE/HCU+hgr44BVaZkS',
+    :user_name      => ENV['SMTP_USERNAME'],
+    :password       => ENV['SMTP_PASSWORD'],
     :authentication => :login,
     :enable_starttls_auto => true
   }
