@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'support@spotsnap.net'
+  default from: 'sato1006kousuke@yahoo.co.jp'
   layout 'mailer'
 end
