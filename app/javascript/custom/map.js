@@ -141,9 +141,7 @@ function codeAddress() {
           .then(response => response.json())
           .then(data => {
             const marker = createDraggableMarker(result.geometry.location, data.count);
-            console.log("B1");
             map.setCenter(result.geometry.location);
-            console.log("B2");
 
             const individualInfowindow = new google.maps.InfoWindow({
               content: `<a href="/location_posts?place_id=${result.place_id}&name=${encodeURIComponent(result.name)}&formatted_address=${encodeURIComponent(result.formatted_address)}">${result.name}</a>`
@@ -195,9 +193,7 @@ function enableAutocomplete() {
                 .then(response => response.json())
                 .then(data => {
                   const marker = createDraggableMarker(place.geometry.location, data.count);
-                  console.log("C1");
                   map.setCenter(place.geometry.location);
-                  console.log("C2");
                   infowindow.setContent(`<a href="/location_posts?place_id=${place.place_id}&name=${encodeURIComponent(place.name)}&formatted_address=${encodeURIComponent(place.formatted_address)}">${place.name}</a>`);
                   infowindow.open(map, marker);
                   markers.push(marker);
