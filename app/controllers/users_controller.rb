@@ -8,7 +8,7 @@ class UsersController < ApplicationController
 
   def index
     @users = if params[:search].present?
-               User.where('name LIKE ?', "%#{params[:search]}%")
+               User.where('name LIKE ?', "%#{params[:search]}%").paginate(page: params[:page], per_page: 10)
              else
               User.paginate(page: params[:page], per_page: 10)
              end

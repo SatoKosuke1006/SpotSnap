@@ -39,7 +39,7 @@ function initMap() {
 
   placesService = new google.maps.places.PlacesService(map);
   geocoder = new google.maps.Geocoder();
-  infowindow = new google.maps.InfoWindow();
+  infowindow = new google.maps.InfoWindow;
 
   fetch(`/location_posts/count?lat=${tokyo.lat}&lng=${tokyo.lng}`)
     .then(response => response.json())
@@ -109,14 +109,21 @@ function displayLocation(marker) {
     };
     placesService.getDetails(request, function(place, status) {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
+        markers.forEach(marker => marker.setMap(null));
+        markers = [];
         // 投稿を得すAPIを呼び出し
         fetch(`/location_posts/count?place_id=${place.place_id}`)
           .then(response => response.json())
           .then(data => {
             const marker = createDraggableMarker(place.geometry.location, data.count);
             map.setCenter(place.geometry.location);
-            infowindow.setContent(`<a href="/location_posts?place_id=${place.place_id}&name=${encodeURIComponent(place.name)}&formatted_address=${encodeURIComponent(place.formatted_address)}">${place.name}</a>`);
+            if (data.count > 0) {
+              infowindow.setContent(`<a href="/location_posts?place_id=${place.place_id}&name=${encodeURIComponent(place.name)}&formatted_address=${encodeURIComponent(place.formatted_address)}">${place.name}</a>`);
+            } else {
+              infowindow.setContent(`${place.name}`);
+            }
             infowindow.open(map, marker);
+            markers.push(marker);
         });
       }
     });
@@ -136,7 +143,6 @@ function codeAddress() {
       markers.forEach(marker => marker.setMap(null));
       markers = [];
       results.forEach((result, index) => {
-        // 投稿数を取得するAPIを呼び出し
         fetch(`/location_posts/count?place_id=${result.place_id}`)
           .then(response => response.json())
           .then(data => {
@@ -144,7 +150,7 @@ function codeAddress() {
             map.setCenter(result.geometry.location);
 
             const individualInfowindow = new google.maps.InfoWindow({
-              content: `<a href="/location_posts?place_id=${result.place_id}&name=${encodeURIComponent(result.name)}&formatted_address=${encodeURIComponent(result.formatted_address)}">${result.name}</a>`
+              content: data.count > 0 ? `<a href="/location_posts?place_id=${result.place_id}&name=${encodeURIComponent(result.name)}&formatted_address=${encodeURIComponent(result.formatted_address)}">${result.name}</a>` : `${result.name}`
             });
 
             if (index === 0) {
@@ -164,7 +170,7 @@ function codeAddress() {
           });
       });
     } else {
-      alert('該当する結果がありませんでした：' + status);
+      alert('該当する結果がありませんでした');
     }
   });
 }
@@ -183,9 +189,7 @@ function enableAutocomplete() {
 
     autocomplete.addListener('place_changed', function() {
         const place = autocomplete.getPlace();
-        // ペーによって処理を分岐
         if (document.getElementById('map') && !document.getElementById('location-details')) {
-            // index.html.erb の場合
             if (place && place.geometry && place.geometry.location) {
               markers.forEach(marker => marker.setMap(null));
               markers = [];
@@ -194,7 +198,11 @@ function enableAutocomplete() {
                 .then(data => {
                   const marker = createDraggableMarker(place.geometry.location, data.count);
                   map.setCenter(place.geometry.location);
-                  infowindow.setContent(`<a href="/location_posts?place_id=${place.place_id}&name=${encodeURIComponent(place.name)}&formatted_address=${encodeURIComponent(place.formatted_address)}">${place.name}</a>`);
+                  if (data.count > 0) {
+                    infowindow.setContent(`<a href="/location_posts?place_id=${place.place_id}&name=${encodeURIComponent(place.name)}&formatted_address=${encodeURIComponent(place.formatted_address)}">${place.name}</a>`);
+                  } else {
+                    infowindow.setContent(`${place.name}`);
+                  }
                   infowindow.open(map, marker);
                   markers.push(marker);
                   updateInputFields(place.place_id);
@@ -230,3 +238,6 @@ document.addEventListener("turbo:load", function () {
     });
   }
 });
+
+
+
