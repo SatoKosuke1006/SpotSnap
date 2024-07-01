@@ -17,12 +17,18 @@
       <%= f.check_box :remember_me %>
       <span>ログイン状態を保存する</span>
     <% end %>
+
+    <div style="margin-bottom: 10px;"></div>
+
     <%= f.submit "ログイン", class: "grey-btn" %>
   <% end %>
 
   <hr class="gray-hr">
 
-  <div style="font-size: 12px;">アカウントをお持ちでない方はこちら</div>
+  <div style="font-size: 10px;">アカウントをお持ちでない方はこちら</div>
+
+  <div style="margin-bottom: 5px;"></div>
+
   <div><%= link_to "登録", signup_path, class: "white-btn" %></div>
 </div>
 
