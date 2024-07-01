@@ -19,7 +19,7 @@ ul {
 
 .logo {
   text-transform: uppercase;
-  font-size: 2.5em;
+  font-size: 2.3em;
   font-weight: 700;
   color: black;
 }
@@ -69,17 +69,17 @@ ul {
 
 .pagination-container {
   text-align: center;
-  margin: 20px 0;
 }
 
 .pagination-container .pagination {
   text-align: center;
-  margin: 20px 0;
+  margin: 5px 0;
   a,span {
-    color: grey; /* グレー色 */
-    border: white; /* ボーダー */
-    margin: 0 3px;
-    background-color: white; /* 背景色 */
+    font-size: 12px;
+    color: grey; 
+    border: white; 
+    margin: 0 0px;
+    background-color: white;
   }
   .active a {
     background-color: grey; 
@@ -157,7 +157,7 @@ ul {
   background-color: white;
   width: 400px;
   padding: 40px;
-  margin: 200px auto;
+  margin: 150px auto;
   text-align: center;
   position: relative;
   right: 100px;
@@ -195,20 +195,25 @@ ul {
   margin-top: 10px;
 }
 
+#session_remember_me {
+  position: relative;
+  width: 20px;
+}
+
 @media (max-width: 600px) {
   .login-container {
-    width: 90%;
+    width: 280px;
     input{
-      width: 70%;
+      width: 90%;
     }
   }
 
   .white-btn {
-    width: 70%;
+    width: 90%;
   }
 
   .gray-hr {
-    width: 70%;
+    width: 90%;
   }
 }
 
@@ -400,7 +405,7 @@ ul {
   margin: 0 auto; 
   position: relative;
   margin-top: 10px;
-  width: 70%;
+  width: 100%;
   height: calc(100vh - 20px);
   top: 10px;
   bottom: 10px;
@@ -469,6 +474,7 @@ a:focus {
 /* プロフィール */
 
 .profile-name {
+  margin-top: 20px;
   margin-left: 10%;
   font-size: 2.5em;
   font-weight: 700;
@@ -548,7 +554,7 @@ a:focus {
   margin-top: 20px;
   margin-left: 15%;
   margin-bottom: 20px;
-  font-size: 2.0em;
+  font-size: 1.5em;
   font-weight: 700;
   color: rgb(255, 255, 255);
 }
