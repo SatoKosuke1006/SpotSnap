@@ -28,7 +28,9 @@ class UserMailerTest < ActionMailer::TestCase
     assert_equal 'パスワードの変更', mail.subject
     assert_equal [user.email], mail.to
     assert_equal ['support@spotsnap-app.com'], mail.from
-    assert_match user.reset_token,        mail.body.encoded
-    assert_match CGI.escape(user.email),  mail.body.encoded
+
+    decoded_body = Base64.decode64(mail.body.encoded.split("\r\n\r\n")[1])
+    assert_match user.reset_token, decoded_body
+    assert_match CGI.escape(user.email), decoded_body
   end
 end
