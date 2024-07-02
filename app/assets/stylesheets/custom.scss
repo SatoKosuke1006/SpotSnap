@@ -13,6 +13,10 @@ html {
   height: 100%;
 }
 
+a {
+  text-decoration: none !important;
+}
+
 ul {
   list-style: none;
 }
@@ -157,7 +161,7 @@ ul {
   background-color: white;
   width: 400px;
   padding: 30px;
-  margin: 150px auto;
+  margin: 250px auto;
   text-align: center;
   position: relative;
   right: 100px;
@@ -498,6 +502,9 @@ a:focus {
   font-weight: 700;
   color: white;
   border-radius: 5px;
+  &:hover {
+    color: rgba(0, 0, 0, 0.516);
+  }
 }
 
 .show-profile-link-container {
@@ -522,6 +529,9 @@ a:focus {
   border-radius: 5px;
   width: 40%; 
   height: 50px;
+  &:hover {
+    color: grey;
+  }
 }
 
 .stats {
