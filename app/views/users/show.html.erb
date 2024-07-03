@@ -48,18 +48,24 @@
 
 <% if @user == current_user %>
   <div class="show-profile-link-container">
-    <%= link_to "投稿一覧", current_user, class: "show-profile-link" %>
-    <%= link_to "いいね欄", likes_path, class: "show-profile-link" %>
+    <%= link_to "投稿一覧", current_user, class: "show-profile-link-active" %>
+    <%= link_to "いいね欄", likes_path, class: "show-profile-link-inactive" %>
   </div>
 <% end %>
 
-<% # 投稿一覧 %>
-<div class="profile-microposts-container">
-  <% @microposts.each do |micropost| %>
-    <%= link_to (image_tag micropost.image if micropost.image.attached?), micropost_path(micropost), data: {"turbo" => false} %>
-  <% end %>
-</div>
+<% if @microposts.empty? && @user == current_user %>
+  <div style="margin-bottom: 30px;"></div>
+  <p class="no-posts-message">あなたのお気に入りの場所をシェアして、プロフィールを充実させましょう！</p>
+  <%= link_to '投稿してみる', new_micropost_path, class: 'share-photo-button' %>
+<% else %>
+  <div class="profile-microposts-container">
+    <% @microposts.each do |micropost| %>
+      <%= link_to (image_tag micropost.image if micropost.image.attached?), micropost_path(micropost), data: {"turbo" => false} %>
+    <% end %>
+  </div>
+<% end %>
 
 <div class="pagination-container">
   <%= will_paginate @microposts, previous_label: '前へ', next_label: '次へ', inner_window: 0, outer_window: 0 %>
 </div>
+

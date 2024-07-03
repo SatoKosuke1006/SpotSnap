@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get    '/login',          to: 'sessions#new'
   post   '/login',          to: 'sessions#create'
   delete '/logout',         to: 'sessions#destroy'
+  get     'how_to_use',     to: 'static_pages#how_to_use'
   get    '/new_post',       to: 'microposts#new'
   get    '/microposts',     to: 'static_pages#home'
   get    '/location_posts', to: 'location_posts#index'

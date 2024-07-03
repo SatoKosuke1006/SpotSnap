@@ -105,6 +105,13 @@ class User < ApplicationRecord
     following.include?(other_user)
   end
 
+  # フォローしているユーザーの投稿を返す
+  def following_feed
+    following_ids = 'SELECT followed_id FROM relationships WHERE follower_id = :user_id'
+    Micropost.where("user_id IN (#{following_ids}) OR user_id = :user_id", user_id: id)
+             .includes(:user, image_attachment: :blob)
+  end
+
   private
 
   # メールアドレスをすべて小文字にする
