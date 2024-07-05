@@ -641,6 +641,38 @@ a:focus {
   object-position: center; 
 }
 
+.no-posts-message{
+  text-align: center;
+  color: white;
+  font-size: 1.0em;
+  font-weight: 700;
+}
+
+.share-photo-button {
+  display: block;
+  margin: 20px auto;
+  width: 300px; 
+  padding: 10px 20px;
+  font-size: 1.2em;
+  font-weight: 700;
+  color: white;
+  background-color: rgba(128, 128, 128, 0.472);
+  border: 1px solid grey;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.share-photo-button:hover {
+  color: grey;
+}
+
+
+@media (max-width: 600px) {
+  .share-photo-button {
+    width: 70%; 
+  }
+}
+
 /* プロフフィール編集 */
 .edit-user-title {
   margin-top: 20px;
@@ -819,35 +851,25 @@ a:focus {
 
 
 /* 仮 */
-
-.no-posts-message{
-  text-align: center;
-  color: white;
-  font-size: 1.0em;
-  font-weight: 700;
-}
-
-.share-photo-button {
+.how-to-use-container{
   display: block;
   margin: 20px auto;
-  width: 300px; 
-  padding: 10px 20px;
-  font-size: 1.2em;
-  font-weight: 700;
-  color: white;
-  background-color: rgba(128, 128, 128, 0.472);
-  border: 1px solid grey;
-  border-radius: 5px;
-  text-align: center;
+  width: 500px;
+  img {
+    width: 500px;
+    border: 1px solid grey;
+    display: block;
+  }
 }
-
-.share-photo-button:hover {
-  color: grey;
-}
-
 
 @media (max-width: 600px) {
-  .share-photo-button {
-    width: 70%; 
+  .how-to-use-container {
+    width: 100%;
+    img {
+      width: 100%;
+    }
+  }
+  .how-to-use-h2-text{
+    font-size: 160%;
   }
 }
