@@ -46,11 +46,11 @@ SpotSnapの主なユーザー層は、以下のような人々です。
 
 ## 設計書
 ### ER図
-<img width="700" alt="image" src="path/to/er.png">
+<img width="700" alt="image" src="app/assets/images/er.png">
 <br>
 
 ### 画面遷移図
-<img width="700" alt="image" src="path/to/screen_flow.png">
+<img width="700" alt="image" src="app/assets/images/screen_flow.png">
 <br>
 
 https://www.figma.com/design/24geQAQ7M3fw5KxlOB68aD/Untitled?node-id=0-1&t=WnkvDUZmMRHQPR8M-1
