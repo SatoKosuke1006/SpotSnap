@@ -14,8 +14,18 @@
             <%= link_to "削除する", @micropost, data: { "turbo-method": :delete, "turbo-confirm": "削除してもよろしいですか？" } %>
           <% end %>
         </div>
-        <div class="post-content">
-          <%= @micropost.content %>
+        <div class="post-place-name-content">
+          <div class="toggle-content-btn" style="color: white; font-size: 18px;">
+            <%= @micropost.place_name(@micropost.place_id) %>
+            <% if @micropost.content.present? %>
+              <span class="toggle-arrow">▼</span>
+            <% end %>
+          </div>
+          <% if @micropost.content.present? %>
+            <div class="post-content" style="display: none;">
+              <%= @micropost.content %>
+            </div>
+          <% end %>
         </div>
         <div class="post-like">
           <turbo-frame id="like_buttons_<%= @micropost.id %>">
