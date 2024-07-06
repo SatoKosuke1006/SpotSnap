@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+require 'httparty'
 
 # Micropost
 class Micropost < ApplicationRecord
@@ -24,5 +24,15 @@ class Micropost < ApplicationRecord
   # いいねの数を返す
   def likes_count
     likes.count
+  end
+
+  # place_idから場所の名前を取得する
+  def place_name(place_id)
+    response = HTTParty.get("https://maps.googleapis.com/maps/api/place/details/json?placeid=#{place_id}&key=#{ENV['GOOGLE_MAPS_API_KEY']}&language=ja")
+    if response.success?
+      response.dig('result', 'name')
+    else
+      '不明な場所'
+    end
   end
 end

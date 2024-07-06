@@ -306,7 +306,7 @@ ul {
 .post-delete{
   position: absolute;
   left: 10px;
-  top: 45px;
+  top: 40px;
   font-size: 15px;
   font-weight: 700;
   z-index: 1;
@@ -323,7 +323,7 @@ ul {
   z-index: 1;
 }
 
-.post-content {
+.post-place-name-content {
   position: absolute;
   left: 10px;
   bottom: 10px;
@@ -331,6 +331,10 @@ ul {
   font-weight: 700;
   z-index: 1;
   color: rgba(255, 255, 255, 0.769);
+}
+
+.toggle-arrow {
+  font-size: 15px; /* 必要に応じてサイズを調整 */
 }
 
 .like-container button {
@@ -849,8 +853,7 @@ a:focus {
 }
 
 
-
-/* 仮 */
+/* 使い方 */
 .how-to-use-container{
   display: block;
   margin: 20px auto;

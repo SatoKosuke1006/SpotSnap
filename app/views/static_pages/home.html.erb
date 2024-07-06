@@ -1,7 +1,7 @@
 <% # ホーム画面 %>
 <div class="show-profile-link-container">
-  <%= link_to '全投稿', home_path, class: (params[:filter] == 'following' ? "home-post-inactive" : "home-post-active") %>
-  <%= link_to 'フォロー中', home_path(filter: 'following'), class: (params[:filter] == 'following' ? "home-post-active" : "home-post-inactive") %>
+  <%= link_to '全投稿', home_path, class: (params[:filter] == 'following' ? "home-post-inactive" : "home-post-active"), data: {"turbo" => false} %>
+  <%= link_to 'フォロー中', home_path(filter: 'following'), class: (params[:filter] == 'following' ? "home-post-active" : "home-post-inactive"), data: {"turbo" => false} %>
 </div>
 
 <ul class="microposts">
@@ -20,8 +20,18 @@
               <%= link_to "削除する", micropost, data: { "turbo-method": :delete, "turbo-confirm": "削除してもよろしいですか？" } %>
             <% end %>
           </div>
-          <div class="post-content">
-            <%= micropost.content %>
+          <div class="post-place-name-content">
+            <div class="toggle-content-btn" style="color: white; font-size: 18px;">
+              <%= micropost.place_name(micropost.place_id) %>
+              <% if micropost.content.present? %>
+                <span class="toggle-arrow">▼</span>
+              <% end %>
+            </div>
+            <% if micropost.content.present? %>
+              <div class="post-content" style="display: none;">
+                <%= micropost.content %>
+              </div>
+            <% end %>
           </div>
           <div class="post-like">
             <turbo-frame id="like_buttons_<%= micropost.id %>">
@@ -36,3 +46,5 @@
 <div class="pagination-container">
   <%= will_paginate @feed_items, previous_label: '前へ', next_label: '次へ', inner_window: 0, outer_window: 0 %>
 </div>
+
+

@@ -28,6 +28,7 @@ gem 'will_paginate-bootstrap'
 gem 'rails-controller-testing', '1.0.5'
 gem 'aws-sdk-s3', '1.48'
 gem "webrick", "1.8"
+gem 'httparty'
 
 group :development, :test do
   gem "debug",   "1.7.1", platforms: %i[ mri mingw x64_mingw ]

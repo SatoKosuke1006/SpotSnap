@@ -19,7 +19,7 @@
       <% unless content_for?(:hide_header) %>
         <aside class="sidebar">
           <ul>
-            <li class="max-1000-home"><%= link_to home_path do %>
+            <li class="max-1000-home"><%= link_to home_path, data: {"turbo" => false} do %>
               <%= image_tag("home.png", size: 30) %> 
             <% end %></li>
             <li class="min-1000-home"><%= link_to "spot snap", home_path %></li>
