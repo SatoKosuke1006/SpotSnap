@@ -1,11 +1,13 @@
 <% # フォロー/フォロワー一覧画面 %>
 
 <% # アカウント名 %>
-<section class="profile-name">
+<section class="follow-account">
   <%= @user.name %>
 </section>
 
-<div class="stats">
+<div style="margin-bottom: 10px;"></div>
+
+<div class="follow-status">
   <% # フォロー数 %>
   <a href="<%= following_user_path(@user) %>">
     <span id="following">

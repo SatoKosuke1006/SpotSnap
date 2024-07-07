@@ -29,5 +29,7 @@
     <%= f.object.errors[:content].any? ? content_tag(:div, f.object.errors[:content].join(", "), class: "error-message") : "" %>
   </div>
 
+  <div style="margin-bottom: 50px;"></div>
+
     <%= f.submit "投稿", class: "post-btn" %>
 <% end %>

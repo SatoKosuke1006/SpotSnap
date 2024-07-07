@@ -421,6 +421,27 @@ ul {
   object-fit: cover; 
 }
 
+.aspect-ratio-select {
+  text-align: center;
+  margin: 20px auto;
+  width: 70%;
+}
+
+.aspect-ratio-label {
+  font-size: 1.2em;
+  font-weight: 700;
+  color: white;
+  margin: 10px;
+}
+
+.aspect-ratio-select-box {
+  width: 200px;
+  padding: 10px;
+  font-size: 1.2em;
+  border-radius: 5px;
+  text-align: center;
+}
+
 .post-text textarea {
   display: block;
   margin: 10px auto;
@@ -732,10 +753,41 @@ a:focus {
 
 /* フォロー・フォロワー一覧 */
 .follow-title{
-  margin-left: 10%;
+  text-align: center;
+  margin-right: 300px;
   font-size: 2.0em;
   font-weight: 700;
   color: white;
+}
+
+.follow-account {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 2.5em;
+  font-weight: 700;
+  color: white;
+}
+
+.follow-status {
+  text-align: center;
+  gap: 20px;
+  font-size: 1.3em;
+  font-weight: 700;
+  color: white;
+  a{
+    margin-right: 20px;
+    text-align: center;
+    color: white;
+  }
+  a:last-child {
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .follow-title{
+    margin-right: 40%;
+  }
 }
 
 .follow-btn{
@@ -886,24 +938,4 @@ a:focus {
 
 
 
-//仮
-.aspect-ratio-select {
-  text-align: center;
-  margin: 20px auto;
-  width: 70%;
-}
 
-.aspect-ratio-label {
-  font-size: 1.2em;
-  font-weight: 700;
-  color: white;
-  margin: 10px;
-}
-
-.aspect-ratio-select-box {
-  width: 200px;
-  padding: 10px;
-  font-size: 1.2em;
-  border-radius: 5px;
-  text-align: center;
-}
