@@ -16,7 +16,7 @@
         </div>
         <div class="post-place-name-content">
           <div class="toggle-content-btn" style="color: white; font-size: 18px;">
-            <%= @micropost.place_name(@micropost.place_id) %>
+            <span class="place-name"><%= @micropost.place_name(@micropost.place_id) %></span>
             <% if @micropost.content.present? %>
               <span class="toggle-arrow">▼</span>
             <% end %>

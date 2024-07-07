@@ -13,11 +13,14 @@ function toggleContent(event) {
   const button = event.currentTarget;
   const content = button.nextElementSibling;
   const arrow = button.querySelector('.toggle-arrow');
+  const placeName = button.querySelector('.place-name');
   if (content.style.display === 'none') {
     content.style.display = 'block';
     arrow.textContent = '▲';
+    placeName.style.display = 'none';
   } else {
     content.style.display = 'none';
     arrow.textContent = '▼';
+    placeName.style.display = 'inline';
   }
 }
