@@ -94,7 +94,7 @@ class UserTest < ActiveSupport::TestCase
   test 'associated microposts should be destroyed' do
     @user.save
     file = fixture_file_upload('us.jpeg', 'image/jpeg')
-    @user.microposts.create!(content: 'Lorem ipsum', image: file, place_id: 'ChIJd8BlQ2BPhUcRt6B2K90aOZo')
+    @user.microposts.create!(content: 'Lorem ipsum', image: file, place_id: 'ChIJd8BlQ2BPhUcRt6B2K90aOZo', aspect_ratio: '9/16')
     assert_difference 'Micropost.count', -1 do
       @user.destroy
     end

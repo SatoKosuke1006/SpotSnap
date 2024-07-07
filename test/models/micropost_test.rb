@@ -7,7 +7,7 @@ class MicropostTest < ActiveSupport::TestCase
   # 設定
   def setup
     @user = users(:michael)
-    @micropost = @user.microposts.build(content: 'Lorem ipsum', place_id: 'ChIJd8BlQ2BPhUcRt6B2K90aOZo')
+    @micropost = @user.microposts.build(content: 'Lorem ipsum', place_id: 'ChIJd8BlQ2BPhUcRt6B2K90aOZo', aspect_ratio: '9/16')
   end
 
   # 投稿が有効である
