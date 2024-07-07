@@ -12,8 +12,9 @@ class Micropost < ApplicationRecord
   validates :image,   presence: true,
                       content_type: { in: %w[image/jpeg image/gif image/png], message: 'ファイル形式が不正です' },
                       size: { less_than: 5.megabytes, message: '5MB以下のファイルサイズにしてください' }
-  validates :content, length: { maximum: 140 }, allow_blank: true
+  validates :content, length: { maximum: 120 }, allow_blank: true
   validates :place_id, presence: true
+  validates :aspect_ratio, presence: true
 
   # ログイン中のユーザーがその投稿に対していいねをしているか判断する
   def liked?(user)

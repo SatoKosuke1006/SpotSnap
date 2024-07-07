@@ -12,6 +12,11 @@
     <img id="preview-image" src="#" style="display: none" />
     </div>
     <%= f.object.errors[:image].any? ? content_tag(:div, f.object.errors[:image].join(", "), class: "error-message") : "" %>
+  <% # 画像比率選択 %>
+    <div class="aspect-ratio-select">
+      <%= f.label :aspect_ratio, "画像の比率を選択", class: "aspect-ratio-label" %>
+      <%= f.select :aspect_ratio, options_for_select([['9:16', '9/16'], ['4:3', '4/3'], ['1:1', '1/1']], '9/16'), {}, { class: "aspect-ratio-select-box" } %>
+    </div>
   <% # 位置情報選択 %>
     <%= text_field_tag 'address', nil, id: 'address', class: 'post-map-search-field' %>
     <%= f.hidden_field :place_id, id: 'place_id' %>
@@ -23,5 +28,6 @@
     <%= f.text_area :content, placeholder: "説明を入力" %>
     <%= f.object.errors[:content].any? ? content_tag(:div, f.object.errors[:content].join(", "), class: "error-message") : "" %>
   </div>
+
     <%= f.submit "投稿", class: "post-btn" %>
 <% end %>

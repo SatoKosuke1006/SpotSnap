@@ -8,7 +8,7 @@
   <% @feed_items.each do |micropost| %>
     <li>
       <div class="content">
-        <div class="post-image">
+        <div class="post-image" style="aspect-ratio: <%= micropost.aspect_ratio %>; ">
           <%= link_to (image_tag micropost.image if micropost.image.attached?), maps_path(micropost_id: micropost.id), data: {"turbo" => false} %>
           <div class="post-user">
             <%= link_to micropost.user.name, micropost.user %>

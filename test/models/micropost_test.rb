@@ -38,7 +38,7 @@ class MicropostTest < ActiveSupport::TestCase
 
   # 投稿の長さを制限
   test 'content should be at most 140 characters' do
-    @micropost.content = "a" * 141
+    @micropost.content = "a" * 121
     assert_not @micropost.valid?
   end
 

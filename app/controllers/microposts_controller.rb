@@ -39,7 +39,7 @@ class MicropostsController < ApplicationController
 
   # パラメータの制限
   def micropost_params
-    params.require(:micropost).permit(:content, :image, :place_id)
+    params.require(:micropost).permit(:content, :image, :place_id, :aspect_ratio)
   end
 
   # 投稿したユーザーか確認
@@ -48,3 +48,5 @@ class MicropostsController < ApplicationController
     redirect_to root_url, status: :see_other if @micropost.nil?
   end
 end
+
+
