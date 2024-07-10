@@ -1,5 +1,6 @@
 ## SpotSnapとは？
 
+
 ## 目次
 - [SpotSnapとは？](#spotsnapとは)
   - [サービスURL](#サービスurl)
@@ -12,7 +13,9 @@
   - [画面遷移図](#画面遷移図)
 - [開発環境](#開発環境)
 
+
 ## SpotSnapとは？
+
 
 ### サービスURL
 https://spotsnap-app.com
