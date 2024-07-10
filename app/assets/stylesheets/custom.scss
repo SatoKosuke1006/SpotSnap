@@ -336,6 +336,25 @@ ul {
   color: rgb(255, 255, 255);
 }
 
+.place-name {
+  font-size: 30px;
+}
+
+.post-content {
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.879);
+}
+
+@media (max-width: 600px) {
+  .place-name {
+    font-size: 5vw;
+  }
+
+  .post-content {
+    font-size: 3vw;
+  }
+}
+
 .toggle-arrow {
   font-size: 15px;
 }
