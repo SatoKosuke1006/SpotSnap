@@ -18,6 +18,10 @@
 ### サービスURL
 https://spotsnap-app.com
 
+### テストアカウント
+メールアドレス：test_account_00@tatsu.uk
+パスワード：password!
+
 ### サービス概要
 SpotSnapを一言で言うと「場所共有に特化したSNSアプリ」です。
 
