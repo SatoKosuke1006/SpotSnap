@@ -1,5 +1,5 @@
 ## SpotSnap
-<img width="700" alt="image" src="app/assets/images/spotsnap.png">
+<img width="700" alt="image" src="app/assets/images/spotsnap_Landscape.png">
 <br>
 
 
