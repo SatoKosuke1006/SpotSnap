@@ -1,5 +1,5 @@
 ## SpotSnap
-<img width="700" alt="image" src="app/assets/images/spotsnap_landscape.png">
+<img width="700" alt="image" src="app/assets/images/spotsnap_land.png">
 <br>
 
 
@@ -96,7 +96,7 @@ SpotSnapを一言で言うと「場所共有に特化したSNSアプリ」です
 
 ## 設計書
 ### ER図
-<img width="700" alt="image" src="app/assets/images/spotsnap_landscape.png">
+<img width="700" alt="image" src="app/assets/images/er.png">
 <br>
 
 ### 画面遷移図
