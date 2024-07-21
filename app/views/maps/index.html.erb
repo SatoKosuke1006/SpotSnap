@@ -1,7 +1,7 @@
 <% # マップ画面 %>
     <div class="map-container">
         <div class="map-search-container">
-        <%= text_field_tag 'address', nil, id: 'address' %>
+        <%= text_field_tag 'address', nil, id: 'address', placeholder: '場所を検索' %>
         </div>
         <% if @micropost && @micropost.place_id.present? %>
             <div id='map' data-show-infowindow="true" data-place-id="<%= @micropost.place_id %>"></div> 

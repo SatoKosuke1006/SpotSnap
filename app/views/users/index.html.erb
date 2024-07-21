@@ -1,6 +1,6 @@
 <% #　アカウント検索画面 %>
   <%= form_tag(users_path, method: :get) do %>
-  <%= text_field_tag :search, params[:search], class: 'user-search-field', placeholder: 'ユーザーネームを入力' %>
+  <%= text_field_tag :search, params[:search], class: 'user-search-field', placeholder: 'アカウントを検索' %>
   <% end %>
 
   <ul class="users">

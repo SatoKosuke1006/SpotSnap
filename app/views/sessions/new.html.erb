@@ -2,7 +2,11 @@
 <% content_for :hide_header, true %>
 
 <div class="login-container">
-  <div class="logo">spot snap</div>
+  <div class="login-logo">spot snap</div>
+  <div style="margin-bottom: 20px;"></div>
+  <span style="font-size: 0.9em; font-weight: 600;">思い出の場所を<br>
+  写真と一緒に投稿してみよう！</span>
+  <div style="margin-bottom: 40px;"></div>
   <%= form_with(url: login_path, scope: :session) do |f| %>
 
     <%= f.email_field :email, class: 'login-form', placeholder: "メールアドレス" %>

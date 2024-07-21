@@ -4,6 +4,7 @@
   <div style="margin-bottom: 50px;"></div>
 
   <% # 画像選択 %>
+    <div class="required-item">※必須</div>
     <%= f.file_field :image, accept: "image/jpeg,image/gif,image/png", id: "file-upload", style: "display: none;" %>
     <label class="custom-file-upload" for="file-upload">
       写真を選択
@@ -18,7 +19,8 @@
       <%= f.select :aspect_ratio, options_for_select([['9:16', '9/16'], ['4:3', '4/3'], ['1:1', '1/1']], '9/16'), {}, { class: "aspect-ratio-select-box" } %>
     </div>
   <% # 位置情報選択 %>
-    <%= text_field_tag 'address', nil, id: 'address', class: 'post-map-search-field' %>
+    <div class="required-item">※必須</div>
+    <%= text_field_tag 'address', nil, id: 'address', class: 'post-map-search-field', placeholder: '場所を検索' %>
     <%= f.hidden_field :place_id, id: 'place_id' %>
     <%= f.object.errors[:place_id].any? ? content_tag(:div, f.object.errors[:place_id].join(", "), class: "error-message") : "" %>
     <div id="location-details" style="display: none;"></div>
