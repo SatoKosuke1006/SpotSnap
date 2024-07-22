@@ -3,6 +3,8 @@
 
 <div class="login-container">
   <div class="login-logo">spot snap</div>
+  <div style="margin-bottom: 20px;"></div>
+  <span style="font-size: 0.9em; font-weight: 600;">ユーザー情報を入力してください。</span>
   <%= form_with(model: @user) do |f| %>
     <%= f.text_field :name, class: 'login-form', placeholder: "ユーザーネーム" %>
     <%= f.object.errors[:name].any? ? content_tag(:div, f.object.errors[:name].join(", "), class: "error-message") : "" %>
