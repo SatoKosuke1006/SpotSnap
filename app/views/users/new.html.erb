@@ -2,7 +2,7 @@
 <% content_for :hide_header, true %>
 
 <div class="login-container">
-  <div class="logo">spot snap</div>
+  <div class="login-logo">spot snap</div>
   <%= form_with(model: @user) do |f| %>
     <%= f.text_field :name, class: 'login-form', placeholder: "ユーザーネーム" %>
     <%= f.object.errors[:name].any? ? content_tag(:div, f.object.errors[:name].join(", "), class: "error-message") : "" %>

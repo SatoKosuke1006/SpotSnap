@@ -134,8 +134,7 @@ ul {
   margin: 200px auto;
   text-align: center;
   position: relative;
-
-  bottom: 100px;
+  bottom: 160px;
 }
 
 .login-form {
@@ -170,7 +169,7 @@ ul {
 
 @media (max-width: 600px) {
   .login-container {
-    width: 280px;
+    width: 100%;
     input{
       width: 90%;
     }
@@ -847,12 +846,6 @@ a:focus {
   width: 500px;
 }
 
-@media (max-width: 600px) {
-  .alert-success {
-    width: 100%;
-  }
-}
-
 .alert-danger {
   border: 2px solid red; 
   padding: 10px; 
@@ -880,21 +873,11 @@ a:focus {
   position: relative;
 }
 
-@media (max-width: 1000px) {
-  .alert-danger {
-    right: 35px;
-  }
-
-  .alert-info {
-    right: 35px;
-  }
-
-  .alert-warning {
-    right: 35px;
-  }
-}
-
 @media (max-width: 600px) {
+  .alert-success {
+    width: 90%;
+  }
+
   .alert-danger {
     width: 90%;
   }
