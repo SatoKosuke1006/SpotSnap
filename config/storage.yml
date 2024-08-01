@@ -8,8 +8,8 @@ local:
 
 amazon:
   service: S3
-  access_key_id: AKIAZI2LD2LJQDQU3IUK
-  secret_access_key: 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
+  access_key_id: <%= ENV['AWS_ACCESS_KEY_ID'] %>
+  secret_access_key: <%= ENV['AWS_SECRET_ACCESS_KEY'] %>
   region: us-east-1
   bucket: spotsnap-bucket
 
